@@ -1,0 +1,224 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <div class="logo-icon">H</div>
+        <div class="logo-text">
+          <h1>Head Kim Châu</h1>
+          <p>Đại lý Honda</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="products.html" class="nav-link">Sản phẩm</a>
+        <a href="services.html" class="nav-link">Dịch vụ</a>
+        <a href="promotions.html" class="nav-link">Khuyến mãi</a>
+        <a href="contact.html" class="nav-link">Liên hệ</a>
+      </nav>
+
+      <!-- User Menu & Mobile Toggle -->
+      <div class="user-menu">
+        <!-- User Menu (Desktop) -->
+        <div id="userMenuDesktop">
+          <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+        </div>
+
+        <!-- Logged in user menu (Hidden by default) -->
+        <div id="loggedInMenu" class="hidden">
+          <span id="userName" class="user-name"></span>
+          <a
+            href="admin.html"
+            id="adminBtn"
+            class="btn btn-outline btn-sm hidden"
+            >Admin</a
+          >
+          <button onclick="logout()" class="btn btn-outline btn-sm">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16,17 21,12 16,7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Đăng xuất
+          </button>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button class="hamburger" onclick="toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+      <nav>
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="products.html" class="nav-link">Sản phẩm</a>
+        <a href="services.html" class="nav-link">Dịch vụ</a>
+        <a href="promotions.html" class="nav-link">Khuyến mãi</a>
+        <a href="contact.html" class="nav-link">Liên hệ</a>
+      </nav>
+
+      <!-- Mobile User Menu -->
+      <div class="mobile-menu-user">
+        <div id="mobileUserMenu">
+          <a
+            href="login.html"
+            class="btn btn-outline btn-sm"
+            style="width: 100%; margin-bottom: 8px"
+            >Đăng nhập</a
+          >
+          <a
+            href="register.html"
+            class="btn btn-primary btn-sm"
+            style="width: 100%"
+            >Đăng ký</a
+          >
+        </div>
+
+        <!-- Mobile Logged in menu (Hidden by default) -->
+        <div id="mobileLoggedInMenu" class="hidden">
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 16px;
+            "
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span id="mobileUserName"></span>
+          </div>
+          <a
+            href="admin.html"
+            id="mobileAdminBtn"
+            class="btn btn-outline btn-sm hidden"
+            style="width: 100%; margin-bottom: 8px"
+            >Admin</a
+          >
+          <button
+            onclick="logout()"
+            class="btn btn-outline btn-sm"
+            style="width: 100%"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16,17 21,12 16,7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Set active navigation link
+  function setActiveNavLink() {
+    const currentPage =
+      window.location.pathname.split("/").pop() || "index.html";
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (
+        href === currentPage ||
+        (currentPage === "" && href === "index.html") ||
+        (currentPage === "index.html" && href === "index.html")
+      ) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  }
+
+  // Toggle mobile menu
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById("mobileMenu");
+    mobileMenu.classList.toggle("active");
+  }
+
+  // Update user menu based on login status
+  function updateUserMenu() {
+    const currentUser = getCurrentUser();
+    const userMenuDesktop = document.getElementById("userMenuDesktop");
+    const loggedInMenu = document.getElementById("loggedInMenu");
+    const mobileUserMenu = document.getElementById("mobileUserMenu");
+    const mobileLoggedInMenu = document.getElementById("mobileLoggedInMenu");
+
+    if (currentUser) {
+      // Hide login/register buttons
+      userMenuDesktop.classList.add("hidden");
+      mobileUserMenu.classList.add("hidden");
+
+      // Show logged in menu
+      loggedInMenu.classList.remove("hidden");
+      mobileLoggedInMenu.classList.remove("hidden");
+
+      // Update user name
+      document.getElementById("userName").textContent =
+        `Xin chào, ${currentUser.name}`;
+      document.getElementById("mobileUserName").textContent = currentUser.name;
+
+      // Show admin button if user is admin
+      if (currentUser.role === "admin") {
+        document.getElementById("adminBtn").classList.remove("hidden");
+        document.getElementById("mobileAdminBtn").classList.remove("hidden");
+      }
+    } else {
+      // Show login/register buttons
+      userMenuDesktop.classList.remove("hidden");
+      mobileUserMenu.classList.remove("hidden");
+
+      // Hide logged in menu
+      loggedInMenu.classList.add("hidden");
+      mobileLoggedInMenu.classList.add("hidden");
+    }
+  }
+
+  // Initialize header
+  document.addEventListener("DOMContentLoaded", function () {
+    setActiveNavLink();
+    updateUserMenu();
+  });
+
+  // Update user menu when storage changes
+  window.addEventListener("storage", function (e) {
+    if (e.key === "honda_current_user") {
+      updateUserMenu();
+    }
+  });
+</script>
