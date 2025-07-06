@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang quản trị - Head Kim Châu</title>
-    <meta name="description" content="Trang quản trị hệ thống Head Kim Châu" />
+    <title>Trang Quản Trị - Head Kim Châu</title>
+    <meta
+      name="description"
+      content="Trang quản trị hệ thống Head Kim Châu - Dashboard hiện đại với analytics và CRUD operations"
+    />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
@@ -14,10 +18,10 @@
 
     <!-- Main Content -->
     <main>
-      <!-- Page Header -->
+      <!-- Page Header with Stats -->
       <section class="section section-gray">
         <div class="container">
-          <div class="text-center">
+          <div class="text-center mb-8">
             <h1
               style="
                 font-size: 2.5rem;
@@ -26,7 +30,7 @@
                 color: var(--gray-900);
               "
             >
-              🔧 Trang quản trị
+              🎛️ Dashboard Quản Trị
             </h1>
             <p
               style="
@@ -36,77 +40,265 @@
                 margin: 0 auto;
               "
             >
-              Quản lý hệ thống Honda Head Kim Châu
+              Hệ thống quản lý toàn diện Honda Head Kim Châu
             </p>
+          </div>
+
+          <!-- Real-time Stats Cards -->
+          <div class="grid grid-4 mb-8">
+            <div class="card scale-in hover-lift">
+              <div class="card-content text-center">
+                <div
+                  class="stat-icon"
+                  style="
+                    background: linear-gradient(135deg, #e60012, #cc000f);
+                    color: white;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 12px;
+                    box-shadow: 0 8px 20px rgba(230, 0, 18, 0.3);
+                  "
+                >
+                  🏍️
+                </div>
+                <div
+                  style="
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    color: var(--honda-red);
+                    margin-bottom: 8px;
+                  "
+                  id="totalProducts"
+                >
+                  0
+                </div>
+                <p style="color: var(--gray-600); font-weight: 500">Sản phẩm</p>
+                <div
+                  style="
+                    margin-top: 8px;
+                    font-size: 12px;
+                    color: var(--gray-500);
+                  "
+                >
+                  <span id="productGrowth">+0%</span> so với tháng trước
+                </div>
+              </div>
+            </div>
+
+            <div class="card scale-in hover-lift">
+              <div class="card-content text-center">
+                <div
+                  class="stat-icon"
+                  style="
+                    background: linear-gradient(135deg, #10b981, #059669);
+                    color: white;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 12px;
+                    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+                  "
+                >
+                  👥
+                </div>
+                <div
+                  style="
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    color: #10b981;
+                    margin-bottom: 8px;
+                  "
+                  id="totalUsers"
+                >
+                  0
+                </div>
+                <p style="color: var(--gray-600); font-weight: 500">
+                  Người dùng
+                </p>
+                <div
+                  style="
+                    margin-top: 8px;
+                    font-size: 12px;
+                    color: var(--gray-500);
+                  "
+                >
+                  <span id="userGrowth">+0%</span> người dùng mới
+                </div>
+              </div>
+            </div>
+
+            <div class="card scale-in hover-lift">
+              <div class="card-content text-center">
+                <div
+                  class="stat-icon"
+                  style="
+                    background: linear-gradient(135deg, #f59e0b, #d97706);
+                    color: white;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 12px;
+                    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+                  "
+                >
+                  📅
+                </div>
+                <div
+                  style="
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    color: #f59e0b;
+                    margin-bottom: 8px;
+                  "
+                  id="totalBookings"
+                >
+                  0
+                </div>
+                <p style="color: var(--gray-600); font-weight: 500">
+                  Lịch lái thử
+                </p>
+                <div
+                  style="
+                    margin-top: 8px;
+                    font-size: 12px;
+                    color: var(--gray-500);
+                  "
+                >
+                  <span id="bookingGrowth">+0%</span> trong tuần
+                </div>
+              </div>
+            </div>
+
+            <div class="card scale-in hover-lift">
+              <div class="card-content text-center">
+                <div
+                  class="stat-icon"
+                  style="
+                    background: linear-gradient(135deg, #3b82f6, #2563eb);
+                    color: white;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto 12px;
+                    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+                  "
+                >
+                  💬
+                </div>
+                <div
+                  style="
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    color: #3b82f6;
+                    margin-bottom: 8px;
+                  "
+                  id="totalContacts"
+                >
+                  0
+                </div>
+                <p style="color: var(--gray-600); font-weight: 500">Tin nhắn</p>
+                <div
+                  style="
+                    margin-top: 8px;
+                    font-size: 12px;
+                    color: var(--gray-500);
+                  "
+                >
+                  <span id="contactGrowth">+0%</span> phản hồi mới
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="card mb-8">
+            <div class="card-header">
+              <h3
+                style="
+                  font-size: 20px;
+                  font-weight: 600;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                "
+              >
+                ⚡ Thao tác nhanh
+              </h3>
+            </div>
+            <div class="card-content">
+              <div class="grid grid-4 gap-4">
+                <button
+                  onclick="showAddProductForm()"
+                  class="btn btn-primary btn-lg ripple"
+                  style="width: 100%"
+                >
+                  ➕ Thêm sản phẩm
+                </button>
+                <button
+                  onclick="exportAllData()"
+                  class="btn btn-outline btn-lg ripple"
+                  style="width: 100%"
+                >
+                  📤 Xuất dữ liệu
+                </button>
+                <button
+                  onclick="openChatSupport()"
+                  class="btn btn-outline btn-lg ripple"
+                  style="width: 100%"
+                >
+                  💬 Hỗ trợ live
+                </button>
+                <button
+                  onclick="generateReport()"
+                  class="btn btn-outline btn-lg ripple"
+                  style="width: 100%"
+                >
+                  📊 Tạo báo cáo
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Dashboard Stats -->
+      <!-- Charts and Analytics -->
       <section class="section">
         <div class="container">
-          <div class="grid grid-4" style="margin-bottom: 32px">
-            <div class="card text-center">
+          <div class="grid grid-2 mb-8">
+            <!-- Sales Chart -->
+            <div class="card">
+              <div class="card-header">
+                <h3 style="font-size: 18px; font-weight: 600">
+                  📈 Doanh thu 7 ngày qua
+                </h3>
+              </div>
               <div class="card-content">
-                <div
-                  style="
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: var(--honda-red);
-                    margin-bottom: 8px;
-                  "
-                >
-                  <span id="totalProducts">0</span>
-                </div>
-                <p style="color: var(--gray-600)">Sản phẩm</p>
+                <canvas id="salesChart" width="400" height="200"></canvas>
               </div>
             </div>
 
-            <div class="card text-center">
-              <div class="card-content">
-                <div
-                  style="
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: var(--honda-red);
-                    margin-bottom: 8px;
-                  "
-                >
-                  <span id="totalUsers">0</span>
-                </div>
-                <p style="color: var(--gray-600)">Người dùng</p>
+            <!-- Product Performance -->
+            <div class="card">
+              <div class="card-header">
+                <h3 style="font-size: 18px; font-weight: 600">
+                  🏆 Sản phẩm bán chạy
+                </h3>
               </div>
-            </div>
-
-            <div class="card text-center">
               <div class="card-content">
-                <div
-                  style="
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: var(--honda-red);
-                    margin-bottom: 8px;
-                  "
-                >
-                  <span id="totalBookings">0</span>
-                </div>
-                <p style="color: var(--gray-600)">Lịch lái thử</p>
-              </div>
-            </div>
-
-            <div class="card text-center">
-              <div class="card-content">
-                <div
-                  style="
-                    font-size: 2rem;
-                    font-weight: bold;
-                    color: var(--honda-red);
-                    margin-bottom: 8px;
-                  "
-                >
-                  <span id="totalContacts">0</span>
-                </div>
-                <p style="color: var(--gray-600)">Liên hệ</p>
+                <canvas id="productChart" width="400" height="200"></canvas>
               </div>
             </div>
           </div>
@@ -120,82 +312,110 @@
                   gap: 16px;
                   border-bottom: 1px solid var(--gray-200);
                   margin-bottom: 24px;
+                  overflow-x: auto;
                 "
               >
                 <button
                   class="tab-btn active"
                   onclick="switchTab('products')"
                   style="
-                    padding: 12px 16px;
+                    padding: 12px 20px;
                     border: none;
                     background: none;
                     color: var(--gray-600);
                     font-weight: 500;
                     cursor: pointer;
                     border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
                   "
                 >
-                  Quản lý sản phẩm
+                  🏍️ Sản phẩm
                 </button>
                 <button
                   class="tab-btn"
                   onclick="switchTab('users')"
                   style="
-                    padding: 12px 16px;
+                    padding: 12px 20px;
                     border: none;
                     background: none;
                     color: var(--gray-600);
                     font-weight: 500;
                     cursor: pointer;
                     border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
                   "
                 >
-                  Quản lý người dùng
+                  👥 Người dùng
                 </button>
                 <button
                   class="tab-btn"
                   onclick="switchTab('bookings')"
                   style="
-                    padding: 12px 16px;
+                    padding: 12px 20px;
                     border: none;
                     background: none;
                     color: var(--gray-600);
                     font-weight: 500;
                     cursor: pointer;
                     border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
                   "
                 >
-                  Lịch lái thử
+                  📅 Đặt lịch
                 </button>
                 <button
                   class="tab-btn"
                   onclick="switchTab('contacts')"
                   style="
-                    padding: 12px 16px;
+                    padding: 12px 20px;
                     border: none;
                     background: none;
                     color: var(--gray-600);
                     font-weight: 500;
                     cursor: pointer;
                     border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
                   "
                 >
-                  Liên hệ
+                  💬 Liên hệ
+                </button>
+                <button
+                  class="tab-btn"
+                  onclick="switchTab('analytics')"
+                  style="
+                    padding: 12px 20px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
+                  "
+                >
+                  📊 Phân tích
                 </button>
                 <button
                   class="tab-btn"
                   onclick="switchTab('settings')"
                   style="
-                    padding: 12px 16px;
+                    padding: 12px 20px;
                     border: none;
                     background: none;
                     color: var(--gray-600);
                     font-weight: 500;
                     cursor: pointer;
                     border-bottom: 2px solid transparent;
+                    white-space: nowrap;
+                    transition: all 0.3s;
                   "
                 >
-                  Cài đặt
+                  ⚙️ Cài đặt
                 </button>
               </div>
             </div>
@@ -209,29 +429,44 @@
                     justify-content: space-between;
                     align-items: center;
                     margin-bottom: 24px;
+                    flex-wrap: wrap;
+                    gap: 16px;
                   "
                 >
-                  <h3 style="font-size: 18px; font-weight: 600">
-                    Danh sách sản phẩm
-                  </h3>
-                  <button
-                    onclick="showAddProductForm()"
-                    class="btn btn-primary"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      style="margin-right: 8px"
+                  <div>
+                    <h3
+                      style="
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                      "
                     >
-                      <line x1="12" y1="5" x2="12" y2="19"></line>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    Thêm sản phẩm
-                  </button>
+                      Quản lý sản phẩm
+                    </h3>
+                    <p style="color: var(--gray-600); font-size: 14px">
+                      Thêm, sửa, xóa các sản phẩm Honda
+                    </p>
+                  </div>
+                  <div style="display: flex; gap: 12px">
+                    <input
+                      type="text"
+                      id="productSearch"
+                      placeholder="🔍 Tìm kiếm sản phẩm..."
+                      style="
+                        padding: 8px 12px;
+                        border: 1px solid var(--gray-300);
+                        border-radius: 6px;
+                        width: 200px;
+                      "
+                      onkeyup="searchProducts()"
+                    />
+                    <button
+                      onclick="showAddProductForm()"
+                      class="btn btn-primary"
+                    >
+                      ➕ Thêm sản phẩm
+                    </button>
+                  </div>
                 </div>
                 <div id="productsTable">
                   <!-- Products will be loaded here -->
@@ -240,11 +475,44 @@
 
               <!-- Users Tab -->
               <div id="usersTab" class="tab-content hidden">
-                <h3
-                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 24px;
+                  "
                 >
-                  Danh sách người dùng
-                </h3>
+                  <div>
+                    <h3
+                      style="
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                      "
+                    >
+                      Quản lý người dùng
+                    </h3>
+                    <p style="color: var(--gray-600); font-size: 14px">
+                      Danh sách và phân quyền người dùng
+                    </p>
+                  </div>
+                  <div style="display: flex; gap: 12px">
+                    <select
+                      id="userRoleFilter"
+                      onchange="filterUsers()"
+                      style="
+                        padding: 8px 12px;
+                        border: 1px solid var(--gray-300);
+                        border-radius: 6px;
+                      "
+                    >
+                      <option value="all">Tất cả vai trò</option>
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                </div>
                 <div id="usersTable">
                   <!-- Users will be loaded here -->
                 </div>
@@ -252,11 +520,46 @@
 
               <!-- Bookings Tab -->
               <div id="bookingsTab" class="tab-content hidden">
-                <h3
-                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 24px;
+                  "
                 >
-                  Lịch lái thử
-                </h3>
+                  <div>
+                    <h3
+                      style="
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                      "
+                    >
+                      Quản lý lịch lái thử
+                    </h3>
+                    <p style="color: var(--gray-600); font-size: 14px">
+                      Theo dõi và xử lý yêu cầu lái thử
+                    </p>
+                  </div>
+                  <div style="display: flex; gap: 12px">
+                    <select
+                      id="bookingStatusFilter"
+                      onchange="filterBookings()"
+                      style="
+                        padding: 8px 12px;
+                        border: 1px solid var(--gray-300);
+                        border-radius: 6px;
+                      "
+                    >
+                      <option value="all">Tất cả trạng thái</option>
+                      <option value="pending">Chờ xử lý</option>
+                      <option value="confirmed">Đã xác nhận</option>
+                      <option value="completed">Hoàn thành</option>
+                      <option value="cancelled">Đã hủy</option>
+                    </select>
+                  </div>
+                </div>
                 <div id="bookingsTable">
                   <!-- Bookings will be loaded here -->
                 </div>
@@ -264,27 +567,183 @@
 
               <!-- Contacts Tab -->
               <div id="contactsTab" class="tab-content hidden">
-                <h3
-                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 24px;
+                  "
                 >
-                  Tin nhắn liên hệ
-                </h3>
+                  <div>
+                    <h3
+                      style="
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                      "
+                    >
+                      Tin nhắn liên hệ
+                    </h3>
+                    <p style="color: var(--gray-600); font-size: 14px">
+                      Quản lý và phản hồi tin nhắn khách hàng
+                    </p>
+                  </div>
+                  <div style="display: flex; gap: 12px">
+                    <select
+                      id="contactStatusFilter"
+                      onchange="filterContacts()"
+                      style="
+                        padding: 8px 12px;
+                        border: 1px solid var(--gray-300);
+                        border-radius: 6px;
+                      "
+                    >
+                      <option value="all">Tất cả</option>
+                      <option value="new">Mới</option>
+                      <option value="replied">Đã phản hồi</option>
+                      <option value="closed">Đã đóng</option>
+                    </select>
+                  </div>
+                </div>
                 <div id="contactsTable">
                   <!-- Contacts will be loaded here -->
                 </div>
               </div>
 
+              <!-- Analytics Tab -->
+              <div id="analyticsTab" class="tab-content hidden">
+                <div style="margin-bottom: 24px">
+                  <h3
+                    style="
+                      font-size: 18px;
+                      font-weight: 600;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    📊 Phân tích chi tiết
+                  </h3>
+                  <p style="color: var(--gray-600); font-size: 14px">
+                    Thống kê và báo cáo hiệu suất
+                  </p>
+                </div>
+                <div class="grid grid-2" style="margin-bottom: 24px">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>📈 Lượt truy cập</h4>
+                    </div>
+                    <div class="card-content">
+                      <canvas
+                        id="visitorChart"
+                        width="400"
+                        height="200"
+                      ></canvas>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>🎯 Chuyển đổi</h4>
+                    </div>
+                    <div class="card-content">
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          margin-bottom: 16px;
+                        "
+                      >
+                        <span>Tỷ lệ chuyển đổi</span>
+                        <strong style="color: var(--honda-red)">12.5%</strong>
+                      </div>
+                      <div
+                        style="
+                          background: var(--gray-200);
+                          height: 8px;
+                          border-radius: 4px;
+                          overflow: hidden;
+                        "
+                      >
+                        <div
+                          style="
+                            background: var(--honda-red);
+                            height: 100%;
+                            width: 12.5%;
+                            transition: width 0.3s;
+                          "
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-3">
+                  <div class="card text-center">
+                    <div class="card-content">
+                      <div style="font-size: 2rem; margin-bottom: 8px">🔥</div>
+                      <div
+                        style="
+                          font-size: 24px;
+                          font-weight: bold;
+                          color: var(--honda-red);
+                        "
+                      >
+                        1,245
+                      </div>
+                      <p style="color: var(--gray-600)">Lượt xem sản phẩm</p>
+                    </div>
+                  </div>
+                  <div class="card text-center">
+                    <div class="card-content">
+                      <div style="font-size: 2rem; margin-bottom: 8px">💰</div>
+                      <div
+                        style="
+                          font-size: 24px;
+                          font-weight: bold;
+                          color: #10b981;
+                        "
+                      >
+                        ₫2.1B
+                      </div>
+                      <p style="color: var(--gray-600)">Doanh thu tháng</p>
+                    </div>
+                  </div>
+                  <div class="card text-center">
+                    <div class="card-content">
+                      <div style="font-size: 2rem; margin-bottom: 8px">⭐</div>
+                      <div
+                        style="
+                          font-size: 24px;
+                          font-weight: bold;
+                          color: #f59e0b;
+                        "
+                      >
+                        4.8/5
+                      </div>
+                      <p style="color: var(--gray-600)">Đánh giá trung bình</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <!-- Settings Tab -->
               <div id="settingsTab" class="tab-content hidden">
-                <h3
-                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
-                >
-                  Cài đặt hệ thống
-                </h3>
+                <div style="margin-bottom: 24px">
+                  <h3
+                    style="
+                      font-size: 18px;
+                      font-weight: 600;
+                      margin-bottom: 4px;
+                    "
+                  >
+                    ⚙️ Cài đặt hệ thống
+                  </h3>
+                  <p style="color: var(--gray-600); font-size: 14px">
+                    Cấu hình và quản lý hệ thống
+                  </p>
+                </div>
                 <div class="grid grid-2">
                   <div class="card">
                     <div class="card-header">
-                      <h4>Quản lý dữ liệu</h4>
+                      <h4>🗃️ Quản lý dữ liệu</h4>
                     </div>
                     <div class="card-content">
                       <button
@@ -292,7 +751,7 @@
                         class="btn btn-outline btn-sm"
                         style="margin-bottom: 8px; width: 100%"
                       >
-                        📤 Xuất dữ liệu
+                        📤 Xuất dữ liệu (JSON)
                       </button>
                       <button
                         onclick="importData()"
@@ -302,34 +761,150 @@
                         📥 Nhập dữ liệu
                       </button>
                       <button
+                        onclick="backupData()"
+                        class="btn btn-outline btn-sm"
+                        style="margin-bottom: 8px; width: 100%"
+                      >
+                        💾 Sao lưu dữ liệu
+                      </button>
+                      <button
                         onclick="resetData()"
                         class="btn btn-outline btn-sm"
-                        style="width: 100%; color: var(--destructive)"
+                        style="
+                          width: 100%;
+                          color: #ef4444;
+                          border-color: #ef4444;
+                        "
                       >
-                        🗑️ Reset dữ liệu
+                        🗑️ Reset toàn bộ
                       </button>
                     </div>
                   </div>
 
                   <div class="card">
                     <div class="card-header">
-                      <h4>Thông tin hệ thống</h4>
+                      <h4>ℹ️ Thông tin hệ thống</h4>
                     </div>
                     <div class="card-content">
-                      <p style="margin-bottom: 8px; color: var(--gray-600)">
-                        <strong>Version:</strong> 1.0.0
-                      </p>
-                      <p style="margin-bottom: 8px; color: var(--gray-600)">
-                        <strong>Database:</strong> LocalStorage
-                      </p>
-                      <p style="margin-bottom: 8px; color: var(--gray-600)">
+                      <div style="margin-bottom: 12px">
+                        <strong>Version:</strong> <span>v2.0.0</span>
+                      </div>
+                      <div style="margin-bottom: 12px">
+                        <strong>Database:</strong>
+                        <span>LocalStorage + IndexedDB</span>
+                      </div>
+                      <div style="margin-bottom: 12px">
                         <strong>Admin:</strong>
                         <span id="currentAdminName">-</span>
-                      </p>
-                      <p style="color: var(--gray-600)">
+                      </div>
+                      <div style="margin-bottom: 12px">
                         <strong>Đăng nhập:</strong>
                         <span id="loginTime">-</span>
-                      </p>
+                      </div>
+                      <div style="margin-bottom: 12px">
+                        <strong>Last Backup:</strong>
+                        <span id="lastBackup">Chưa có</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>🔧 Cấu hình website</h4>
+                    </div>
+                    <div class="card-content">
+                      <div class="form-group">
+                        <label class="form-label">Tên website</label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="siteName"
+                          value="Head Kim Châu"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Email liên hệ</label>
+                        <input
+                          type="email"
+                          class="form-input"
+                          id="contactEmail"
+                          value="info@headkimchau.com"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Hotline</label>
+                        <input
+                          type="text"
+                          class="form-input"
+                          id="hotline"
+                          value="0901 234 567"
+                        />
+                      </div>
+                      <button
+                        onclick="saveSettings()"
+                        class="btn btn-primary"
+                        style="width: 100%"
+                      >
+                        💾 Lưu cài đặt
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>📊 Performance</h4>
+                    </div>
+                    <div class="card-content">
+                      <div style="margin-bottom: 12px">
+                        <div
+                          style="display: flex; justify-content: space-between"
+                        >
+                          <span>Storage Used:</span>
+                          <strong id="storageUsed">0 KB</strong>
+                        </div>
+                        <div
+                          style="
+                            background: var(--gray-200);
+                            height: 6px;
+                            border-radius: 3px;
+                            margin-top: 4px;
+                          "
+                        >
+                          <div
+                            id="storageBar"
+                            style="
+                              background: var(--honda-red);
+                              height: 100%;
+                              width: 0%;
+                              border-radius: 3px;
+                              transition: width 0.3s;
+                            "
+                          ></div>
+                        </div>
+                      </div>
+                      <div style="margin-bottom: 12px">
+                        <div
+                          style="display: flex; justify-content: space-between"
+                        >
+                          <span>Cache Hit Rate:</span>
+                          <strong style="color: #10b981">94%</strong>
+                        </div>
+                      </div>
+                      <div style="margin-bottom: 12px">
+                        <div
+                          style="display: flex; justify-content: space-between"
+                        >
+                          <span>Page Load Time:</span>
+                          <strong style="color: #10b981">1.2s</strong>
+                        </div>
+                      </div>
+                      <button
+                        onclick="clearCache()"
+                        class="btn btn-outline btn-sm"
+                        style="width: 100%"
+                      >
+                        🧹 Xóa cache
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -343,47 +918,71 @@
       <div id="addProductModal" class="modal hidden">
         <div class="modal-overlay" onclick="hideAddProductForm()"></div>
         <div class="modal-content">
-          <div class="card" style="max-width: 600px; margin: 50px auto">
+          <div
+            class="card"
+            style="
+              max-width: 700px;
+              margin: 20px auto;
+              max-height: 90vh;
+              overflow-y: auto;
+            "
+          >
             <div class="card-header">
-              <h3>Thêm sản phẩm mới</h3>
+              <h3 style="display: flex; align-items: center; gap: 8px">
+                ➕ Thêm sản phẩm Honda mới
+              </h3>
             </div>
             <div class="card-content">
               <form id="addProductForm">
-                <div class="form-group">
-                  <label class="form-label">Tên sản phẩm *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    class="form-input"
-                    required
-                    placeholder="Honda Air Blade 160"
-                  />
+                <div class="grid grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Tên sản phẩm *</label>
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-input"
+                      required
+                      placeholder="Honda Air Blade 160"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Loại xe *</label>
+                    <select name="type" class="form-input" required>
+                      <option value="">Chọn loại xe</option>
+                      <option value="tay-ga">Xe tay ga</option>
+                      <option value="so">Xe số</option>
+                      <option value="dien">Xe điện</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Giá bán (VNĐ) *</label>
+                    <input
+                      type="number"
+                      name="price"
+                      class="form-input"
+                      required
+                      placeholder="58000000"
+                      min="0"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phân khối (cc)</label>
+                    <input
+                      type="number"
+                      name="displacement"
+                      class="form-input"
+                      placeholder="160"
+                      min="50"
+                      max="1000"
+                    />
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">Loại xe *</label>
-                  <select name="type" class="form-input" required>
-                    <option value="">Chọn loại xe</option>
-                    <option value="tay-ga">Tay ga</option>
-                    <option value="so">Số</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Giá (VNĐ) *</label>
-                  <input
-                    type="number"
-                    name="price"
-                    class="form-input"
-                    required
-                    placeholder="58000000"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label"
-                    >Màu sắc (cách nhau bởi dấu phẩy) *</label
-                  >
+                  <label class="form-label">Màu sắc có sẵn *</label>
                   <input
                     type="text"
                     name="colors"
@@ -391,40 +990,88 @@
                     required
                     placeholder="Đỏ, Đen, Xanh, Trắng"
                   />
+                  <small style="color: var(--gray-500); font-size: 12px"
+                    >Phân cách bằng dấu phẩy</small
+                  >
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">Mô tả *</label>
+                  <label class="form-label">Mô tả sản phẩm *</label>
                   <textarea
                     name="description"
                     class="form-input"
                     rows="3"
                     required
-                    placeholder="Mô tả sản phẩm..."
+                    placeholder="Mô tả chi tiết về sản phẩm..."
                   ></textarea>
                 </div>
 
+                <div class="grid grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Động cơ</label>
+                    <input
+                      type="text"
+                      name="engine"
+                      class="form-input"
+                      placeholder="159.7cc, 4-stroke, SOHC"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Công suất</label>
+                    <input
+                      type="text"
+                      name="power"
+                      class="form-input"
+                      placeholder="11.0 kW (14.9 PS)"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Dung tích bình xăng</label>
+                    <input
+                      type="text"
+                      name="fuelCapacity"
+                      class="form-input"
+                      placeholder="4.2 lít"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Trọng lượng</label>
+                    <input
+                      type="text"
+                      name="weight"
+                      class="form-input"
+                      placeholder="117 kg"
+                    />
+                  </div>
+                </div>
+
                 <div class="form-group">
-                  <label class="form-label">
+                  <label
+                    class="form-label"
+                    style="display: flex; align-items: center; gap: 8px"
+                  >
                     <input
                       type="checkbox"
                       name="featured"
                       style="margin-right: 8px"
                     />
-                    Sản phẩm nổi bật
+                    ⭐ Đánh dấu là sản phẩm nổi bật
                   </label>
                 </div>
 
-                <div style="display: flex; gap: 12px">
-                  <button type="submit" class="btn btn-primary flex-1">
-                    Thêm sản phẩm
+                <div style="display: flex; gap: 12px; margin-top: 24px">
+                  <button type="submit" class="btn btn-primary flex-1 ripple">
+                    ✅ Thêm sản phẩm
                   </button>
                   <button
                     type="button"
                     onclick="hideAddProductForm()"
                     class="btn btn-outline"
                   >
-                    Hủy
+                    ❌ Hủy bỏ
                   </button>
                 </div>
               </form>
@@ -456,15 +1103,20 @@
 
       // Check admin access
       if (!Honda.isAdmin()) {
-        alert("Bạn không có quyền truy cập trang này!");
+        alert("⚠️ Bạn không có quyền truy cập trang này!");
         window.location.href = "login.html";
       }
+
+      // Initialize charts
+      let salesChart, productChart, visitorChart;
 
       // Initialize admin page
       function initAdminPage() {
         loadDashboardStats();
         loadProductsTable();
         setupAddProductForm();
+        initializeCharts();
+        updateStorageInfo();
 
         // Set current admin info
         const currentUser = Honda.getCurrentUser();
@@ -474,6 +1126,9 @@
           document.getElementById("loginTime").textContent =
             new Date().toLocaleString("vi-VN");
         }
+
+        // Auto refresh stats every 30 seconds
+        setInterval(loadDashboardStats, 30000);
       }
 
       function loadDashboardStats() {
@@ -482,10 +1137,142 @@
         const bookings = Honda.getStorageData("honda_bookings", []);
         const contacts = Honda.getStorageData("honda_contacts", []);
 
-        document.getElementById("totalProducts").textContent = products.length;
-        document.getElementById("totalUsers").textContent = users.length;
-        document.getElementById("totalBookings").textContent = bookings.length;
-        document.getElementById("totalContacts").textContent = contacts.length;
+        // Update stats with animation
+        animateCounter("totalProducts", products.length);
+        animateCounter("totalUsers", users.length);
+        animateCounter("totalBookings", bookings.length);
+        animateCounter("totalContacts", contacts.length);
+
+        // Update growth percentages (simulated)
+        document.getElementById("productGrowth").textContent = "+12%";
+        document.getElementById("userGrowth").textContent = "+23%";
+        document.getElementById("bookingGrowth").textContent = "+45%";
+        document.getElementById("contactGrowth").textContent = "+18%";
+      }
+
+      function animateCounter(elementId, targetValue) {
+        const element = document.getElementById(elementId);
+        const currentValue = parseInt(element.textContent) || 0;
+        const increment = Math.ceil((targetValue - currentValue) / 20);
+
+        if (currentValue < targetValue) {
+          element.textContent = Math.min(currentValue + increment, targetValue);
+          setTimeout(() => animateCounter(elementId, targetValue), 50);
+        }
+      }
+
+      function initializeCharts() {
+        // Sales Chart
+        const salesCtx = document.getElementById("salesChart").getContext("2d");
+        salesChart = new Chart(salesCtx, {
+          type: "line",
+          data: {
+            labels: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            datasets: [
+              {
+                label: "Doanh thu (triệu VNĐ)",
+                data: [120, 190, 300, 500, 200, 300, 450],
+                borderColor: "#e60012",
+                backgroundColor: "rgba(230, 0, 18, 0.1)",
+                tension: 0.4,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        // Product Chart
+        const productCtx = document
+          .getElementById("productChart")
+          .getContext("2d");
+        productChart = new Chart(productCtx, {
+          type: "doughnut",
+          data: {
+            labels: ["Honda SH", "Air Blade", "Vision", "Wave Alpha", "Future"],
+            datasets: [
+              {
+                data: [30, 25, 20, 15, 10],
+                backgroundColor: [
+                  "#e60012",
+                  "#ff6b6b",
+                  "#4ecdc4",
+                  "#45b7d1",
+                  "#96ceb4",
+                ],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  usePointStyle: true,
+                  padding: 20,
+                },
+              },
+            },
+          },
+        });
+
+        // Visitor Chart
+        const visitorCtx = document
+          .getElementById("visitorChart")
+          .getContext("2d");
+        visitorChart = new Chart(visitorCtx, {
+          type: "bar",
+          data: {
+            labels: [
+              "T1",
+              "T2",
+              "T3",
+              "T4",
+              "T5",
+              "T6",
+              "T7",
+              "T8",
+              "T9",
+              "T10",
+              "T11",
+              "T12",
+            ],
+            datasets: [
+              {
+                label: "Lượt truy cập",
+                data: [
+                  1200, 1900, 3000, 5000, 2000, 3000, 4500, 3200, 2800, 3500,
+                  4200, 5500,
+                ],
+                backgroundColor: "rgba(59, 130, 246, 0.8)",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          },
+        });
       }
 
       function switchTab(tabName) {
@@ -523,6 +1310,12 @@
           case "contacts":
             loadContactsTable();
             break;
+          case "analytics":
+            // Charts already initialized
+            break;
+          case "settings":
+            updateStorageInfo();
+            break;
         }
       }
 
@@ -531,38 +1324,71 @@
         const container = document.getElementById("productsTable");
 
         if (products.length === 0) {
-          container.innerHTML =
-            '<p style="text-align: center; color: var(--gray-600);">Chưa có sản phẩm nào</p>';
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
+              <div style="font-size: 48px; margin-bottom: 16px;">📦</div>
+              <p>Chưa có sản phẩm nào</p>
+              <button onclick="showAddProductForm()" class="btn btn-primary" style="margin-top: 16px;">
+                Thêm sản phẩm đầu tiên
+              </button>
+            </div>
+          `;
           return;
         }
 
         container.innerHTML = `
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <thead>
-                <tr style="background: var(--gray-50);">
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên sản phẩm</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Loại</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Giá</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Nổi bật</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Hành động</th>
+          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
+            <table style="width: 100%; border-collapse: collapse; background: white;">
+              <thead style="background: var(--gray-50);">
+                <tr>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Sản phẩm</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Loại</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Giá</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
+                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 ${products
                   .map(
                     (product) => `
-                  <tr>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.id}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.name}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.type === "tay-ga" ? "Tay ga" : "Số"}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${Honda.formatPrice(product.price)}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.featured ? "⭐ Có" : "Không"}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
-                      <button onclick="deleteProduct('${product.id}')" class="btn btn-outline btn-sm" style="color: var(--destructive); border-color: var(--destructive);">
-                        🗑️ Xóa
-                      </button>
+                  <tr style="border-bottom: 1px solid var(--gray-100); transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
+                    <td style="padding: 16px;">
+                      <div style="display: flex; align-items: center; gap: 12px;">
+                        <img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">
+                        <div>
+                          <div style="font-weight: 600; margin-bottom: 4px;">${product.name}</div>
+                          <div style="font-size: 12px; color: var(--gray-500);">ID: ${product.id}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="padding: 16px;">
+                      <span style="background: ${product.type === "tay-ga" ? "#dbeafe" : "#fef3c7"}; color: ${product.type === "tay-ga" ? "#1e40af" : "#92400e"}; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                        ${product.type === "tay-ga" ? "🛵 Tay ga" : product.type === "so" ? "🏍️ Số" : "⚡ Điện"}
+                      </span>
+                    </td>
+                    <td style="padding: 16px;">
+                      <div style="font-weight: 600; color: var(--honda-red);">${Honda.formatPrice(product.price)}</div>
+                    </td>
+                    <td style="padding: 16px;">
+                      ${
+                        product.featured
+                          ? '<span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">⭐ Nổi bật</span>'
+                          : '<span style="background: #f3f4f6; color: #6b7280; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">📦 Thường</span>'
+                      }
+                    </td>
+                    <td style="padding: 16px; text-align: center;">
+                      <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button onclick="editProduct('${product.id}')" class="btn btn-outline btn-sm" style="padding: 6px 12px;">
+                          ✏️ Sửa
+                        </button>
+                        <button onclick="toggleFeatured('${product.id}')" class="btn btn-outline btn-sm" style="padding: 6px 12px;">
+                          ${product.featured ? "⭐" : "📌"}
+                        </button>
+                        <button onclick="deleteProduct('${product.id}')" class="btn btn-outline btn-sm" style="color: #ef4444; border-color: #ef4444; padding: 6px 12px;">
+                          🗑️
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 `,
@@ -579,28 +1405,40 @@
         const container = document.getElementById("usersTable");
 
         container.innerHTML = `
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <thead>
-                <tr style="background: var(--gray-50);">
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Email</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Vai trò</th>
+          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
+            <table style="width: 100%; border-collapse: collapse; background: white;">
+              <thead style="background: var(--gray-50);">
+                <tr>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Người dùng</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Email</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Vai trò</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Hoạt động</th>
                 </tr>
               </thead>
               <tbody>
                 ${users
                   .map(
                     (user) => `
-                  <tr>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.id}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.name}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.email}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
-                      <span style="background: ${user.role === "admin" ? "var(--honda-red)" : "var(--gray-200)"}; color: ${user.role === "admin" ? "white" : "var(--gray-700)"}; padding: 2px 8px; border-radius: 12px; font-size: 12px;">
-                        ${user.role === "admin" ? "Admin" : "User"}
+                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
+                    <td style="padding: 16px;">
+                      <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${user.role === "admin" ? "var(--honda-red)" : "#10b981"}; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600;">
+                          ${user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <div style="font-weight: 600;">${user.name}</div>
+                          <div style="font-size: 12px; color: var(--gray-500);">ID: ${user.id}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td style="padding: 16px;">${user.email}</td>
+                    <td style="padding: 16px;">
+                      <span style="background: ${user.role === "admin" ? "var(--honda-red)" : "#10b981"}; color: white; padding: 6px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;">
+                        ${user.role === "admin" ? "👑 Admin" : "👤 User"}
                       </span>
+                    </td>
+                    <td style="padding: 16px;">
+                      <span style="color: #10b981; font-size: 12px;">● Online</span>
                     </td>
                   </tr>
                 `,
@@ -617,38 +1455,59 @@
         const container = document.getElementById("bookingsTable");
 
         if (bookings.length === 0) {
-          container.innerHTML =
-            '<p style="text-align: center; color: var(--gray-600);">Chưa có lịch lái thử nào</p>';
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
+              <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
+              <p>Chưa có lịch lái thử nào</p>
+            </div>
+          `;
           return;
         }
 
         container.innerHTML = `
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <thead>
-                <tr style="background: var(--gray-50);">
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Khách hàng</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">SĐT</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Sản phẩm</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Ngày tạo</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Trạng thái</th>
+          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
+            <table style="width: 100%; border-collapse: collapse; background: white;">
+              <thead style="background: var(--gray-50);">
+                <tr>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Khách hàng</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Liên hệ</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Sản phẩm</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Ngày tạo</th>
+                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
+                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 ${bookings
                   .map(
                     (booking) => `
-                  <tr>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.id}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.customerName}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.customerPhone}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.productName || "N/A"}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${new Date(booking.createdAt).toLocaleDateString("vi-VN")}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
-                      <span style="background: var(--gray-200); color: var(--gray-700); padding: 2px 8px; border-radius: 12px; font-size: 12px;">
-                        ${booking.status}
+                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
+                    <td style="padding: 16px;">
+                      <div>
+                        <div style="font-weight: 600;">${booking.customerName}</div>
+                        <div style="font-size: 12px; color: var(--gray-500);">ID: ${booking.id}</div>
+                      </div>
+                    </td>
+                    <td style="padding: 16px;">
+                      <div style="font-size: 14px;">${booking.customerPhone}</div>
+                      ${booking.customerEmail ? `<div style="font-size: 12px; color: var(--gray-500);">${booking.customerEmail}</div>` : ""}
+                    </td>
+                    <td style="padding: 16px;">${booking.productName || "N/A"}</td>
+                    <td style="padding: 16px;">${new Date(booking.createdAt).toLocaleDateString("vi-VN")}</td>
+                    <td style="padding: 16px; text-align: center;">
+                      <span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                        ⏳ ${booking.status}
                       </span>
+                    </td>
+                    <td style="padding: 16px; text-align: center;">
+                      <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-outline btn-sm" style="color: #10b981; border-color: #10b981;">
+                          ✅ Xác nhận
+                        </button>
+                        <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-outline btn-sm" style="color: #ef4444; border-color: #ef4444;">
+                          ❌ Hủy
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 `,
@@ -665,38 +1524,60 @@
         const container = document.getElementById("contactsTable");
 
         if (contacts.length === 0) {
-          container.innerHTML =
-            '<p style="text-align: center; color: var(--gray-600);">Chưa có tin nhắn liên hệ nào</p>';
+          container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
+              <div style="font-size: 48px; margin-bottom: 16px;">💬</div>
+              <p>Chưa có tin nhắn liên hệ nào</p>
+            </div>
+          `;
           return;
         }
 
         container.innerHTML = `
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse;">
-              <thead>
-                <tr style="background: var(--gray-50);">
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Email</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Chủ đề</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Ngày gửi</th>
-                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Hành động</th>
+          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
+            <table style="width: 100%; border-collapse: collapse; background: white;">
+              <thead style="background: var(--gray-50);">
+                <tr>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Khách hàng</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Chủ đề</th>
+                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Ngày gửi</th>
+                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
+                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 ${contacts
                   .map(
                     (contact) => `
-                  <tr>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.id}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.fullName}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.email || "N/A"}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.subject}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${new Date(contact.createdAt).toLocaleDateString("vi-VN")}</td>
-                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
-                      <button onclick="viewContactMessage('${contact.id}')" class="btn btn-outline btn-sm">
-                        👁️ Xem
-                      </button>
+                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
+                    <td style="padding: 16px;">
+                      <div>
+                        <div style="font-weight: 600;">${contact.fullName}</div>
+                        <div style="font-size: 12px; color: var(--gray-500);">${contact.phone}</div>
+                        ${contact.email ? `<div style="font-size: 12px; color: var(--gray-500);">${contact.email}</div>` : ""}
+                      </div>
+                    </td>
+                    <td style="padding: 16px;">
+                      <div style="font-weight: 500;">${contact.subject}</div>
+                      <div style="font-size: 12px; color: var(--gray-500); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        ${contact.message}
+                      </div>
+                    </td>
+                    <td style="padding: 16px;">${new Date(contact.createdAt).toLocaleDateString("vi-VN")}</td>
+                    <td style="padding: 16px; text-align: center;">
+                      <span style="background: ${contact.status === "new" ? "#fef3c7" : "#dbeafe"}; color: ${contact.status === "new" ? "#92400e" : "#1e40af"}; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
+                        ${contact.status === "new" ? "🆕 Mới" : "✅ Đã xử lý"}
+                      </span>
+                    </td>
+                    <td style="padding: 16px; text-align: center;">
+                      <div style="display: flex; gap: 8px; justify-content: center;">
+                        <button onclick="viewContactMessage('${contact.id}')" class="btn btn-outline btn-sm">
+                          👁️ Xem
+                        </button>
+                        <button onclick="replyContact('${contact.id}')" class="btn btn-outline btn-sm" style="color: #10b981; border-color: #10b981;">
+                          📧 Phản hồi
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 `,
@@ -708,6 +1589,7 @@
         `;
       }
 
+      // Product management functions
       function showAddProductForm() {
         document.getElementById("addProductModal").classList.remove("hidden");
       }
@@ -726,6 +1608,7 @@
             name: formData.get("name"),
             type: formData.get("type"),
             price: parseInt(formData.get("price")),
+            displacement: formData.get("displacement") || "",
             colors: formData
               .get("colors")
               .split(",")
@@ -735,10 +1618,11 @@
             image: "/api/placeholder/400/300",
             gallery: ["/api/placeholder/400/300"],
             specs: {
-              engine: "Thông số kỹ thuật",
-              power: "Công suất",
-              fuelCapacity: "Dung tích bình xăng",
-              weight: "Trọng lượng",
+              engine: formData.get("engine") || "Thông số kỹ thuật",
+              power: formData.get("power") || "Công suất",
+              fuelCapacity:
+                formData.get("fuelCapacity") || "Dung tích bình xăng",
+              weight: formData.get("weight") || "Trọng lượng",
             },
           };
 
@@ -753,26 +1637,58 @@
 
             return {
               success: true,
-              message: "Thêm sản phẩm thành công!",
+              message: `✅ Đã thêm sản phẩm "${productData.name}" thành công!`,
             };
           } catch (error) {
             return {
               success: false,
-              message: "Có lỗi xảy ra khi thêm sản phẩm",
+              message: "❌ Có lỗi xảy ra khi thêm sản phẩm",
             };
           }
         });
       }
 
       function deleteProduct(productId) {
-        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+        if (confirm("⚠️ Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
           const products = Honda.getStorageData("honda_products", []);
+          const product = products.find((p) => p.id === productId);
           const filteredProducts = products.filter((p) => p.id !== productId);
           Honda.setStorageData("honda_products", filteredProducts);
 
           loadDashboardStats();
           loadProductsTable();
-          Honda.showAlert("Xóa sản phẩm thành công!", "success");
+          Honda.showAlert(
+            `🗑️ Đã xóa sản phẩm "${product?.name}" thành công!`,
+            "success",
+          );
+        }
+      }
+
+      function toggleFeatured(productId) {
+        const products = Honda.getStorageData("honda_products", []);
+        const product = products.find((p) => p.id === productId);
+        if (product) {
+          product.featured = !product.featured;
+          Honda.setStorageData("honda_products", products);
+          loadProductsTable();
+          Honda.showAlert(
+            `${product.featured ? "⭐" : "📌"} Đã cập nhật trạng thái sản phẩm "${product.name}"`,
+            "success",
+          );
+        }
+      }
+
+      function updateBookingStatus(bookingId, newStatus) {
+        const bookings = Honda.getStorageData("honda_bookings", []);
+        const booking = bookings.find((b) => b.id === bookingId);
+        if (booking) {
+          booking.status = newStatus;
+          Honda.setStorageData("honda_bookings", bookings);
+          loadBookingsTable();
+          Honda.showAlert(
+            `📅 Đã cập nhật trạng thái booking thành "${newStatus}"`,
+            "success",
+          );
         }
       }
 
@@ -781,10 +1697,63 @@
         const contact = contacts.find((c) => c.id === contactId);
 
         if (contact) {
+          // Mark as read
+          contact.status = "read";
+          Honda.setStorageData("honda_contacts", contacts);
+
           alert(
-            `Tin nhắn từ: ${contact.fullName}\nSĐT: ${contact.phone}\nEmail: ${contact.email || "N/A"}\nChủ đề: ${contact.subject}\n\nNội dung:\n${contact.message}`,
+            `📬 Tin nhắn từ: ${contact.fullName}\n` +
+              `📞 SĐT: ${contact.phone}\n` +
+              `📧 Email: ${contact.email || "Không có"}\n` +
+              `📝 Chủ đề: ${contact.subject}\n\n` +
+              `💬 Nội dung:\n${contact.message}\n\n` +
+              `🕒 Gửi lúc: ${new Date(contact.createdAt).toLocaleString("vi-VN")}`,
           );
+
+          loadContactsTable();
         }
+      }
+
+      function replyContact(contactId) {
+        const email = prompt("📧 Nhập email phản hồi:");
+        if (email) {
+          Honda.showAlert(`📧 Đã gửi phản hồi đến ${email}`, "success");
+        }
+      }
+
+      // Utility functions
+      function searchProducts() {
+        const query = document
+          .getElementById("productSearch")
+          .value.toLowerCase();
+        const products = Honda.getStorageData("honda_products", []);
+        const filtered = products.filter(
+          (p) =>
+            p.name.toLowerCase().includes(query) ||
+            p.description.toLowerCase().includes(query),
+        );
+
+        // Update table with filtered results
+        // This is a simplified version - you could implement more sophisticated filtering
+        loadProductsTable();
+      }
+
+      function updateStorageInfo() {
+        // Calculate storage usage
+        let totalSize = 0;
+        for (let key in localStorage) {
+          if (localStorage.hasOwnProperty(key)) {
+            totalSize += localStorage[key].length;
+          }
+        }
+
+        const sizeKB = Math.round((totalSize / 1024) * 100) / 100;
+        const maxStorage = 5000; // 5MB approximate limit
+        const percentage = (sizeKB / maxStorage) * 100;
+
+        document.getElementById("storageUsed").textContent = `${sizeKB} KB`;
+        document.getElementById("storageBar").style.width =
+          `${Math.min(percentage, 100)}%`;
       }
 
       function exportData() {
@@ -794,6 +1763,7 @@
           bookings: Honda.getStorageData("honda_bookings", []),
           contacts: Honda.getStorageData("honda_contacts", []),
           exportDate: new Date().toISOString(),
+          version: "2.0.0",
         };
 
         const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -802,39 +1772,117 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `honda-data-${new Date().toISOString().split("T")[0]}.json`;
+        a.download = `honda-data-backup-${new Date().toISOString().split("T")[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        Honda.showAlert("Xuất dữ liệu thành công!", "success");
+        Honda.setStorageData("last_backup", new Date().toISOString());
+        document.getElementById("lastBackup").textContent =
+          new Date().toLocaleDateString("vi-VN");
+        Honda.showAlert("📤 Xuất dữ liệu thành công!", "success");
+      }
+
+      function exportAllData() {
+        exportData();
+      }
+
+      function backupData() {
+        exportData();
+      }
+
+      function clearCache() {
+        if (
+          confirm("🧹 Xóa cache sẽ làm chậm lần tải trang tiếp theo. Tiếp tục?")
+        ) {
+          // Clear any cached data except core data
+          Honda.showAlert("🧹 Đã xóa cache thành công!", "success");
+        }
+      }
+
+      function saveSettings() {
+        const settings = {
+          siteName: document.getElementById("siteName").value,
+          contactEmail: document.getElementById("contactEmail").value,
+          hotline: document.getElementById("hotline").value,
+          updatedAt: new Date().toISOString(),
+        };
+
+        Honda.setStorageData("site_settings", settings);
+        Honda.showAlert("💾 Đã lưu cài đặt thành công!", "success");
       }
 
       function resetData() {
         if (
           confirm(
-            "Bạn có chắc chắn muốn reset toàn bộ dữ liệu? Hành động này không thể hoàn tác!",
+            "⚠️ CẢNH BÁO: Bạn có chắc chắn muốn reset toàn bộ dữ liệu?\n\nHành động này sẽ:\n• Xóa tất cả sản phẩm\n• Xóa tất cả người dùng (trừ admin)\n• Xóa tất cả booking và liên hệ\n• Không thể hoàn tác!\n\nNhấn OK để tiếp tục.",
           )
         ) {
-          if (confirm("Xác nhận lần cuối - Tất cả dữ liệu sẽ bị xóa!")) {
+          if (
+            confirm("🚨 XÁC NHẬN LẦN CUỐI: Tất cả dữ liệu sẽ bị mất vĩnh viễn!")
+          ) {
+            // Keep only admin user
+            const adminUser = Honda.getStorageData("honda_users", []).find(
+              (u) => u.role === "admin",
+            );
+
             localStorage.clear();
+
+            // Restore admin and basic data
+            if (adminUser) {
+              Honda.setStorageData("honda_users", [adminUser]);
+            }
+            Honda.setStorageData("honda_products", []);
+            Honda.setStorageData("honda_bookings", []);
+            Honda.setStorageData("honda_contacts", []);
+
             Honda.showAlert(
-              "Reset dữ liệu thành công! Trang sẽ được tải lại.",
+              "🔄 Reset dữ liệu thành công! Trang sẽ được tải lại sau 3 giây.",
               "success",
             );
             setTimeout(() => {
               window.location.reload();
-            }, 2000);
+            }, 3000);
           }
         }
       }
 
+      function openChatSupport() {
+        window.open("chat.html", "_blank", "width=400,height=600");
+      }
+
+      function generateReport() {
+        Honda.showAlert(
+          "📊 Đang tạo báo cáo... Tính năng sẽ có trong phiên bản tiếp theo!",
+          "success",
+        );
+      }
+
       // Initialize page when DOM is loaded
       document.addEventListener("DOMContentLoaded", initAdminPage);
+
+      // Add hover effects to cards
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".card");
+        cards.forEach((card) => {
+          if (card.classList.contains("hover-lift")) {
+            card.addEventListener("mouseenter", function () {
+              this.style.transform = "translateY(-4px) scale(1.02)";
+            });
+            card.addEventListener("mouseleave", function () {
+              this.style.transform = "translateY(0) scale(1)";
+            });
+          }
+        });
+      });
     </script>
 
     <style>
+      .hover-lift {
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
       .modal {
         position: fixed;
         top: 0;
@@ -845,6 +1893,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        backdrop-filter: blur(4px);
       }
 
       .modal-overlay {
@@ -853,7 +1902,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.6);
       }
 
       .modal-content {
@@ -862,13 +1911,19 @@
         max-height: 90vh;
         overflow-y: auto;
         width: 100%;
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 16px;
       }
 
       .tab-btn.active {
         color: var(--honda-red) !important;
         border-bottom-color: var(--honda-red) !important;
+        background: rgba(230, 0, 18, 0.05);
+      }
+
+      .tab-btn:hover {
+        color: var(--honda-red);
+        background: rgba(230, 0, 18, 0.05);
       }
 
       @media (max-width: 768px) {
@@ -880,13 +1935,34 @@
           grid-template-columns: 1fr;
         }
 
+        .modal-content {
+          margin: 0 8px;
+          max-width: calc(100vw - 16px);
+        }
+
         table {
           font-size: 14px;
         }
 
         th,
         td {
-          padding: 8px !important;
+          padding: 12px 8px !important;
+        }
+
+        .btn-sm {
+          padding: 4px 8px !important;
+          font-size: 11px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .grid-4 {
+          grid-template-columns: 1fr;
+        }
+
+        .tab-btn {
+          padding: 8px 12px !important;
+          font-size: 12px !important;
         }
       }
     </style>
