@@ -234,6 +234,9 @@ body {
 .hero-content {
   max-width: 600px;
   color: var(--honda-white);
+  position: relative;
+  z-index: 3;
+  animation: slideInLeft 1s ease-out;
 }
 
 .hero h1 {
@@ -241,23 +244,40 @@ body {
   font-weight: bold;
   margin-bottom: 24px;
   line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero h1 .highlight {
   color: var(--honda-red);
   display: block;
+  text-shadow:
+    0 0 10px var(--honda-red),
+    0 0 20px var(--honda-red),
+    0 0 30px var(--honda-red);
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
 .hero p {
   font-size: 1.25rem;
   margin-bottom: 32px;
   color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1s ease-out 0.5s both;
 }
 
 .hero-buttons {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  animation: fadeIn 1s ease-out 1s both;
+}
+
+.hero-buttons .btn {
+  animation: bounce 0.8s ease-out 1.5s both;
+}
+
+.hero-buttons .btn:nth-child(2) {
+  animation-delay: 1.7s;
 }
 
 /* Features Section */
