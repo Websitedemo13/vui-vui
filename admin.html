@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản trị - Head Kim Châu</title>
+    <meta name="description" content="Trang quản trị hệ thống Head Kim Châu" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Page Header -->
+      <section class="section section-gray">
+        <div class="container">
+          <div class="text-center">
+            <h1
+              style="
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 16px;
+                color: var(--gray-900);
+              "
+            >
+              🔧 Trang quản trị
+            </h1>
+            <p
+              style="
+                font-size: 1.125rem;
+                color: var(--gray-600);
+                max-width: 600px;
+                margin: 0 auto;
+              "
+            >
+              Quản lý hệ thống Honda Head Kim Châu
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard Stats -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid-4" style="margin-bottom: 32px">
+            <div class="card text-center">
+              <div class="card-content">
+                <div
+                  style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--honda-red);
+                    margin-bottom: 8px;
+                  "
+                >
+                  <span id="totalProducts">0</span>
+                </div>
+                <p style="color: var(--gray-600)">Sản phẩm</p>
+              </div>
+            </div>
+
+            <div class="card text-center">
+              <div class="card-content">
+                <div
+                  style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--honda-red);
+                    margin-bottom: 8px;
+                  "
+                >
+                  <span id="totalUsers">0</span>
+                </div>
+                <p style="color: var(--gray-600)">Người dùng</p>
+              </div>
+            </div>
+
+            <div class="card text-center">
+              <div class="card-content">
+                <div
+                  style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--honda-red);
+                    margin-bottom: 8px;
+                  "
+                >
+                  <span id="totalBookings">0</span>
+                </div>
+                <p style="color: var(--gray-600)">Lịch lái thử</p>
+              </div>
+            </div>
+
+            <div class="card text-center">
+              <div class="card-content">
+                <div
+                  style="
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: var(--honda-red);
+                    margin-bottom: 8px;
+                  "
+                >
+                  <span id="totalContacts">0</span>
+                </div>
+                <p style="color: var(--gray-600)">Liên hệ</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Management Tabs -->
+          <div class="card">
+            <div class="card-header">
+              <div
+                style="
+                  display: flex;
+                  gap: 16px;
+                  border-bottom: 1px solid var(--gray-200);
+                  margin-bottom: 24px;
+                "
+              >
+                <button
+                  class="tab-btn active"
+                  onclick="switchTab('products')"
+                  style="
+                    padding: 12px 16px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                  "
+                >
+                  Quản lý sản phẩm
+                </button>
+                <button
+                  class="tab-btn"
+                  onclick="switchTab('users')"
+                  style="
+                    padding: 12px 16px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                  "
+                >
+                  Quản lý người dùng
+                </button>
+                <button
+                  class="tab-btn"
+                  onclick="switchTab('bookings')"
+                  style="
+                    padding: 12px 16px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                  "
+                >
+                  Lịch lái thử
+                </button>
+                <button
+                  class="tab-btn"
+                  onclick="switchTab('contacts')"
+                  style="
+                    padding: 12px 16px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                  "
+                >
+                  Liên hệ
+                </button>
+                <button
+                  class="tab-btn"
+                  onclick="switchTab('settings')"
+                  style="
+                    padding: 12px 16px;
+                    border: none;
+                    background: none;
+                    color: var(--gray-600);
+                    font-weight: 500;
+                    cursor: pointer;
+                    border-bottom: 2px solid transparent;
+                  "
+                >
+                  Cài đặt
+                </button>
+              </div>
+            </div>
+
+            <div class="card-content">
+              <!-- Products Tab -->
+              <div id="productsTab" class="tab-content">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 24px;
+                  "
+                >
+                  <h3 style="font-size: 18px; font-weight: 600">
+                    Danh sách sản phẩm
+                  </h3>
+                  <button
+                    onclick="showAddProductForm()"
+                    class="btn btn-primary"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      style="margin-right: 8px"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Thêm sản phẩm
+                  </button>
+                </div>
+                <div id="productsTable">
+                  <!-- Products will be loaded here -->
+                </div>
+              </div>
+
+              <!-- Users Tab -->
+              <div id="usersTab" class="tab-content hidden">
+                <h3
+                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                >
+                  Danh sách người dùng
+                </h3>
+                <div id="usersTable">
+                  <!-- Users will be loaded here -->
+                </div>
+              </div>
+
+              <!-- Bookings Tab -->
+              <div id="bookingsTab" class="tab-content hidden">
+                <h3
+                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                >
+                  Lịch lái thử
+                </h3>
+                <div id="bookingsTable">
+                  <!-- Bookings will be loaded here -->
+                </div>
+              </div>
+
+              <!-- Contacts Tab -->
+              <div id="contactsTab" class="tab-content hidden">
+                <h3
+                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                >
+                  Tin nhắn liên hệ
+                </h3>
+                <div id="contactsTable">
+                  <!-- Contacts will be loaded here -->
+                </div>
+              </div>
+
+              <!-- Settings Tab -->
+              <div id="settingsTab" class="tab-content hidden">
+                <h3
+                  style="font-size: 18px; font-weight: 600; margin-bottom: 24px"
+                >
+                  Cài đặt hệ thống
+                </h3>
+                <div class="grid grid-2">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Quản lý dữ liệu</h4>
+                    </div>
+                    <div class="card-content">
+                      <button
+                        onclick="exportData()"
+                        class="btn btn-outline btn-sm"
+                        style="margin-bottom: 8px; width: 100%"
+                      >
+                        📤 Xuất dữ liệu
+                      </button>
+                      <button
+                        onclick="importData()"
+                        class="btn btn-outline btn-sm"
+                        style="margin-bottom: 8px; width: 100%"
+                      >
+                        📥 Nhập dữ liệu
+                      </button>
+                      <button
+                        onclick="resetData()"
+                        class="btn btn-outline btn-sm"
+                        style="width: 100%; color: var(--destructive)"
+                      >
+                        🗑️ Reset dữ liệu
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Thông tin hệ thống</h4>
+                    </div>
+                    <div class="card-content">
+                      <p style="margin-bottom: 8px; color: var(--gray-600)">
+                        <strong>Version:</strong> 1.0.0
+                      </p>
+                      <p style="margin-bottom: 8px; color: var(--gray-600)">
+                        <strong>Database:</strong> LocalStorage
+                      </p>
+                      <p style="margin-bottom: 8px; color: var(--gray-600)">
+                        <strong>Admin:</strong>
+                        <span id="currentAdminName">-</span>
+                      </p>
+                      <p style="color: var(--gray-600)">
+                        <strong>Đăng nhập:</strong>
+                        <span id="loginTime">-</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add Product Modal -->
+      <div id="addProductModal" class="modal hidden">
+        <div class="modal-overlay" onclick="hideAddProductForm()"></div>
+        <div class="modal-content">
+          <div class="card" style="max-width: 600px; margin: 50px auto">
+            <div class="card-header">
+              <h3>Thêm sản phẩm mới</h3>
+            </div>
+            <div class="card-content">
+              <form id="addProductForm">
+                <div class="form-group">
+                  <label class="form-label">Tên sản phẩm *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-input"
+                    required
+                    placeholder="Honda Air Blade 160"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Loại xe *</label>
+                  <select name="type" class="form-input" required>
+                    <option value="">Chọn loại xe</option>
+                    <option value="tay-ga">Tay ga</option>
+                    <option value="so">Số</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Giá (VNĐ) *</label>
+                  <input
+                    type="number"
+                    name="price"
+                    class="form-input"
+                    required
+                    placeholder="58000000"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label"
+                    >Màu sắc (cách nhau bởi dấu phẩy) *</label
+                  >
+                  <input
+                    type="text"
+                    name="colors"
+                    class="form-input"
+                    required
+                    placeholder="Đỏ, Đen, Xanh, Trắng"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Mô tả *</label>
+                  <textarea
+                    name="description"
+                    class="form-input"
+                    rows="3"
+                    required
+                    placeholder="Mô tả sản phẩm..."
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    <input
+                      type="checkbox"
+                      name="featured"
+                      style="margin-right: 8px"
+                    />
+                    Sản phẩm nổi bật
+                  </label>
+                </div>
+
+                <div style="display: flex; gap: 12px">
+                  <button type="submit" class="btn btn-primary flex-1">
+                    Thêm sản phẩm
+                  </button>
+                  <button
+                    type="button"
+                    onclick="hideAddProductForm()"
+                    class="btn btn-outline"
+                  >
+                    Hủy
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="mock/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Load header and footer
+      fetch("components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-container").innerHTML = data;
+        });
+
+      fetch("components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-container").innerHTML = data;
+        });
+
+      // Check admin access
+      if (!Honda.isAdmin()) {
+        alert("Bạn không có quyền truy cập trang này!");
+        window.location.href = "login.html";
+      }
+
+      // Initialize admin page
+      function initAdminPage() {
+        loadDashboardStats();
+        loadProductsTable();
+        setupAddProductForm();
+
+        // Set current admin info
+        const currentUser = Honda.getCurrentUser();
+        if (currentUser) {
+          document.getElementById("currentAdminName").textContent =
+            currentUser.name;
+          document.getElementById("loginTime").textContent =
+            new Date().toLocaleString("vi-VN");
+        }
+      }
+
+      function loadDashboardStats() {
+        const products = Honda.getStorageData("honda_products", []);
+        const users = Honda.getStorageData("honda_users", []);
+        const bookings = Honda.getStorageData("honda_bookings", []);
+        const contacts = Honda.getStorageData("honda_contacts", []);
+
+        document.getElementById("totalProducts").textContent = products.length;
+        document.getElementById("totalUsers").textContent = users.length;
+        document.getElementById("totalBookings").textContent = bookings.length;
+        document.getElementById("totalContacts").textContent = contacts.length;
+      }
+
+      function switchTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll(".tab-content").forEach((tab) => {
+          tab.classList.add("hidden");
+        });
+
+        // Remove active class from all buttons
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.classList.remove("active");
+          btn.style.color = "var(--gray-600)";
+          btn.style.borderBottomColor = "transparent";
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + "Tab").classList.remove("hidden");
+
+        // Set active button
+        event.target.classList.add("active");
+        event.target.style.color = "var(--honda-red)";
+        event.target.style.borderBottomColor = "var(--honda-red)";
+
+        // Load data for the selected tab
+        switch (tabName) {
+          case "products":
+            loadProductsTable();
+            break;
+          case "users":
+            loadUsersTable();
+            break;
+          case "bookings":
+            loadBookingsTable();
+            break;
+          case "contacts":
+            loadContactsTable();
+            break;
+        }
+      }
+
+      function loadProductsTable() {
+        const products = Honda.getStorageData("honda_products", []);
+        const container = document.getElementById("productsTable");
+
+        if (products.length === 0) {
+          container.innerHTML =
+            '<p style="text-align: center; color: var(--gray-600);">Chưa có sản phẩm nào</p>';
+          return;
+        }
+
+        container.innerHTML = `
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: var(--gray-50);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên sản phẩm</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Loại</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Giá</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Nổi bật</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${products
+                  .map(
+                    (product) => `
+                  <tr>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.id}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.name}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.type === "tay-ga" ? "Tay ga" : "Số"}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${Honda.formatPrice(product.price)}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${product.featured ? "⭐ Có" : "Không"}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
+                      <button onclick="deleteProduct('${product.id}')" class="btn btn-outline btn-sm" style="color: var(--destructive); border-color: var(--destructive);">
+                        🗑️ Xóa
+                      </button>
+                    </td>
+                  </tr>
+                `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      function loadUsersTable() {
+        const users = Honda.getStorageData("honda_users", []);
+        const container = document.getElementById("usersTable");
+
+        container.innerHTML = `
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: var(--gray-50);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Email</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Vai trò</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${users
+                  .map(
+                    (user) => `
+                  <tr>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.id}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.name}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${user.email}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
+                      <span style="background: ${user.role === "admin" ? "var(--honda-red)" : "var(--gray-200)"}; color: ${user.role === "admin" ? "white" : "var(--gray-700)"}; padding: 2px 8px; border-radius: 12px; font-size: 12px;">
+                        ${user.role === "admin" ? "Admin" : "User"}
+                      </span>
+                    </td>
+                  </tr>
+                `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      function loadBookingsTable() {
+        const bookings = Honda.getStorageData("honda_bookings", []);
+        const container = document.getElementById("bookingsTable");
+
+        if (bookings.length === 0) {
+          container.innerHTML =
+            '<p style="text-align: center; color: var(--gray-600);">Chưa có lịch lái thử nào</p>';
+          return;
+        }
+
+        container.innerHTML = `
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: var(--gray-50);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Khách hàng</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">SĐT</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Sản phẩm</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Ngày tạo</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${bookings
+                  .map(
+                    (booking) => `
+                  <tr>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.id}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.customerName}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.customerPhone}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${booking.productName || "N/A"}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${new Date(booking.createdAt).toLocaleDateString("vi-VN")}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
+                      <span style="background: var(--gray-200); color: var(--gray-700); padding: 2px 8px; border-radius: 12px; font-size: 12px;">
+                        ${booking.status}
+                      </span>
+                    </td>
+                  </tr>
+                `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      function loadContactsTable() {
+        const contacts = Honda.getStorageData("honda_contacts", []);
+        const container = document.getElementById("contactsTable");
+
+        if (contacts.length === 0) {
+          container.innerHTML =
+            '<p style="text-align: center; color: var(--gray-600);">Chưa có tin nhắn liên hệ nào</p>';
+          return;
+        }
+
+        container.innerHTML = `
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="background: var(--gray-50);">
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">ID</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Tên</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Email</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Chủ đề</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Ngày gửi</th>
+                  <th style="padding: 12px; text-align: left; border: 1px solid var(--gray-200);">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${contacts
+                  .map(
+                    (contact) => `
+                  <tr>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.id}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.fullName}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.email || "N/A"}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${contact.subject}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">${new Date(contact.createdAt).toLocaleDateString("vi-VN")}</td>
+                    <td style="padding: 12px; border: 1px solid var(--gray-200);">
+                      <button onclick="viewContactMessage('${contact.id}')" class="btn btn-outline btn-sm">
+                        👁️ Xem
+                      </button>
+                    </td>
+                  </tr>
+                `,
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      function showAddProductForm() {
+        document.getElementById("addProductModal").classList.remove("hidden");
+      }
+
+      function hideAddProductForm() {
+        document.getElementById("addProductModal").classList.add("hidden");
+        document.getElementById("addProductForm").reset();
+      }
+
+      function setupAddProductForm() {
+        const form = document.getElementById("addProductForm");
+
+        Honda.handleFormSubmit(form, async (formData) => {
+          const productData = {
+            id: Date.now().toString(),
+            name: formData.get("name"),
+            type: formData.get("type"),
+            price: parseInt(formData.get("price")),
+            colors: formData
+              .get("colors")
+              .split(",")
+              .map((c) => c.trim()),
+            description: formData.get("description"),
+            featured: formData.get("featured") === "on",
+            image: "/api/placeholder/400/300",
+            gallery: ["/api/placeholder/400/300"],
+            specs: {
+              engine: "Thông số kỹ thuật",
+              power: "Công suất",
+              fuelCapacity: "Dung tích bình xăng",
+              weight: "Trọng lượng",
+            },
+          };
+
+          try {
+            const products = Honda.getStorageData("honda_products", []);
+            products.push(productData);
+            Honda.setStorageData("honda_products", products);
+
+            hideAddProductForm();
+            loadDashboardStats();
+            loadProductsTable();
+
+            return {
+              success: true,
+              message: "Thêm sản phẩm thành công!",
+            };
+          } catch (error) {
+            return {
+              success: false,
+              message: "Có lỗi xảy ra khi thêm sản phẩm",
+            };
+          }
+        });
+      }
+
+      function deleteProduct(productId) {
+        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+          const products = Honda.getStorageData("honda_products", []);
+          const filteredProducts = products.filter((p) => p.id !== productId);
+          Honda.setStorageData("honda_products", filteredProducts);
+
+          loadDashboardStats();
+          loadProductsTable();
+          Honda.showAlert("Xóa sản phẩm thành công!", "success");
+        }
+      }
+
+      function viewContactMessage(contactId) {
+        const contacts = Honda.getStorageData("honda_contacts", []);
+        const contact = contacts.find((c) => c.id === contactId);
+
+        if (contact) {
+          alert(
+            `Tin nhắn từ: ${contact.fullName}\nSĐT: ${contact.phone}\nEmail: ${contact.email || "N/A"}\nChủ đề: ${contact.subject}\n\nNội dung:\n${contact.message}`,
+          );
+        }
+      }
+
+      function exportData() {
+        const data = {
+          products: Honda.getStorageData("honda_products", []),
+          users: Honda.getStorageData("honda_users", []),
+          bookings: Honda.getStorageData("honda_bookings", []),
+          contacts: Honda.getStorageData("honda_contacts", []),
+          exportDate: new Date().toISOString(),
+        };
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `honda-data-${new Date().toISOString().split("T")[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        Honda.showAlert("Xuất dữ liệu thành công!", "success");
+      }
+
+      function resetData() {
+        if (
+          confirm(
+            "Bạn có chắc chắn muốn reset toàn bộ dữ liệu? Hành động này không thể hoàn tác!",
+          )
+        ) {
+          if (confirm("Xác nhận lần cuối - Tất cả dữ liệu sẽ bị xóa!")) {
+            localStorage.clear();
+            Honda.showAlert(
+              "Reset dữ liệu thành công! Trang sẽ được tải lại.",
+              "success",
+            );
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        }
+      }
+
+      // Initialize page when DOM is loaded
+      document.addEventListener("DOMContentLoaded", initAdminPage);
+    </script>
+
+    <style>
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        position: relative;
+        z-index: 101;
+        max-height: 90vh;
+        overflow-y: auto;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 16px;
+      }
+
+      .tab-btn.active {
+        color: var(--honda-red) !important;
+        border-bottom-color: var(--honda-red) !important;
+      }
+
+      @media (max-width: 768px) {
+        .grid-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        table {
+          font-size: 14px;
+        }
+
+        th,
+        td {
+          padding: 8px !important;
+        }
+      }
+    </style>
+  </body>
+</html>
