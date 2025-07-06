@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sản phẩm Honda - Head Kim Châu</title>
+    <meta
+      name="description"
+      content="Khám phá bộ sưu tập xe máy Honda đa dạng tại Head Kim Châu - Air Blade, SH, Vision, Wave Alpha và nhiều dòng xe khác."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Page Header -->
+      <section class="section section-gray">
+        <div class="container">
+          <div class="text-center">
+            <h1
+              style="
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 16px;
+                color: var(--gray-900);
+              "
+            >
+              Sản phẩm Honda
+            </h1>
+            <p
+              style="
+                font-size: 1.125rem;
+                color: var(--gray-600);
+                max-width: 600px;
+                margin: 0 auto;
+              "
+            >
+              Khám phá bộ sưu tập xe máy Honda đa dạng với thiết kế hiện đại và
+              công nghệ tiên tiến.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters and Products -->
+      <section style="padding: 32px 0">
+        <div class="container">
+          <!-- Filters -->
+          <div class="filters">
+            <div class="filter-title">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46" />
+              </svg>
+              Bộ lọc sản phẩm
+            </div>
+            <div class="filter-grid">
+              <div>
+                <label class="form-label">Loại xe</label>
+                <select id="typeFilter" class="form-input">
+                  <option value="all">Tất cả</option>
+                  <option value="tay-ga">Tay ga</option>
+                  <option value="so">Số</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Khoảng giá</label>
+                <select id="priceFilter" class="form-input">
+                  <option value="all">Tất cả</option>
+                  <option value="under-30">Dưới 30 triệu</option>
+                  <option value="30-60">30 - 60 triệu</option>
+                  <option value="over-60">Trên 60 triệu</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Màu sắc</label>
+                <select id="colorFilter" class="form-input">
+                  <option value="all">Tất cả</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Hiển thị</label>
+                <div class="view-toggle">
+                  <button
+                    id="gridViewBtn"
+                    class="view-btn active"
+                    onclick="setViewMode('grid')"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect x="3" y="3" width="7" height="7" />
+                      <rect x="14" y="3" width="7" height="7" />
+                      <rect x="14" y="14" width="7" height="7" />
+                      <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                  </button>
+                  <button
+                    id="listViewBtn"
+                    class="view-btn"
+                    onclick="setViewMode('list')"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="8" y1="6" x2="21" y2="6" />
+                      <line x1="8" y1="12" x2="21" y2="12" />
+                      <line x1="8" y1="18" x2="21" y2="18" />
+                      <line x1="3" y1="6" x2="3.01" y2="6" />
+                      <line x1="3" y1="12" x2="3.01" y2="12" />
+                      <line x1="3" y1="18" x2="3.01" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Count -->
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 24px;
+            "
+          >
+            <p id="resultsCount" style="color: var(--gray-600)">
+              Hiển thị 0 sản phẩm
+            </p>
+          </div>
+
+          <!-- Products Grid/List -->
+          <div
+            id="noResults"
+            class="hidden"
+            style="text-align: center; padding: 64px 0"
+          >
+            <p
+              style="
+                font-size: 1.125rem;
+                color: var(--gray-600);
+                margin-bottom: 16px;
+              "
+            >
+              Không tìm thấy sản phẩm phù hợp với bộ lọc của bạn.
+            </p>
+            <button onclick="clearFilters()" class="btn btn-outline">
+              Xóa bộ lọc
+            </button>
+          </div>
+
+          <div id="productsContainer" class="grid grid-3">
+            <!-- Products will be loaded here by JavaScript -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="mock/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Load header and footer
+      fetch("components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-container").innerHTML = data;
+        });
+
+      fetch("components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-container").innerHTML = data;
+        });
+
+      // Page variables
+      let allProducts = [];
+      let filteredProducts = [];
+      let currentViewMode = "grid";
+
+      // Initialize products page
+      function initProductsPage() {
+        allProducts = MockData.mockProducts;
+        filteredProducts = [...allProducts];
+
+        setupColorFilter();
+        setupFilters();
+        renderProducts();
+        updateResultsCount();
+      }
+
+      function setupColorFilter() {
+        const colorFilter = document.getElementById("colorFilter");
+        const allColors = [
+          ...new Set(allProducts.flatMap((product) => product.colors)),
+        ];
+
+        allColors.forEach((color) => {
+          const option = document.createElement("option");
+          option.value = color;
+          option.textContent = color;
+          colorFilter.appendChild(option);
+        });
+      }
+
+      function setupFilters() {
+        document
+          .getElementById("typeFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("priceFilter")
+          .addEventListener("change", applyFilters);
+        document
+          .getElementById("colorFilter")
+          .addEventListener("change", applyFilters);
+      }
+
+      function applyFilters() {
+        const typeFilter = document.getElementById("typeFilter").value;
+        const priceFilter = document.getElementById("priceFilter").value;
+        const colorFilter = document.getElementById("colorFilter").value;
+
+        filteredProducts = Honda.filterProducts(allProducts, {
+          type: typeFilter,
+          priceRange: priceFilter,
+          color: colorFilter,
+        });
+
+        renderProducts();
+        updateResultsCount();
+      }
+
+      function clearFilters() {
+        document.getElementById("typeFilter").value = "all";
+        document.getElementById("priceFilter").value = "all";
+        document.getElementById("colorFilter").value = "all";
+        applyFilters();
+      }
+
+      function setViewMode(mode) {
+        currentViewMode = mode;
+
+        // Update button states
+        document
+          .getElementById("gridViewBtn")
+          .classList.toggle("active", mode === "grid");
+        document
+          .getElementById("listViewBtn")
+          .classList.toggle("active", mode === "list");
+
+        renderProducts();
+      }
+
+      function renderProducts() {
+        const container = document.getElementById("productsContainer");
+        const noResults = document.getElementById("noResults");
+
+        if (filteredProducts.length === 0) {
+          container.innerHTML = "";
+          noResults.classList.remove("hidden");
+          return;
+        }
+
+        noResults.classList.add("hidden");
+
+        // Update container class based on view mode
+        container.className =
+          currentViewMode === "grid" ? "grid grid-3" : "product-list";
+
+        container.innerHTML = filteredProducts
+          .map((product) => {
+            const cardClass =
+              currentViewMode === "list" ? "card" : "card product-card";
+
+            return `
+            <div class="${cardClass} fade-in">
+              <div style="position: relative; overflow: hidden; ${currentViewMode === "list" ? "width: 200px; flex-shrink: 0;" : ""}">
+                <img src="${product.image}" alt="${product.name}" 
+                     style="width: 100%; ${currentViewMode === "list" ? "height: 150px;" : "height: 200px;"} object-fit: cover; transition: transform 0.3s;">
+                ${product.featured ? '<div class="product-badge">Nổi bật</div>' : ""}
+              </div>
+              <div ${currentViewMode === "list" ? 'style="flex: 1;"' : ""}>
+                <div class="card-header">
+                  <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">${product.name}</h3>
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <span class="product-price">${Honda.formatPrice(product.price)}</span>
+                    <span class="product-type">${product.type === "tay-ga" ? "Tay ga" : "Số"}</span>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <p style="color: var(--gray-600); margin-bottom: 16px; line-height: 1.5;">${product.description}</p>
+                  <div class="product-colors">
+                    ${product.colors.map((color) => `<span class="color-tag">${color}</span>`).join("")}
+                  </div>
+                  <div class="product-actions">
+                    <button onclick="Honda.handleTestDrive('${product.name}')" class="btn btn-primary btn-sm flex-1">
+                      Lái thử
+                    </button>
+                    <a href="product-detail.html?id=${product.id}" class="btn btn-outline btn-sm">
+                      Chi tiết
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          })
+          .join("");
+      }
+
+      function updateResultsCount() {
+        const count = filteredProducts.length;
+        document.getElementById("resultsCount").textContent =
+          `Hiển thị ${count} sản phẩm`;
+      }
+
+      // Initialize page when DOM is loaded
+      document.addEventListener("DOMContentLoaded", initProductsPage);
+    </script>
+  </body>
+</html>

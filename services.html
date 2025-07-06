@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dịch vụ bảo trì - Head Kim Châu</title>
+    <meta
+      name="description"
+      content="Dịch vụ bảo trì và bảo dưỡng xe máy Honda chuyên nghiệp tại Head Kim Châu - Thay nhớt, bảo dưỡng định kỳ, sửa chữa."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Page Header -->
+      <section class="section section-gray">
+        <div class="container">
+          <div class="text-center">
+            <h1
+              style="
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 16px;
+                color: var(--gray-900);
+              "
+            >
+              Dịch vụ bảo trì & bảo dưỡng
+            </h1>
+            <p
+              style="
+                font-size: 1.125rem;
+                color: var(--gray-600);
+                max-width: 600px;
+                margin: 0 auto;
+              "
+            >
+              Dịch vụ bảo trì chuyên nghiệp với đội ngũ kỹ thuật viên được đào
+              tạo chính hãng Honda.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Grid -->
+      <section class="section">
+        <div class="container">
+          <div id="servicesContainer" class="grid grid-3">
+            <!-- Services will be loaded here by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Service Booking Section -->
+      <section class="section section-gray">
+        <div class="container">
+          <div class="section-header">
+            <h2>Đặt lịch bảo dưỡng</h2>
+            <p>
+              Đặt lịch hẹn trước để được phục vụ nhanh chóng và chu đáo nhất.
+            </p>
+          </div>
+
+          <div style="max-width: 600px; margin: 0 auto">
+            <div class="card">
+              <div class="card-content">
+                <form id="serviceBookingForm">
+                  <div class="form-group">
+                    <label for="customerName" class="form-label"
+                      >Họ và tên *</label
+                    >
+                    <input
+                      type="text"
+                      id="customerName"
+                      name="customerName"
+                      class="form-input"
+                      required
+                      placeholder="Nhập họ và tên của bạn"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="customerPhone" class="form-label"
+                      >Số điện thoại *</label
+                    >
+                    <input
+                      type="tel"
+                      id="customerPhone"
+                      name="customerPhone"
+                      class="form-input"
+                      required
+                      placeholder="Nhập số điện thoại"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="customerEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      id="customerEmail"
+                      name="customerEmail"
+                      class="form-input"
+                      placeholder="Nhập email của bạn"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="serviceType" class="form-label"
+                      >Loại dịch vụ *</label
+                    >
+                    <select
+                      id="serviceType"
+                      name="serviceType"
+                      class="form-input"
+                      required
+                    >
+                      <option value="">Chọn loại dịch vụ</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="preferredDate" class="form-label"
+                      >Ngày hẹn *</label
+                    >
+                    <input
+                      type="date"
+                      id="preferredDate"
+                      name="preferredDate"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="preferredTime" class="form-label"
+                      >Giờ hẹn *</label
+                    >
+                    <select
+                      id="preferredTime"
+                      name="preferredTime"
+                      class="form-input"
+                      required
+                    >
+                      <option value="">Chọn giờ hẹn</option>
+                      <option value="08:00">08:00 - 09:00</option>
+                      <option value="09:00">09:00 - 10:00</option>
+                      <option value="10:00">10:00 - 11:00</option>
+                      <option value="13:00">13:00 - 14:00</option>
+                      <option value="14:00">14:00 - 15:00</option>
+                      <option value="15:00">15:00 - 16:00</option>
+                      <option value="16:00">16:00 - 17:00</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="notes" class="form-label">Ghi chú</label>
+                    <textarea
+                      id="notes"
+                      name="notes"
+                      class="form-input"
+                      rows="3"
+                      placeholder="Mô tả tình trạng xe hoặc yêu cầu đặc biệt..."
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    style="width: 100%"
+                  >
+                    Đặt lịch hẹn
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Tại sao chọn dịch vụ của chúng tôi?</h2>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="feature-item fade-in">
+              <div class="feature-icon">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="8" r="7" />
+                  <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88" />
+                </svg>
+              </div>
+              <h3>Kỹ thuật viên chuyên nghiệp</h3>
+              <p>
+                Đội ngũ kỹ thuật viên được đào tạo bài bản tại Honda, có nhiều
+                năm kinh nghiệm.
+              </p>
+            </div>
+
+            <div class="feature-item fade-in">
+              <div class="feature-icon">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <h3>Phụ tùng chính hãng</h3>
+              <p>
+                Sử dụng 100% phụ tùng chính hãng Honda, đảm bảo chất lượng và độ
+                bền.
+              </p>
+            </div>
+
+            <div class="feature-item fade-in">
+              <div class="feature-icon">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12,6 12,12 16,14" />
+                </svg>
+              </div>
+              <h3>Nhanh chóng - tiện lợi</h3>
+              <p>
+                Thời gian phục vụ nhanh chóng, đặt lịch trước để được ưu tiên.
+              </p>
+            </div>
+
+            <div class="feature-item fade-in">
+              <div class="feature-icon">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M9 12l2 2 4-4" />
+                  <path
+                    d="M21 12c.552 0 1-.448 1-1V8c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v3c0 .552.448 1 1 1h18z"
+                  />
+                </svg>
+              </div>
+              <h3>Bảo hành dịch vụ</h3>
+              <p>Cam kết bảo hành dịch vụ, hỗ trợ khách hàng 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="mock/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Load header and footer
+      fetch("components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-container").innerHTML = data;
+        });
+
+      fetch("components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-container").innerHTML = data;
+        });
+
+      // Initialize services page
+      function initServicesPage() {
+        loadServices();
+        setupServiceBookingForm();
+        setMinDate();
+      }
+
+      function loadServices() {
+        const container = document.getElementById("servicesContainer");
+        const services = MockData.mockServices;
+
+        container.innerHTML = services
+          .map(
+            (service) => `
+          <div class="card fade-in">
+            <img src="${service.image}" alt="${service.name}" style="width: 100%; height: 200px; object-fit: cover;">
+            <div class="card-header">
+              <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">${service.name}</h3>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                <span class="product-price">${Honda.formatPrice(service.price)}</span>
+                <span style="color: var(--gray-600); font-size: 14px;">⏱️ ${service.duration}</span>
+              </div>
+            </div>
+            <div class="card-content">
+              <p style="color: var(--gray-600); margin-bottom: 16px; line-height: 1.5;">${service.description}</p>
+              ${
+                service.includes
+                  ? `
+                <div style="margin-bottom: 16px;">
+                  <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--gray-900);">Bao gồm:</h4>
+                  <ul style="margin: 0; padding-left: 20px; color: var(--gray-600); font-size: 14px;">
+                    ${service.includes.map((item) => `<li style="margin-bottom: 4px;">${item}</li>`).join("")}
+                  </ul>
+                </div>
+              `
+                  : ""
+              }
+              <button onclick="selectService('${service.id}', '${service.name}')" class="btn btn-primary btn-sm" style="width: 100%;">
+                Đặt lịch bảo dưỡng
+              </button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+
+        // Populate service dropdown
+        const serviceSelect = document.getElementById("serviceType");
+        services.forEach((service) => {
+          const option = document.createElement("option");
+          option.value = service.id;
+          option.textContent = `${service.name} - ${Honda.formatPrice(service.price)}`;
+          serviceSelect.appendChild(option);
+        });
+      }
+
+      function selectService(serviceId, serviceName) {
+        document.getElementById("serviceType").value = serviceId;
+
+        // Scroll to booking form
+        document.querySelector("#serviceBookingForm").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        Honda.showAlert(`Đã chọn dịch vụ: ${serviceName}`, "success");
+      }
+
+      function setMinDate() {
+        const today = new Date();
+        today.setDate(today.getDate() + 1); // Tomorrow
+        const minDate = today.toISOString().split("T")[0];
+        document.getElementById("preferredDate").min = minDate;
+      }
+
+      function setupServiceBookingForm() {
+        const form = document.getElementById("serviceBookingForm");
+
+        Honda.handleFormSubmit(form, async (formData) => {
+          const customerInfo = {
+            name: formData.get("customerName"),
+            phone: formData.get("customerPhone"),
+            email: formData.get("customerEmail"),
+            date: formData.get("preferredDate"),
+            time: formData.get("preferredTime"),
+            notes: formData.get("notes"),
+          };
+
+          // Validate required fields
+          if (
+            !customerInfo.name ||
+            !customerInfo.phone ||
+            !formData.get("serviceType") ||
+            !customerInfo.date ||
+            !customerInfo.time
+          ) {
+            return {
+              success: false,
+              message: "Vui lòng điền đầy đủ thông tin bắt buộc",
+            };
+          }
+
+          // Validate phone
+          if (!Honda.validatePhone(customerInfo.phone)) {
+            return {
+              success: false,
+              message: "Số điện thoại không hợp lệ",
+            };
+          }
+
+          // Validate email if provided
+          if (customerInfo.email && !Honda.validateEmail(customerInfo.email)) {
+            return {
+              success: false,
+              message: "Email không hợp lệ",
+            };
+          }
+
+          // Book service
+          try {
+            const booking = Honda.bookService(
+              formData.get("serviceType"),
+              customerInfo,
+            );
+
+            // Reset form
+            form.reset();
+            setMinDate();
+
+            return {
+              success: true,
+              message: `Đặt lịch thành công! Mã booking: ${booking.id}. Chúng tôi sẽ liên hệ xác nhận trong thời gian sớm nhất.`,
+            };
+          } catch (error) {
+            return {
+              success: false,
+              message: "Có lỗi xảy ra khi đặt lịch. Vui lòng thử lại.",
+            };
+          }
+        });
+      }
+
+      // Initialize page when DOM is loaded
+      document.addEventListener("DOMContentLoaded", initServicesPage);
+    </script>
+  </body>
+</html>
