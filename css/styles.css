@@ -130,27 +130,78 @@ body {
   text-decoration: none;
   border: none;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   gap: 8px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn-primary {
-  background: var(--honda-red);
+  background: linear-gradient(135deg, var(--honda-red), #cc000f);
   color: var(--honda-white);
+  box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
 }
 
 .btn-primary:hover {
-  background: #cc000f;
+  background: linear-gradient(135deg, #cc000f, #b30010);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(230, 0, 18, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s;
 }
 
 .btn-outline {
   background: var(--honda-white);
   color: var(--gray-700);
-  border: 1px solid var(--gray-300);
+  border: 2px solid var(--gray-300);
+  position: relative;
+}
+
+.btn-outline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--honda-red);
+  transition: width 0.3s ease;
+  z-index: -1;
 }
 
 .btn-outline:hover {
-  background: var(--gray-50);
+  color: white;
+  border-color: var(--honda-red);
+  transform: translateY(-1px);
+}
+
+.btn-outline:hover::after {
+  width: 100%;
 }
 
 .btn-lg {
