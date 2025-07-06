@@ -211,26 +211,148 @@ function initLazyLoading() {
   }
 }
 
-// Animation on scroll
+// Enhanced Animation on scroll
 function initScrollAnimations() {
-  const elements = document.querySelectorAll(".fade-in");
+  const fadeElements = document.querySelectorAll(".fade-in");
+  const slideLeftElements = document.querySelectorAll(".slide-in-left");
+  const slideRightElements = document.querySelectorAll(".slide-in-right");
+  const scaleElements = document.querySelectorAll(".scale-in");
 
   if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = "1";
-          entry.target.style.transform = "translateY(0)";
-        }
-      });
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            // Add staggered delay for multiple elements
+            setTimeout(() => {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform =
+                "translateY(0) translateX(0) scale(1)";
+              entry.target.classList.add("animate-in");
+            }, index * 100);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
 
-    elements.forEach((el) => {
+    // Fade in animations
+    fadeElements.forEach((el, index) => {
       el.style.opacity = "0";
-      el.style.transform = "translateY(20px)";
-      el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+      el.style.transform = "translateY(30px)";
+      el.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      el.style.transitionDelay = `${index * 50}ms`;
       observer.observe(el);
     });
+
+    // Slide left animations
+    slideLeftElements.forEach((el, index) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateX(-50px)";
+      el.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      el.style.transitionDelay = `${index * 100}ms`;
+      observer.observe(el);
+    });
+
+    // Slide right animations
+    slideRightElements.forEach((el, index) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateX(50px)";
+      el.style.transition = "all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      el.style.transitionDelay = `${index * 100}ms`;
+      observer.observe(el);
+    });
+
+    // Scale animations
+    scaleElements.forEach((el, index) => {
+      el.style.opacity = "0";
+      el.style.transform = "scale(0.8)";
+      el.style.transition = "all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      el.style.transitionDelay = `${index * 150}ms`;
+      observer.observe(el);
+    });
+  }
+
+  // Add parallax effect to hero background
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset;
+    const heroBackground = document.querySelector(".hero-bg");
+    if (heroBackground) {
+      heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+    }
+  });
+}
+
+// Enhanced interactive effects
+function initInteractiveEffects() {
+  // Add ripple effect to buttons
+  document.querySelectorAll(".btn").forEach((button) => {
+    button.addEventListener("click", function (e) {
+      const ripple = document.createElement("span");
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+
+      ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      `;
+
+      this.style.position = "relative";
+      this.style.overflow = "hidden";
+      this.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+
+  // Add hover sound effect simulation (visual feedback)
+  document.querySelectorAll(".card, .btn, .nav a").forEach((element) => {
+    element.addEventListener("mouseenter", function () {
+      this.style.filter = "brightness(1.05)";
+    });
+
+    element.addEventListener("mouseleave", function () {
+      this.style.filter = "brightness(1)";
+    });
+  });
+
+  // Add floating animation to feature icons
+  document.querySelectorAll(".feature-icon").forEach((icon, index) => {
+    icon.style.animationDelay = `${index * 0.5}s`;
+    icon.classList.add("float");
+  });
+
+  // Add typing effect to hero title
+  const heroTitle = document.querySelector(".hero h1");
+  if (heroTitle) {
+    const text = heroTitle.textContent;
+    heroTitle.innerHTML = "";
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        heroTitle.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+
+    setTimeout(typeWriter, 1000);
   }
 }
 
@@ -242,6 +364,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize features
   initLazyLoading();
   initScrollAnimations();
+  initInteractiveEffects();
+
+  // Add CSS for ripple animation
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 
   // Check if user needs to be redirected after login
   const urlParams = new URLSearchParams(window.location.search);
@@ -249,6 +384,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (redirect && isAuthenticated()) {
     window.location.href = redirect;
   }
+
+  // Add smooth page transitions
+  window.addEventListener("beforeunload", function () {
+    document.body.style.opacity = "0";
+    document.body.style.transition = "opacity 0.3s ease";
+  });
 });
 
 // Handle form submissions
