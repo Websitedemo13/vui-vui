@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Hỗ Trợ - Head Kim Châu</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body style="margin: 0; padding: 0; height: 100vh; font-family: system-ui">
+    <div
+      style="
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      "
+    >
+      <!-- Chat Header -->
+      <div
+        style="
+          background: var(--honda-red);
+          color: white;
+          padding: 16px 20px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          box-shadow: 0 2px 10px rgba(230, 0, 18, 0.2);
+        "
+      >
+        <div
+          style="
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+          "
+        >
+          🤖
+        </div>
+        <div>
+          <h3 style="margin: 0; font-size: 16px; font-weight: 600">
+            Honda Assistant
+          </h3>
+          <p style="margin: 0; font-size: 12px; opacity: 0.9">
+            🟢 Online • Phản hồi ngay lập tức
+          </p>
+        </div>
+        <div style="margin-left: auto">
+          <button
+            onclick="window.close()"
+            style="
+              background: none;
+              border: none;
+              color: white;
+              font-size: 20px;
+              cursor: pointer;
+              opacity: 0.8;
+              transition: opacity 0.2s;
+            "
+            onmouseover="this.style.opacity='1'"
+            onmouseout="this.style.opacity='0.8'"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat Messages -->
+      <div
+        id="chatMessages"
+        style="
+          flex: 1;
+          overflow-y: auto;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        "
+      >
+        <!-- Initial bot message -->
+        <div style="display: flex; align-items: flex-start; gap: 12px">
+          <div
+            style="
+              width: 32px;
+              height: 32px;
+              background: var(--honda-red);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              font-size: 16px;
+              flex-shrink: 0;
+            "
+          >
+            🤖
+          </div>
+          <div
+            style="
+              background: white;
+              padding: 12px 16px;
+              border-radius: 18px;
+              border-bottom-left-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              max-width: 80%;
+              animation: slideInLeft 0.5s ease-out;
+            "
+          >
+            <p style="margin: 0; line-height: 1.4">
+              👋 Xin chào! Tôi là Honda Assistant. Tôi có thể giúp bạn:
+            </p>
+            <ul style="margin: 8px 0 0 0; padding-left: 16px; font-size: 14px">
+              <li>🏍️ Tư vấn sản phẩm Honda</li>
+              <li>📅 Đặt lịch lái thử</li>
+              <li>🔧 Đặt lịch bảo dưỡng</li>
+              <li>💰 Tính toán trả góp</li>
+              <li>📞 Kết nối với tư vấn viên</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div
+        style="
+          padding: 16px 20px;
+          border-top: 1px solid #e2e8f0;
+          background: white;
+        "
+      >
+        <p
+          style="
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+          "
+        >
+          🚀 Thao tác nhanh:
+        </p>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+          "
+        >
+          <button
+            onclick="quickAction('test-drive')"
+            style="
+              padding: 8px 12px;
+              background: var(--honda-red);
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform='scale(1.02)'"
+            onmouseout="this.style.transform='scale(1)'"
+          >
+            🏍️ Lái thử
+          </button>
+          <button
+            onclick="quickAction('service')"
+            style="
+              padding: 8px 12px;
+              background: #10b981;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform='scale(1.02)'"
+            onmouseout="this.style.transform='scale(1)'"
+          >
+            🔧 Bảo dưỡng
+          </button>
+          <button
+            onclick="quickAction('finance')"
+            style="
+              padding: 8px 12px;
+              background: #f59e0b;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform='scale(1.02)'"
+            onmouseout="this.style.transform='scale(1)'"
+          >
+            💰 Trả góp
+          </button>
+          <button
+            onclick="quickAction('contact')"
+            style="
+              padding: 8px 12px;
+              background: #6366f1;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 12px;
+              cursor: pointer;
+              transition: all 0.2s;
+            "
+            onmouseover="this.style.transform='scale(1.02)'"
+            onmouseout="this.style.transform='scale(1)'"
+          >
+            📞 Tư vấn
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div
+        style="
+          padding: 16px 20px;
+          background: white;
+          border-top: 1px solid #e2e8f0;
+        "
+      >
+        <div style="display: flex; gap: 12px; align-items: flex-end">
+          <div style="flex: 1; position: relative">
+            <textarea
+              id="chatInput"
+              placeholder="Nhập tin nhắn của bạn..."
+              style="
+                width: 100%;
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 12px 16px;
+                resize: none;
+                font-family: inherit;
+                font-size: 14px;
+                line-height: 1.4;
+                max-height: 100px;
+                transition: border-color 0.2s;
+              "
+              rows="1"
+              onkeydown="handleKeyDown(event)"
+              oninput="autoResize(this)"
+              onfocus="this.style.borderColor='var(--honda-red)'"
+              onblur="this.style.borderColor='#e2e8f0'"
+            ></textarea>
+          </div>
+          <button
+            id="sendButton"
+            onclick="sendMessage()"
+            style="
+              background: var(--honda-red);
+              color: white;
+              border: none;
+              border-radius: 50%;
+              width: 44px;
+              height: 44px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.2s;
+              font-size: 16px;
+            "
+            onmouseover="this.style.transform='scale(1.1)'"
+            onmouseout="this.style.transform='scale(1)'"
+          >
+            📤
+          </button>
+        </div>
+        <p
+          style="
+            margin: 8px 0 0 0;
+            font-size: 11px;
+            color: #94a3b8;
+            text-align: center;
+          "
+        >
+          Nhấn Enter để gửi • Shift + Enter để xuống dòng
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Chat functionality
+      let chatHistory = [];
+      let isTyping = false;
+
+      const chatResponses = {
+        greetings: [
+          "Xin chào! Tôi có thể hỗ trợ gì cho bạn về Honda hôm nay? 😊",
+          "Chào bạn! Bạn quan tâm đến sản phẩm Honda nào không? 🏍️",
+          "Hi! Tôi sẵn sàng hỗ trợ bạn tìm hiểu về xe Honda! 👋",
+        ],
+        products: [
+          "🏍️ Honda có nhiều dòng xe tuyệt vời! Bạn quan tâm đến:\n• Xe tay ga: SH, Air Blade, Vision, Lead\n• Xe số: Wave Alpha, Future\n• Loại nào bạn thích nhất?",
+          "Chúng tôi có đầy đủ các dòng Honda từ 18-86 triệu! Bạn có khoảng ngân sách nào để tôi tư vấn phù hợp không? 💰",
+        ],
+        testDrive: [
+          "📅 Tuyệt vời! Để đặt lịch lái thử, tôi cần:\n• Tên của bạn\n• Số điện thoại\n• Sản phẩm muốn lái thử\n• Ngày giờ mong muốn\n\nBạn có thể cho tôi biết thông tin này không?",
+          "🏍️ Lái thử là cách tốt nhất để trải nghiệm Honda! Bạn muốn lái thử xe nào? Tôi sẽ sắp xếp cho bạn ngay!",
+        ],
+        service: [
+          "🔧 Chúng tôi có đầy đủ dịch vụ bảo dưỡng Honda:\n• Bảo dưỡng định kỳ\n• Thay nhớt máy\n• Sửa chữa phanh\n• Thay lốp xe\n\nBạn cần dịch vụ nào?",
+          "Đội ngũ kỹ thuật viên Honda chuyên nghiệp sẵn sàng chăm sóc xe của bạn! Xe bạn cần bảo dưỡng gì? 🛠️",
+        ],
+        finance: [
+          "💳 Honda hỗ trợ trả góp linh hoạt:\n• Lãi suất từ 0-8%/năm\n• Thời hạn: 6-36 tháng\n• Thủ tục nhanh chóng\n• Duyệt trong 30 phút\n\nBạn quan tâm xe nào để tôi tính toán?",
+          "Trả góp Honda rất dễ dàng! Chỉ cần CMND + bằng lái. Bạn muốn tính trả góp cho xe nào? 🏦",
+        ],
+        contact: [
+          "📞 Bạn có thể liên hệ trực tiếp:\n• Hotline: 0901 234 567\n• Địa chỉ: 123 Nguyễn Văn Linh, Q7, HCM\n• Email: info@headkimchau.com\n\nHoặc tôi có thể kết nối bạn với tư vấn viên ngay?",
+          "Tôi sẽ kết nối bạn với chuyên viên tư vấn Honda! Họ sẽ gọi lại trong 5 phút. Bạn cho tôi số điện thoại được không? 📱",
+        ],
+        default: [
+          "Tôi hiểu bạn quan tâm đến Honda! Bạn có thể nói rõ hơn để tôi hỗ trợ tốt nhất không? 🤔",
+          "Hmm, tôi chưa hiểu rõ. Bạn có thể chọn một trong các thao tác nhanh bên dưới không? 👇",
+          "Để hỗ trợ bạn tốt nhất, bạn có thể cho tôi biết bạn cần:\n• Tư vấn sản phẩm\n• Đặt lịch lái thử\n• Dịch vụ bảo dưỡng\n• Tính toán trà góp? 🎯",
+        ],
+      };
+
+      function handleKeyDown(event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          sendMessage();
+        }
+      }
+
+      function autoResize(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = textarea.scrollHeight + "px";
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("chatInput");
+        const message = input.value.trim();
+
+        if (!message) return;
+
+        // Add user message
+        addMessage(message, "user");
+        input.value = "";
+        input.style.height = "auto";
+
+        // Simulate typing
+        showTyping();
+
+        // Generate bot response
+        setTimeout(
+          () => {
+            hideTyping();
+            const response = generateResponse(message);
+            addMessage(response, "bot");
+          },
+          1000 + Math.random() * 1000,
+        );
+      }
+
+      function addMessage(text, sender) {
+        const messagesContainer = document.getElementById("chatMessages");
+        const messageDiv = document.createElement("div");
+
+        if (sender === "user") {
+          messageDiv.innerHTML = `
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+              <div style="
+                background: var(--honda-red);
+                color: white;
+                padding: 12px 16px;
+                border-radius: 18px;
+                border-bottom-right-radius: 4px;
+                max-width: 80%;
+                box-shadow: 0 2px 8px rgba(230, 0, 18, 0.2);
+                animation: slideInRight 0.3s ease-out;
+              ">
+                <p style="margin: 0; line-height: 1.4;">${text}</p>
+              </div>
+            </div>
+          `;
+        } else {
+          messageDiv.innerHTML = `
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
+              <div style="
+                width: 32px;
+                height: 32px;
+                background: var(--honda-red);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 16px;
+                flex-shrink: 0;
+              ">🤖</div>
+              <div style="
+                background: white;
+                padding: 12px 16px;
+                border-radius: 18px;
+                border-bottom-left-radius: 4px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                max-width: 80%;
+                animation: slideInLeft 0.3s ease-out;
+              ">
+                <p style="margin: 0; line-height: 1.4; white-space: pre-line;">${text}</p>
+              </div>
+            </div>
+          `;
+        }
+
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Save to history
+        chatHistory.push({ text, sender, timestamp: Date.now() });
+      }
+
+      function showTyping() {
+        const messagesContainer = document.getElementById("chatMessages");
+        const typingDiv = document.createElement("div");
+        typingDiv.id = "typing";
+        typingDiv.innerHTML = `
+          <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;">
+            <div style="
+              width: 32px;
+              height: 32px;
+              background: var(--honda-red);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              font-size: 16px;
+              flex-shrink: 0;
+            ">🤖</div>
+            <div style="
+              background: white;
+              padding: 12px 16px;
+              border-radius: 18px;
+              border-bottom-left-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            ">
+              <div style="display: flex; gap: 4px; align-items: center;">
+                <div style="width: 8px; height: 8px; background: #94a3b8; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out;"></div>
+                <div style="width: 8px; height: 8px; background: #94a3b8; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out 0.2s;"></div>
+                <div style="width: 8px; height: 8px; background: #94a3b8; border-radius: 50%; animation: bounce 1.4s infinite ease-in-out 0.4s;"></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        isTyping = true;
+      }
+
+      function hideTyping() {
+        const typingDiv = document.getElementById("typing");
+        if (typingDiv) {
+          typingDiv.remove();
+        }
+        isTyping = false;
+      }
+
+      function generateResponse(message) {
+        const msg = message.toLowerCase();
+
+        // Detect intent
+        if (
+          msg.includes("xin chào") ||
+          msg.includes("hello") ||
+          msg.includes("hi") ||
+          msg.includes("chào")
+        ) {
+          return getRandomResponse("greetings");
+        }
+
+        if (
+          msg.includes("lái thử") ||
+          msg.includes("test drive") ||
+          msg.includes("thử xe")
+        ) {
+          return getRandomResponse("testDrive");
+        }
+
+        if (
+          msg.includes("bảo dưỡng") ||
+          msg.includes("sửa chữa") ||
+          msg.includes("service") ||
+          msg.includes("thay nhớt")
+        ) {
+          return getRandomResponse("service");
+        }
+
+        if (
+          msg.includes("trả góp") ||
+          msg.includes("vay") ||
+          msg.includes("tài chính") ||
+          msg.includes("finance")
+        ) {
+          return getRandomResponse("finance");
+        }
+
+        if (
+          msg.includes("liên hệ") ||
+          msg.includes("tư vấn") ||
+          msg.includes("gọi") ||
+          msg.includes("contact")
+        ) {
+          return getRandomResponse("contact");
+        }
+
+        if (
+          msg.includes("sản phẩm") ||
+          msg.includes("xe") ||
+          msg.includes("honda") ||
+          msg.includes("giá") ||
+          msg.includes("sh") ||
+          msg.includes("air blade") ||
+          msg.includes("vision") ||
+          msg.includes("wave")
+        ) {
+          return getRandomResponse("products");
+        }
+
+        return getRandomResponse("default");
+      }
+
+      function getRandomResponse(category) {
+        const responses = chatResponses[category] || chatResponses.default;
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      function quickAction(action) {
+        let message = "";
+        switch (action) {
+          case "test-drive":
+            message = "Tôi muốn đặt lịch lái thử xe Honda";
+            break;
+          case "service":
+            message = "Tôi cần đặt lịch bảo dưỡng xe";
+            break;
+          case "finance":
+            message = "Tôi muốn tìm hiểu về trả góp";
+            break;
+          case "contact":
+            message = "Tôi muốn liên hệ với tư vấn viên";
+            break;
+        }
+
+        document.getElementById("chatInput").value = message;
+        sendMessage();
+      }
+
+      // Initialize chat
+      document.addEventListener("DOMContentLoaded", function () {
+        // Focus on input
+        document.getElementById("chatInput").focus();
+
+        // Add welcome message after a short delay
+        setTimeout(() => {
+          addMessage(
+            "Bạn có thể bắt đầu bằng cách nhập tin nhắn hoặc chọn thao tác nhanh bên dưới! 😊",
+            "bot",
+          );
+        }, 500);
+      });
+
+      // Add CSS animations
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes bounce {
+          0%, 80%, 100% {
+            transform: scale(0);
+          }
+          40% {
+            transform: scale(1);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
