@@ -458,6 +458,7 @@ window.Honda = {
   bookTestDrive,
   bookService,
   submitContactForm,
+  handleFormSubmit,
   formatPrice,
   showAlert,
   validateEmail,
