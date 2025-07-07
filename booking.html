@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đặt lịch xem xe - Head Kim Châu Honda</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb-section">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="index.html">Trang chủ</a>
+          <span>/</span>
+          <span>Đặt lịch xem xe</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Booking Header -->
+      <section class="booking-header section">
+        <div class="container">
+          <div class="booking-header-content">
+            <h1 class="page-title">Đặt lịch xem xe Honda</h1>
+            <p class="page-subtitle">
+              Trải nghiệm trực tiếp các dòng xe Honda mới nhất tại showroom Head
+              Kim Châu
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Process Guide -->
+      <section class="booking-guide section" style="background: var(--gray-50)">
+        <div class="container">
+          <h2 class="section-title text-center">Quy trình đặt lịch xem xe</h2>
+          <div class="process-steps">
+            <div class="step-item">
+              <div class="step-icon">1</div>
+              <h3>Chọn sản phẩm</h3>
+              <p>Lựa chọn dòng xe Honda bạn quan tâm</p>
+            </div>
+            <div class="step-item">
+              <div class="step-icon">2</div>
+              <h3>Chọn thời gian</h3>
+              <p>Chọn ngày và giờ phù hợp với lịch trình</p>
+            </div>
+            <div class="step-item">
+              <div class="step-icon">3</div>
+              <h3>Điền thông tin</h3>
+              <p>Cung cấp thông tin liên hệ để xác nhận</p>
+            </div>
+            <div class="step-item">
+              <div class="step-icon">4</div>
+              <h3>Xác nhận</h3>
+              <p>Nhận cuộc gọi xác nhận từ nhân viên tư vấn</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Form -->
+      <section class="booking-form-section section">
+        <div class="container">
+          <div class="booking-layout">
+            <!-- Left: Form -->
+            <div class="booking-form-container">
+              <div class="card">
+                <div class="card-header">
+                  <h2>Thông tin đặt lịch</h2>
+                  <p>
+                    Vui lòng điền đầy đủ thông tin để chúng tôi phục vụ bạn tốt
+                    nhất
+                  </p>
+                </div>
+
+                <form id="bookingForm" class="booking-form">
+                  <!-- Product Selection -->
+                  <div class="form-section">
+                    <h3 class="form-section-title">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <polygon points="10,8 16,12 10,16 10,8" />
+                      </svg>
+                      Sản phẩm quan tâm
+                    </h3>
+
+                    <div class="form-group">
+                      <label for="productCategory">Loại xe *</label>
+                      <select
+                        id="productCategory"
+                        name="productCategory"
+                        required
+                      >
+                        <option value="">Chọn loại xe</option>
+                        <option value="tay-ga">Xe tay ga</option>
+                        <option value="so">Xe số</option>
+                        <option value="mo-to">Mô tô</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="productModel">Dòng xe *</label>
+                      <select id="productModel" name="productModel" required>
+                        <option value="">Chọn dòng xe</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="productColor">Màu sắc mong muốn</label>
+                      <select id="productColor" name="productColor">
+                        <option value="">Chọn màu sắc</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Schedule Selection -->
+                  <div class="form-section">
+                    <h3 class="form-section-title">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                      Thời gian xem xe
+                    </h3>
+
+                    <div class="form-group">
+                      <label for="bookingDate">Ngày xem xe *</label>
+                      <input
+                        type="date"
+                        id="bookingDate"
+                        name="bookingDate"
+                        required
+                      />
+                      <small class="form-help"
+                        >Vui lòng chọn ngày từ hôm nay trở đi</small
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="bookingTime">Khung giờ *</label>
+                      <select id="bookingTime" name="bookingTime" required>
+                        <option value="">Chọn khung giờ</option>
+                        <option value="08:00-09:00">08:00 - 09:00</option>
+                        <option value="09:00-10:00">09:00 - 10:00</option>
+                        <option value="10:00-11:00">10:00 - 11:00</option>
+                        <option value="11:00-12:00">11:00 - 12:00</option>
+                        <option value="14:00-15:00">14:00 - 15:00</option>
+                        <option value="15:00-16:00">15:00 - 16:00</option>
+                        <option value="16:00-17:00">16:00 - 17:00</option>
+                        <option value="17:00-18:00">17:00 - 18:00</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Customer Information -->
+                  <div class="form-section">
+                    <h3 class="form-section-title">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      Thông tin liên hệ
+                    </h3>
+
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="customerName">Họ và tên *</label>
+                        <input
+                          type="text"
+                          id="customerName"
+                          name="customerName"
+                          required
+                          placeholder="Nhập họ và tên"
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="customerPhone">Số điện thoại *</label>
+                        <input
+                          type="tel"
+                          id="customerPhone"
+                          name="customerPhone"
+                          required
+                          placeholder="0901 234 567"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="customerEmail">Email</label>
+                      <input
+                        type="email"
+                        id="customerEmail"
+                        name="customerEmail"
+                        placeholder="example@email.com"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="customerAddress">Địa chỉ</label>
+                      <input
+                        type="text"
+                        id="customerAddress"
+                        name="customerAddress"
+                        placeholder="Địa chỉ của bạn"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Additional Information -->
+                  <div class="form-section">
+                    <h3 class="form-section-title">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          d="M9 11H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h4l-4 4V11z"
+                        />
+                        <path
+                          d="M15 11h4a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-4l4 4V11z"
+                        />
+                      </svg>
+                      Thông tin bổ sung
+                    </h3>
+
+                    <div class="form-group">
+                      <label for="purpose">Mục đích xem xe</label>
+                      <select id="purpose" name="purpose">
+                        <option value="">Chọn mục đích</option>
+                        <option value="mua-moi">Mua xe mới</option>
+                        <option value="doi-xe">Đổi xe cũ lấy xe mới</option>
+                        <option value="tra-gop">Quan tâm trả góp</option>
+                        <option value="tim-hieu">Tìm hiểu thông tin</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="notes">Ghi chú</label>
+                      <textarea
+                        id="notes"
+                        name="notes"
+                        rows="3"
+                        placeholder="Các yêu cầu đặc biệt hoặc câu hỏi..."
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Terms -->
+                  <div class="form-section">
+                    <div class="form-group checkbox-group">
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="agreeTerms"
+                          name="agreeTerms"
+                          required
+                        />
+                        <span class="checkmark"></span>
+                        Tôi đồng ý với
+                        <a href="#" onclick="showTerms()">điều khoản sử dụng</a>
+                        và
+                        <a href="#" onclick="showPrivacy()"
+                          >chính sách bảo mật</a
+                        >
+                      </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                      <label class="checkbox-label">
+                        <input
+                          type="checkbox"
+                          id="allowMarketing"
+                          name="allowMarketing"
+                        />
+                        <span class="checkmark"></span>
+                        Tôi muốn nhận thông tin khuyến mãi và tin tức mới từ
+                        Honda Head Kim Châu
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="form-actions">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg"
+                      id="submitBtn"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path d="M9 11l3 3 8-8" />
+                      </svg>
+                      Đặt lịch xem xe
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Right: Information -->
+            <div class="booking-info">
+              <!-- Contact Info -->
+              <div class="card info-card">
+                <h3>Thông tin liên hệ</h3>
+                <div class="contact-item">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <div>
+                    <strong>Địa chỉ showroom</strong>
+                    <p>123 Đường ABC, Quận XYZ, TP.HCM</p>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    />
+                  </svg>
+                  <div>
+                    <strong>Hotline</strong>
+                    <p>0901 234 567</p>
+                  </div>
+                </div>
+
+                <div class="contact-item">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12,6 12,12 16,14" />
+                  </svg>
+                  <div>
+                    <strong>Giờ làm việc</strong>
+                    <p>8:00 - 18:00 (Thứ 2 - Chủ nhật)</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Benefits -->
+              <div class="card info-card">
+                <h3>Ưu đãi khi xem xe</h3>
+                <ul class="benefits-list">
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 11l3 3 8-8" />
+                    </svg>
+                    Tư vấn chuyên nghiệp từ chuyên gia
+                  </li>
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 11l3 3 8-8" />
+                    </svg>
+                    Trải nghiệm thực tế tất cả tính năng
+                  </li>
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 11l3 3 8-8" />
+                    </svg>
+                    Báo giá chi tiết và ưu đãi đặc biệt
+                  </li>
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 11l3 3 8-8" />
+                    </svg>
+                    Hỗ trợ thủ tục trả góp nhanh chóng
+                  </li>
+                  <li>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M9 11l3 3 8-8" />
+                    </svg>
+                    Quà tặng đặc biệt cho khách hàng mua xe
+                  </li>
+                </ul>
+              </div>
+
+              <!-- FAQ -->
+              <div class="card info-card">
+                <h3>Câu hỏi thường gặp</h3>
+                <div class="faq-item">
+                  <button class="faq-question" onclick="toggleFaq(this)">
+                    Tôi có cần mang giấy tờ gì khi xem xe?
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="6,9 12,15 18,9" />
+                    </svg>
+                  </button>
+                  <div class="faq-answer">
+                    <p>
+                      Bạn chỉ cần mang theo CMND/CCCD để xác nhận thông tin.
+                      Không cần bằng lái xe vì chỉ xem xe tại showroom.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-question" onclick="toggleFaq(this)">
+                    Có mất phí khi xem xe không?
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="6,9 12,15 18,9" />
+                    </svg>
+                  </button>
+                  <div class="faq-answer">
+                    <p>
+                      Hoàn toàn miễn phí. Chúng tôi còn tặng quà lưu niệm cho
+                      khách hàng đến xem xe.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-question" onclick="toggleFaq(this)">
+                    Có thể hủy lịch hẹn không?
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="6,9 12,15 18,9" />
+                    </svg>
+                  </button>
+                  <div class="faq-answer">
+                    <p>
+                      Có thể hủy hoặc đổi lịch bằng cách gọi hotline trước ít
+                      nhất 2 tiếng.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Floating Social Buttons -->
+    <div class="floating-buttons">
+      <a href="tel:0901234567" class="floating-btn phone-btn" title="Gọi điện">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M22 16.92V20C22 20.55 21.55 21 21 21C9.4 21 0 11.6 0 0C0 -0.55 0.45 -1 1 -1H4.08C4.63 -1 5.08 -0.55 5.08 0C5.08 1.25 5.25 2.45 5.57 3.57C5.7 4.01 5.59 4.48 5.31 4.82L3.4 7.17C5.57 11.4 8.6 14.43 12.83 16.6L15.18 14.69C15.52 14.41 15.99 14.3 16.43 14.43C17.55 14.75 18.75 14.92 20 14.92C20.55 14.92 21 15.37 21 15.92V19Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+
+      <a
+        href="https://zalo.me/0901234567"
+        target="_blank"
+        class="floating-btn zalo-btn"
+        title="Zalo"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 0C5.373 0 0 5.373 0 12C0 18.627 5.373 24 12 24C18.627 24 24 18.627 24 12C24 5.373 18.627 0 12 0ZM17.567 16.925C17.327 17.31 16.951 17.455 16.502 17.455C16.128 17.455 15.816 17.316 15.566 17.037L12.8 14.271C12.356 13.827 11.644 13.827 11.2 14.271L8.434 17.037C8.184 17.316 7.872 17.455 7.498 17.455C7.049 17.455 6.673 17.31 6.433 16.925C6.193 16.54 6.193 16.019 6.433 15.634L9.199 12.868C9.643 12.424 9.643 11.712 9.199 11.268L6.433 8.502C6.193 8.117 6.193 7.596 6.433 7.211C6.673 6.826 7.049 6.681 7.498 6.681C7.872 6.681 8.184 6.82 8.434 7.099L11.2 9.865C11.644 10.309 12.356 10.309 12.8 9.865L15.566 7.099C15.816 6.82 16.128 6.681 16.502 6.681C16.951 6.681 17.327 6.826 17.567 7.211C17.807 7.596 17.807 8.117 17.567 8.502L14.801 11.268C14.357 11.712 14.357 12.424 14.801 12.868L17.567 15.634C17.807 16.019 17.807 16.54 17.567 16.925Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+
+      <a
+        href="https://m.me/headkimchau"
+        target="_blank"
+        class="floating-btn facebook-btn"
+        title="Facebook Messenger"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 0C5.373 0 0 4.925 0 11C0 14.5 1.95 17.625 5 19.5V24L9.375 21.75C10.25 21.9 11.125 22 12 22C18.627 22 24 17.075 24 11C24 4.925 18.627 0 12 0ZM13.5 14.75L10.875 12L5.625 14.75L11.625 8.25L14.25 11L19.5 8.25L13.5 14.75Z"
+            fill="currentColor"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" title="Lên đầu trang">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M7 14L12 9L17 14"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="mock/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      // Load header and footer
+      fetch("components/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+          const script = document.querySelector("#header-placeholder script");
+          if (script) {
+            eval(script.innerHTML);
+          }
+        });
+
+      fetch("components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
+
+      // Initialize booking page
+      document.addEventListener("DOMContentLoaded", initBookingPage);
+    </script>
+  </body>
+</html>
