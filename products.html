@@ -78,7 +78,7 @@
                 <label class="form-label">Khoảng giá</label>
                 <select id="priceFilter" class="form-input">
                   <option value="all">Tất cả</option>
-                  <option value="under-30">Dưới 30 triệu</option>
+                  <option value="under-30">Dư��i 30 triệu</option>
                   <option value="30-60">30 - 60 triệu</option>
                   <option value="over-60">Trên 60 triệu</option>
                 </select>
@@ -302,7 +302,7 @@
             return `
             <div class="${cardClass} fade-in">
               <div style="position: relative; overflow: hidden; ${currentViewMode === "list" ? "width: 200px; flex-shrink: 0;" : ""}">
-                <img src="${product.image}" alt="${product.name}" 
+                <img src="${product.image}" alt="${product.name}"
                      style="width: 100%; ${currentViewMode === "list" ? "height: 150px;" : "height: 200px;"} object-fit: cover; transition: transform 0.3s;">
                 ${product.featured ? '<div class="product-badge">Nổi bật</div>' : ""}
               </div>
@@ -321,7 +321,7 @@
                   </div>
                   <div class="product-actions">
                     <button onclick="Honda.handleTestDrive('${product.name}')" class="btn btn-primary btn-sm flex-1">
-                      Lái thử
+                      Xem xe
                     </button>
                     <a href="product-detail.html?id=${product.id}" class="btn btn-outline btn-sm">
                       Chi tiết
