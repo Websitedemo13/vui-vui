@@ -3,1968 +3,741 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang Quản Trị - Head Kim Châu</title>
-    <meta
-      name="description"
-      content="Trang quản trị hệ thống Head Kim Châu - Dashboard hiện đại với analytics và CRUD operations"
-    />
+    <title>CMS/CRM Dashboard - Head Kim Châu Honda</title>
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"
+    />
   </head>
-
-  <body>
-    <!-- Header -->
-    <div id="header-container"></div>
-
-    <!-- Main Content -->
-    <main>
-      <!-- Page Header with Stats -->
-      <section class="section section-gray">
-        <div class="container">
-          <div class="text-center mb-8">
-            <h1
-              style="
-                font-size: 2.5rem;
-                font-weight: bold;
-                margin-bottom: 16px;
-                color: var(--gray-900);
-              "
-            >
-              🎛️ Dashboard Quản Trị
-            </h1>
-            <p
-              style="
-                font-size: 1.125rem;
-                color: var(--gray-600);
-                max-width: 600px;
-                margin: 0 auto;
-              "
-            >
-              Hệ thống quản lý toàn diện Honda Head Kim Châu
-            </p>
-          </div>
-
-          <!-- Real-time Stats Cards -->
-          <div class="grid grid-4 mb-8">
-            <div class="card scale-in hover-lift">
-              <div class="card-content text-center">
-                <div
-                  class="stat-icon"
-                  style="
-                    background: linear-gradient(135deg, #e60012, #cc000f);
-                    color: white;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 12px;
-                    box-shadow: 0 8px 20px rgba(230, 0, 18, 0.3);
-                  "
-                >
-                  🏍️
-                </div>
-                <div
-                  style="
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    color: var(--honda-red);
-                    margin-bottom: 8px;
-                  "
-                  id="totalProducts"
-                >
-                  0
-                </div>
-                <p style="color: var(--gray-600); font-weight: 500">Sản phẩm</p>
-                <div
-                  style="
-                    margin-top: 8px;
-                    font-size: 12px;
-                    color: var(--gray-500);
-                  "
-                >
-                  <span id="productGrowth">+0%</span> so với tháng trước
-                </div>
-              </div>
-            </div>
-
-            <div class="card scale-in hover-lift">
-              <div class="card-content text-center">
-                <div
-                  class="stat-icon"
-                  style="
-                    background: linear-gradient(135deg, #10b981, #059669);
-                    color: white;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 12px;
-                    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-                  "
-                >
-                  👥
-                </div>
-                <div
-                  style="
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    color: #10b981;
-                    margin-bottom: 8px;
-                  "
-                  id="totalUsers"
-                >
-                  0
-                </div>
-                <p style="color: var(--gray-600); font-weight: 500">
-                  Người dùng
-                </p>
-                <div
-                  style="
-                    margin-top: 8px;
-                    font-size: 12px;
-                    color: var(--gray-500);
-                  "
-                >
-                  <span id="userGrowth">+0%</span> người dùng mới
-                </div>
-              </div>
-            </div>
-
-            <div class="card scale-in hover-lift">
-              <div class="card-content text-center">
-                <div
-                  class="stat-icon"
-                  style="
-                    background: linear-gradient(135deg, #f59e0b, #d97706);
-                    color: white;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 12px;
-                    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-                  "
-                >
-                  📅
-                </div>
-                <div
-                  style="
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    color: #f59e0b;
-                    margin-bottom: 8px;
-                  "
-                  id="totalBookings"
-                >
-                  0
-                </div>
-                <p style="color: var(--gray-600); font-weight: 500">
-                  Lịch xem xe
-                </p>
-                <div
-                  style="
-                    margin-top: 8px;
-                    font-size: 12px;
-                    color: var(--gray-500);
-                  "
-                >
-                  <span id="bookingGrowth">+0%</span> trong tuần
-                </div>
-              </div>
-            </div>
-
-            <div class="card scale-in hover-lift">
-              <div class="card-content text-center">
-                <div
-                  class="stat-icon"
-                  style="
-                    background: linear-gradient(135deg, #3b82f6, #2563eb);
-                    color: white;
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto 12px;
-                    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-                  "
-                >
-                  💬
-                </div>
-                <div
-                  style="
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    color: #3b82f6;
-                    margin-bottom: 8px;
-                  "
-                  id="totalContacts"
-                >
-                  0
-                </div>
-                <p style="color: var(--gray-600); font-weight: 500">Tin nhắn</p>
-                <div
-                  style="
-                    margin-top: 8px;
-                    font-size: 12px;
-                    color: var(--gray-500);
-                  "
-                >
-                  <span id="contactGrowth">+0%</span> phản hồi mới
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Actions -->
-          <div class="card mb-8">
-            <div class="card-header">
-              <h3
-                style="
-                  font-size: 20px;
-                  font-weight: 600;
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                "
-              >
-                ⚡ Thao tác nhanh
-              </h3>
-            </div>
-            <div class="card-content">
-              <div class="grid grid-4 gap-4">
-                <button
-                  onclick="showAddProductForm()"
-                  class="btn btn-primary btn-lg ripple"
-                  style="width: 100%"
-                >
-                  ➕ Thêm sản phẩm
-                </button>
-                <button
-                  onclick="exportAllData()"
-                  class="btn btn-outline btn-lg ripple"
-                  style="width: 100%"
-                >
-                  📤 Xuất dữ liệu
-                </button>
-                <button
-                  onclick="openChatSupport()"
-                  class="btn btn-outline btn-lg ripple"
-                  style="width: 100%"
-                >
-                  💬 Hỗ trợ live
-                </button>
-                <button
-                  onclick="generateReport()"
-                  class="btn btn-outline btn-lg ripple"
-                  style="width: 100%"
-                >
-                  📊 Tạo báo cáo
-                </button>
-              </div>
-            </div>
+  <body class="admin-body">
+    <!-- Admin Header -->
+    <header class="admin-header">
+      <div class="admin-header-content">
+        <div class="admin-logo">
+          <div class="logo-icon">H</div>
+          <div class="admin-title">
+            <h1>Honda CMS/CRM</h1>
+            <p>Hệ thống quản lý nội dung & khách hàng</p>
           </div>
         </div>
-      </section>
 
-      <!-- Charts and Analytics -->
-      <section class="section">
-        <div class="container">
-          <div class="grid grid-2 mb-8">
-            <!-- Sales Chart -->
-            <div class="card">
-              <div class="card-header">
-                <h3 style="font-size: 18px; font-weight: 600">
-                  📈 Doanh thu 7 ngày qua
-                </h3>
-              </div>
-              <div class="card-content">
-                <canvas id="salesChart" width="400" height="200"></canvas>
-              </div>
-            </div>
-
-            <!-- Product Performance -->
-            <div class="card">
-              <div class="card-header">
-                <h3 style="font-size: 18px; font-weight: 600">
-                  🏆 Sản phẩm bán chạy
-                </h3>
-              </div>
-              <div class="card-content">
-                <canvas id="productChart" width="400" height="200"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <!-- Management Tabs -->
-          <div class="card">
-            <div class="card-header">
-              <div
-                style="
-                  display: flex;
-                  gap: 16px;
-                  border-bottom: 1px solid var(--gray-200);
-                  margin-bottom: 24px;
-                  overflow-x: auto;
-                "
+        <div class="admin-user-menu">
+          <div class="admin-notifications">
+            <button class="notification-btn" onclick="toggleNotifications()">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
               >
-                <button
-                  class="tab-btn active"
-                  onclick="switchTab('products')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  🏍️ Sản phẩm
-                </button>
-                <button
-                  class="tab-btn"
-                  onclick="switchTab('users')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  👥 Người dùng
-                </button>
-                <button
-                  class="tab-btn"
-                  onclick="switchTab('bookings')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  📅 Đặt lịch
-                </button>
-                <button
-                  class="tab-btn"
-                  onclick="switchTab('contacts')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  💬 Liên hệ
-                </button>
-                <button
-                  class="tab-btn"
-                  onclick="switchTab('analytics')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  📊 Phân tích
-                </button>
-                <button
-                  class="tab-btn"
-                  onclick="switchTab('settings')"
-                  style="
-                    padding: 12px 20px;
-                    border: none;
-                    background: none;
-                    color: var(--gray-600);
-                    font-weight: 500;
-                    cursor: pointer;
-                    border-bottom: 2px solid transparent;
-                    white-space: nowrap;
-                    transition: all 0.3s;
-                  "
-                >
-                  ⚙️ Cài đặt
-                </button>
-              </div>
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              <span class="notification-badge">3</span>
+            </button>
+          </div>
+
+          <div class="admin-user-info">
+            <div class="user-avatar">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
             </div>
-
-            <div class="card-content">
-              <!-- Products Tab -->
-              <div id="productsTab" class="tab-content">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 24px;
-                    flex-wrap: wrap;
-                    gap: 16px;
-                  "
-                >
-                  <div>
-                    <h3
-                      style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        margin-bottom: 4px;
-                      "
-                    >
-                      Quản lý sản phẩm
-                    </h3>
-                    <p style="color: var(--gray-600); font-size: 14px">
-                      Thêm, sửa, xóa các sản phẩm Honda
-                    </p>
-                  </div>
-                  <div style="display: flex; gap: 12px">
-                    <input
-                      type="text"
-                      id="productSearch"
-                      placeholder="🔍 Tìm kiếm sản phẩm..."
-                      style="
-                        padding: 8px 12px;
-                        border: 1px solid var(--gray-300);
-                        border-radius: 6px;
-                        width: 200px;
-                      "
-                      onkeyup="searchProducts()"
-                    />
-                    <button
-                      onclick="showAddProductForm()"
-                      class="btn btn-primary"
-                    >
-                      ➕ Thêm sản phẩm
-                    </button>
-                  </div>
-                </div>
-                <div id="productsTable">
-                  <!-- Products will be loaded here -->
-                </div>
-              </div>
-
-              <!-- Users Tab -->
-              <div id="usersTab" class="tab-content hidden">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 24px;
-                  "
-                >
-                  <div>
-                    <h3
-                      style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        margin-bottom: 4px;
-                      "
-                    >
-                      Quản lý người dùng
-                    </h3>
-                    <p style="color: var(--gray-600); font-size: 14px">
-                      Danh sách và phân quyền người dùng
-                    </p>
-                  </div>
-                  <div style="display: flex; gap: 12px">
-                    <select
-                      id="userRoleFilter"
-                      onchange="filterUsers()"
-                      style="
-                        padding: 8px 12px;
-                        border: 1px solid var(--gray-300);
-                        border-radius: 6px;
-                      "
-                    >
-                      <option value="all">Tất cả vai trò</option>
-                      <option value="admin">Admin</option>
-                      <option value="user">User</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="usersTable">
-                  <!-- Users will be loaded here -->
-                </div>
-              </div>
-
-              <!-- Bookings Tab -->
-              <div id="bookingsTab" class="tab-content hidden">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 24px;
-                  "
-                >
-                  <div>
-                    <h3
-                      style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        margin-bottom: 4px;
-                      "
-                    >
-                      Quản lý lịch xem xe
-                    </h3>
-                    <p style="color: var(--gray-600); font-size: 14px">
-                      Theo dõi và xử lý yêu cầu xem xe
-                    </p>
-                  </div>
-                  <div style="display: flex; gap: 12px">
-                    <select
-                      id="bookingStatusFilter"
-                      onchange="filterBookings()"
-                      style="
-                        padding: 8px 12px;
-                        border: 1px solid var(--gray-300);
-                        border-radius: 6px;
-                      "
-                    >
-                      <option value="all">Tất cả trạng thái</option>
-                      <option value="pending">Chờ xử lý</option>
-                      <option value="confirmed">Đã xác nhận</option>
-                      <option value="completed">Hoàn thành</option>
-                      <option value="cancelled">Đã hủy</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="bookingsTable">
-                  <!-- Bookings will be loaded here -->
-                </div>
-              </div>
-
-              <!-- Contacts Tab -->
-              <div id="contactsTab" class="tab-content hidden">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 24px;
-                  "
-                >
-                  <div>
-                    <h3
-                      style="
-                        font-size: 18px;
-                        font-weight: 600;
-                        margin-bottom: 4px;
-                      "
-                    >
-                      Tin nhắn liên hệ
-                    </h3>
-                    <p style="color: var(--gray-600); font-size: 14px">
-                      Quản lý và phản hồi tin nhắn khách hàng
-                    </p>
-                  </div>
-                  <div style="display: flex; gap: 12px">
-                    <select
-                      id="contactStatusFilter"
-                      onchange="filterContacts()"
-                      style="
-                        padding: 8px 12px;
-                        border: 1px solid var(--gray-300);
-                        border-radius: 6px;
-                      "
-                    >
-                      <option value="all">Tất cả</option>
-                      <option value="new">Mới</option>
-                      <option value="replied">Đã phản hồi</option>
-                      <option value="closed">Đã đóng</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="contactsTable">
-                  <!-- Contacts will be loaded here -->
-                </div>
-              </div>
-
-              <!-- Analytics Tab -->
-              <div id="analyticsTab" class="tab-content hidden">
-                <div style="margin-bottom: 24px">
-                  <h3
-                    style="
-                      font-size: 18px;
-                      font-weight: 600;
-                      margin-bottom: 4px;
-                    "
-                  >
-                    📊 Phân tích chi tiết
-                  </h3>
-                  <p style="color: var(--gray-600); font-size: 14px">
-                    Thống kê và báo cáo hiệu suất
-                  </p>
-                </div>
-                <div class="grid grid-2" style="margin-bottom: 24px">
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>📈 Lượt truy cập</h4>
-                    </div>
-                    <div class="card-content">
-                      <canvas
-                        id="visitorChart"
-                        width="400"
-                        height="200"
-                      ></canvas>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>🎯 Chuyển đổi</h4>
-                    </div>
-                    <div class="card-content">
-                      <div
-                        style="
-                          display: flex;
-                          justify-content: space-between;
-                          margin-bottom: 16px;
-                        "
-                      >
-                        <span>Tỷ lệ chuyển đổi</span>
-                        <strong style="color: var(--honda-red)">12.5%</strong>
-                      </div>
-                      <div
-                        style="
-                          background: var(--gray-200);
-                          height: 8px;
-                          border-radius: 4px;
-                          overflow: hidden;
-                        "
-                      >
-                        <div
-                          style="
-                            background: var(--honda-red);
-                            height: 100%;
-                            width: 12.5%;
-                            transition: width 0.3s;
-                          "
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="grid grid-3">
-                  <div class="card text-center">
-                    <div class="card-content">
-                      <div style="font-size: 2rem; margin-bottom: 8px">🔥</div>
-                      <div
-                        style="
-                          font-size: 24px;
-                          font-weight: bold;
-                          color: var(--honda-red);
-                        "
-                      >
-                        1,245
-                      </div>
-                      <p style="color: var(--gray-600)">Lượt xem sản phẩm</p>
-                    </div>
-                  </div>
-                  <div class="card text-center">
-                    <div class="card-content">
-                      <div style="font-size: 2rem; margin-bottom: 8px">💰</div>
-                      <div
-                        style="
-                          font-size: 24px;
-                          font-weight: bold;
-                          color: #10b981;
-                        "
-                      >
-                        ₫2.1B
-                      </div>
-                      <p style="color: var(--gray-600)">Doanh thu tháng</p>
-                    </div>
-                  </div>
-                  <div class="card text-center">
-                    <div class="card-content">
-                      <div style="font-size: 2rem; margin-bottom: 8px">⭐</div>
-                      <div
-                        style="
-                          font-size: 24px;
-                          font-weight: bold;
-                          color: #f59e0b;
-                        "
-                      >
-                        4.8/5
-                      </div>
-                      <p style="color: var(--gray-600)">Đánh giá trung bình</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Settings Tab -->
-              <div id="settingsTab" class="tab-content hidden">
-                <div style="margin-bottom: 24px">
-                  <h3
-                    style="
-                      font-size: 18px;
-                      font-weight: 600;
-                      margin-bottom: 4px;
-                    "
-                  >
-                    ⚙️ Cài đặt hệ thống
-                  </h3>
-                  <p style="color: var(--gray-600); font-size: 14px">
-                    C���u hình và quản lý hệ thống
-                  </p>
-                </div>
-                <div class="grid grid-2">
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>🗃️ Quản lý dữ liệu</h4>
-                    </div>
-                    <div class="card-content">
-                      <button
-                        onclick="exportData()"
-                        class="btn btn-outline btn-sm"
-                        style="margin-bottom: 8px; width: 100%"
-                      >
-                        📤 Xuất dữ liệu (JSON)
-                      </button>
-                      <button
-                        onclick="importData()"
-                        class="btn btn-outline btn-sm"
-                        style="margin-bottom: 8px; width: 100%"
-                      >
-                        📥 Nhập dữ liệu
-                      </button>
-                      <button
-                        onclick="backupData()"
-                        class="btn btn-outline btn-sm"
-                        style="margin-bottom: 8px; width: 100%"
-                      >
-                        💾 Sao lưu dữ liệu
-                      </button>
-                      <button
-                        onclick="resetData()"
-                        class="btn btn-outline btn-sm"
-                        style="
-                          width: 100%;
-                          color: #ef4444;
-                          border-color: #ef4444;
-                        "
-                      >
-                        🗑️ Reset toàn bộ
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>ℹ️ Thông tin hệ thống</h4>
-                    </div>
-                    <div class="card-content">
-                      <div style="margin-bottom: 12px">
-                        <strong>Version:</strong> <span>v2.0.0</span>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <strong>Database:</strong>
-                        <span>LocalStorage + IndexedDB</span>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <strong>Admin:</strong>
-                        <span id="currentAdminName">-</span>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <strong>Đăng nhập:</strong>
-                        <span id="loginTime">-</span>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <strong>Last Backup:</strong>
-                        <span id="lastBackup">Chưa có</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>🔧 Cấu hình website</h4>
-                    </div>
-                    <div class="card-content">
-                      <div class="form-group">
-                        <label class="form-label">Tên website</label>
-                        <input
-                          type="text"
-                          class="form-input"
-                          id="siteName"
-                          value="Head Kim Châu"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Email liên hệ</label>
-                        <input
-                          type="email"
-                          class="form-input"
-                          id="contactEmail"
-                          value="info@headkimchau.com"
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Hotline</label>
-                        <input
-                          type="text"
-                          class="form-input"
-                          id="hotline"
-                          value="0901 234 567"
-                        />
-                      </div>
-                      <button
-                        onclick="saveSettings()"
-                        class="btn btn-primary"
-                        style="width: 100%"
-                      >
-                        💾 Lưu cài đặt
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="card">
-                    <div class="card-header">
-                      <h4>📊 Performance</h4>
-                    </div>
-                    <div class="card-content">
-                      <div style="margin-bottom: 12px">
-                        <div
-                          style="display: flex; justify-content: space-between"
-                        >
-                          <span>Storage Used:</span>
-                          <strong id="storageUsed">0 KB</strong>
-                        </div>
-                        <div
-                          style="
-                            background: var(--gray-200);
-                            height: 6px;
-                            border-radius: 3px;
-                            margin-top: 4px;
-                          "
-                        >
-                          <div
-                            id="storageBar"
-                            style="
-                              background: var(--honda-red);
-                              height: 100%;
-                              width: 0%;
-                              border-radius: 3px;
-                              transition: width 0.3s;
-                            "
-                          ></div>
-                        </div>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <div
-                          style="display: flex; justify-content: space-between"
-                        >
-                          <span>Cache Hit Rate:</span>
-                          <strong style="color: #10b981">94%</strong>
-                        </div>
-                      </div>
-                      <div style="margin-bottom: 12px">
-                        <div
-                          style="display: flex; justify-content: space-between"
-                        >
-                          <span>Page Load Time:</span>
-                          <strong style="color: #10b981">1.2s</strong>
-                        </div>
-                      </div>
-                      <button
-                        onclick="clearCache()"
-                        class="btn btn-outline btn-sm"
-                        style="width: 100%"
-                      >
-                        🧹 Xóa cache
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="user-details">
+              <span id="adminUserName">Admin</span>
+              <span class="user-role">Quản trị viên</span>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Add Product Modal -->
-      <div id="addProductModal" class="modal hidden">
-        <div class="modal-overlay" onclick="hideAddProductForm()"></div>
-        <div class="modal-content">
-          <div
-            class="card"
-            style="
-              max-width: 700px;
-              margin: 20px auto;
-              max-height: 90vh;
-              overflow-y: auto;
-            "
-          >
-            <div class="card-header">
-              <h3 style="display: flex; align-items: center; gap: 8px">
-                ➕ Thêm sản phẩm Honda mới
-              </h3>
-            </div>
-            <div class="card-content">
-              <form id="addProductForm">
-                <div class="grid grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Tên sản phẩm *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      class="form-input"
-                      required
-                      placeholder="Honda Air Blade 160"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Loại xe *</label>
-                    <select name="type" class="form-input" required>
-                      <option value="">Chọn loại xe</option>
-                      <option value="tay-ga">Xe tay ga</option>
-                      <option value="so">Xe số</option>
-                      <option value="dien">Xe điện</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="grid grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Giá bán (VNĐ) *</label>
-                    <input
-                      type="number"
-                      name="price"
-                      class="form-input"
-                      required
-                      placeholder="58000000"
-                      min="0"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Phân khối (cc)</label>
-                    <input
-                      type="number"
-                      name="displacement"
-                      class="form-input"
-                      placeholder="160"
-                      min="50"
-                      max="1000"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Màu sắc có sẵn *</label>
-                  <input
-                    type="text"
-                    name="colors"
-                    class="form-input"
-                    required
-                    placeholder="Đỏ, Đen, Xanh, Trắng"
-                  />
-                  <small style="color: var(--gray-500); font-size: 12px"
-                    >Phân cách bằng dấu phẩy</small
-                  >
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Mô tả sản phẩm *</label>
-                  <textarea
-                    name="description"
-                    class="form-input"
-                    rows="3"
-                    required
-                    placeholder="Mô tả chi tiết về sản phẩm..."
-                  ></textarea>
-                </div>
-
-                <div class="grid grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Động cơ</label>
-                    <input
-                      type="text"
-                      name="engine"
-                      class="form-input"
-                      placeholder="159.7cc, 4-stroke, SOHC"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Công suất</label>
-                    <input
-                      type="text"
-                      name="power"
-                      class="form-input"
-                      placeholder="11.0 kW (14.9 PS)"
-                    />
-                  </div>
-                </div>
-
-                <div class="grid grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Dung tích bình xăng</label>
-                    <input
-                      type="text"
-                      name="fuelCapacity"
-                      class="form-input"
-                      placeholder="4.2 lít"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Trọng lượng</label>
-                    <input
-                      type="text"
-                      name="weight"
-                      class="form-input"
-                      placeholder="117 kg"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label
-                    class="form-label"
-                    style="display: flex; align-items: center; gap: 8px"
-                  >
-                    <input
-                      type="checkbox"
-                      name="featured"
-                      style="margin-right: 8px"
-                    />
-                    ⭐ Đánh dấu là sản phẩm nổi bật
-                  </label>
-                </div>
-
-                <div style="display: flex; gap: 12px; margin-top: 24px">
-                  <button type="submit" class="btn btn-primary flex-1 ripple">
-                    ✅ Thêm sản phẩm
-                  </button>
-                  <button
-                    type="button"
-                    onclick="hideAddProductForm()"
-                    class="btn btn-outline"
-                  >
-                    ❌ Hủy bỏ
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <button class="logout-btn" onclick="Honda.logout()">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16,17 21,12 16,7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
         </div>
       </div>
-    </main>
+    </header>
 
-    <!-- Footer -->
-    <div id="footer-container"></div>
+    <!-- Admin Main Content -->
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <nav class="admin-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Tổng quan</div>
+            <button class="nav-item active" data-section="dashboard">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="3" width="7" height="9" />
+                <rect x="14" y="3" width="7" height="5" />
+                <rect x="14" y="12" width="7" height="9" />
+                <rect x="3" y="16" width="7" height="5" />
+              </svg>
+              Dashboard
+            </button>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Quản lý nội dung</div>
+            <button class="nav-item" data-section="products">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+              Sản phẩm Honda
+              <span class="nav-badge" id="productsBadge">6</span>
+            </button>
+
+            <button class="nav-item" data-section="parts">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+              Phụ tùng
+              <span class="nav-badge" id="partsBadge">8</span>
+            </button>
+
+            <button class="nav-item" data-section="news">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"
+                />
+                <path d="M18 14h-8" />
+                <path d="M15 18h-5" />
+                <path d="M10 6h8" />
+              </svg>
+              Tin tức
+              <span class="nav-badge" id="newsBadge">5</span>
+            </button>
+
+            <button class="nav-item" data-section="promotions">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+              Khuyến mãi
+              <span class="nav-badge" id="promotionsBadge">4</span>
+            </button>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Quản lý khách hàng</div>
+            <button class="nav-item" data-section="bookings">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Lịch xem xe
+              <span class="nav-badge" id="bookingsBadge">0</span>
+            </button>
+
+            <button class="nav-item" data-section="users">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              Người dùng
+              <span class="nav-badge" id="usersBadge">0</span>
+            </button>
+
+            <button class="nav-item" data-section="contacts">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              Liên hệ
+              <span class="nav-badge" id="contactsBadge">0</span>
+            </button>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Hệ thống</div>
+            <button class="nav-item" data-section="analytics">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+              </svg>
+              Phân tích
+            </button>
+
+            <button class="nav-item" data-section="settings">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                />
+              </svg>
+              Cài đặt
+            </button>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="admin-content">
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="admin-section active">
+          <div class="section-header">
+            <h2>Dashboard Tổng quan</h2>
+            <div class="section-actions">
+              <button
+                class="btn btn-outline btn-sm"
+                onclick="refreshDashboard()"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="23,4 23,10 17,10" />
+                  <polyline points="1,20 1,14 7,14" />
+                  <path
+                    d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"
+                  />
+                </svg>
+                Làm mới
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <div class="stat-icon products">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+                  />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <path d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 id="totalProducts">0</h3>
+                <p>Sản phẩm Honda</p>
+                <div class="stat-trend up">↗ +12%</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon bookings">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 id="totalBookings">0</h3>
+                <p>Lịch xem xe</p>
+                <div class="stat-trend up">↗ +24%</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon users">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 id="totalUsers">0</h3>
+                <p>Người dùng</p>
+                <div class="stat-trend up">↗ +8%</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon revenue">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 id="totalRevenue">0đ</h3>
+                <p>Doanh thu (ước tính)</p>
+                <div class="stat-trend up">↗ +18%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="dashboard-charts">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Lịch xem xe theo tuần</h3>
+                <select id="bookingChartPeriod" onchange="updateBookingChart()">
+                  <option value="week">7 ngày</option>
+                  <option value="month">30 ngày</option>
+                  <option value="year">12 tháng</option>
+                </select>
+              </div>
+              <canvas id="bookingChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Sản phẩm phổ biến</h3>
+              </div>
+              <canvas id="productChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Recent Activities -->
+          <div class="dashboard-activities">
+            <div class="activity-card">
+              <div class="activity-header">
+                <h3>Hoạt động gần đây</h3>
+                <button
+                  class="btn btn-sm btn-outline"
+                  onclick="loadRecentActivities()"
+                >
+                  Xem tất cả
+                </button>
+              </div>
+              <div id="recentActivitiesList" class="activity-list">
+                <!-- Activities will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="productsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Sản phẩm Honda</h2>
+            <div class="section-actions">
+              <button class="btn btn-primary" onclick="showAddProductModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Thêm sản phẩm mới
+              </button>
+            </div>
+          </div>
+
+          <div class="content-filters">
+            <div class="filter-group">
+              <input
+                type="text"
+                id="productSearchInput"
+                placeholder="Tìm kiếm sản phẩm..."
+                class="search-input"
+              />
+            </div>
+            <div class="filter-group">
+              <select id="productTypeFilter">
+                <option value="">Tất cả loại xe</option>
+                <option value="tay-ga">Xe tay ga</option>
+                <option value="so">Xe số</option>
+                <option value="mo-to">Mô tô</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="productsTableContainer" class="table-container">
+            <!-- Products table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Parts Section -->
+        <section id="partsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Phụ tùng</h2>
+            <div class="section-actions">
+              <button class="btn btn-primary" onclick="showAddPartModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Thêm phụ tùng
+              </button>
+            </div>
+          </div>
+
+          <div id="partsTableContainer" class="table-container">
+            <!-- Parts table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="newsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Tin tức</h2>
+            <div class="section-actions">
+              <button class="btn btn-primary" onclick="showAddNewsModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Viết bài mới
+              </button>
+            </div>
+          </div>
+
+          <div id="newsTableContainer" class="table-container">
+            <!-- News table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Promotions Section -->
+        <section id="promotionsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Khuyến mãi</h2>
+            <div class="section-actions">
+              <button class="btn btn-primary" onclick="showAddPromotionModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Tạo khuyến mãi
+              </button>
+            </div>
+          </div>
+
+          <div id="promotionsTableContainer" class="table-container">
+            <!-- Promotions table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section id="bookingsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Lịch xem xe</h2>
+            <div class="section-actions">
+              <select id="bookingStatusFilter" onchange="filterBookings()">
+                <option value="">Tất cả trạng thái</option>
+                <option value="pending">Chờ xác nhận</option>
+                <option value="confirmed">Đã xác nhận</option>
+                <option value="completed">Hoàn thành</option>
+                <option value="cancelled">Đã hủy</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="bookingsTableContainer" class="table-container">
+            <!-- Bookings table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="usersSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Người dùng</h2>
+            <div class="section-actions">
+              <button class="btn btn-primary" onclick="showAddUserModal()">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Thêm người dùng
+              </button>
+            </div>
+          </div>
+
+          <div id="usersTableContainer" class="table-container">
+            <!-- Users table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contactsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Quản lý Liên hệ</h2>
+          </div>
+
+          <div id="contactsTableContainer" class="table-container">
+            <!-- Contacts table will be loaded here -->
+          </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analyticsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Phân tích & Báo cáo</h2>
+          </div>
+
+          <div class="analytics-grid">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Lượt truy cập website</h3>
+              </div>
+              <canvas id="visitorsChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Nguồn khách hàng</h3>
+              </div>
+              <canvas id="sourceChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settingsSection" class="admin-section">
+          <div class="section-header">
+            <h2>Cài đặt Hệ thống</h2>
+          </div>
+
+          <div class="settings-grid">
+            <div class="settings-card">
+              <h3>Cài đặt chung</h3>
+              <form id="generalSettingsForm">
+                <div class="form-group">
+                  <label>Tên website</label>
+                  <input type="text" value="Honda Head Kim Châu" />
+                </div>
+                <div class="form-group">
+                  <label>Email liên hệ</label>
+                  <input type="email" value="info@headkimchau.com" />
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input type="tel" value="0901 234 567" />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Lưu thay đổi
+                </button>
+              </form>
+            </div>
+
+            <div class="settings-card">
+              <h3>Bảo mật</h3>
+              <div class="security-settings">
+                <div class="setting-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" checked />
+                    <span class="checkmark"></span>
+                    Bật xác thực 2 lớp
+                  </label>
+                </div>
+                <div class="setting-item">
+                  <label class="checkbox-label">
+                    <input type="checkbox" checked />
+                    <span class="checkmark"></span>
+                    Ghi log hoạt động
+                  </label>
+                </div>
+                <div class="setting-item">
+                  <button class="btn btn-outline">Xuất dữ liệu</button>
+                  <button class="btn btn-outline">Sao lưu hệ thống</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal for Adding/Editing Content -->
+    <div id="contentModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Thêm mới</h3>
+          <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="contentForm">
+            <div id="modalFormContent">
+              <!-- Dynamic form content will be loaded here -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">
+            Hủy
+          </button>
+          <button type="submit" form="contentForm" class="btn btn-primary">
+            Lưu
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Scripts -->
     <script src="mock/data.js"></script>
     <script src="js/main.js"></script>
     <script>
-      // Load header and footer
-      fetch("components/header.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("header-container").innerHTML = data;
-        });
-
-      fetch("components/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("footer-container").innerHTML = data;
-        });
-
-      // Check admin access
-      if (!Honda.isAdmin()) {
-        alert("⚠️ Bạn không có quyền truy cập trang này!");
-        window.location.href = "login.html";
-      }
-
-      // Initialize charts
-      let salesChart, productChart, visitorChart;
-
-      // Initialize admin page
-      function initAdminPage() {
-        loadDashboardStats();
-        loadProductsTable();
-        setupAddProductForm();
-        initializeCharts();
-        updateStorageInfo();
-
-        // Set current admin info
-        const currentUser = Honda.getCurrentUser();
-        if (currentUser) {
-          document.getElementById("currentAdminName").textContent =
-            currentUser.name;
-          document.getElementById("loginTime").textContent =
-            new Date().toLocaleString("vi-VN");
-        }
-
-        // Auto refresh stats every 30 seconds
-        setInterval(loadDashboardStats, 30000);
-      }
-
-      function loadDashboardStats() {
-        const products = Honda.getStorageData("honda_products", []);
-        const users = Honda.getStorageData("honda_users", []);
-        const bookings = Honda.getStorageData("honda_bookings", []);
-        const contacts = Honda.getStorageData("honda_contacts", []);
-
-        // Update stats with animation
-        animateCounter("totalProducts", products.length);
-        animateCounter("totalUsers", users.length);
-        animateCounter("totalBookings", bookings.length);
-        animateCounter("totalContacts", contacts.length);
-
-        // Update growth percentages (simulated)
-        document.getElementById("productGrowth").textContent = "+12%";
-        document.getElementById("userGrowth").textContent = "+23%";
-        document.getElementById("bookingGrowth").textContent = "+45%";
-        document.getElementById("contactGrowth").textContent = "+18%";
-      }
-
-      function animateCounter(elementId, targetValue) {
-        const element = document.getElementById(elementId);
-        const currentValue = parseInt(element.textContent) || 0;
-        const increment = Math.ceil((targetValue - currentValue) / 20);
-
-        if (currentValue < targetValue) {
-          element.textContent = Math.min(currentValue + increment, targetValue);
-          setTimeout(() => animateCounter(elementId, targetValue), 50);
-        }
-      }
-
-      function initializeCharts() {
-        // Sales Chart
-        const salesCtx = document.getElementById("salesChart").getContext("2d");
-        salesChart = new Chart(salesCtx, {
-          type: "line",
-          data: {
-            labels: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
-            datasets: [
-              {
-                label: "Doanh thu (triệu VNĐ)",
-                data: [120, 190, 300, 500, 200, 300, 450],
-                borderColor: "#e60012",
-                backgroundColor: "rgba(230, 0, 18, 0.1)",
-                tension: 0.4,
-                fill: true,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
-        });
-
-        // Product Chart
-        const productCtx = document
-          .getElementById("productChart")
-          .getContext("2d");
-        productChart = new Chart(productCtx, {
-          type: "doughnut",
-          data: {
-            labels: ["Honda SH", "Air Blade", "Vision", "Wave Alpha", "Future"],
-            datasets: [
-              {
-                data: [30, 25, 20, 15, 10],
-                backgroundColor: [
-                  "#e60012",
-                  "#ff6b6b",
-                  "#4ecdc4",
-                  "#45b7d1",
-                  "#96ceb4",
-                ],
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "right",
-                labels: {
-                  usePointStyle: true,
-                  padding: 20,
-                },
-              },
-            },
-          },
-        });
-
-        // Visitor Chart
-        const visitorCtx = document
-          .getElementById("visitorChart")
-          .getContext("2d");
-        visitorChart = new Chart(visitorCtx, {
-          type: "bar",
-          data: {
-            labels: [
-              "T1",
-              "T2",
-              "T3",
-              "T4",
-              "T5",
-              "T6",
-              "T7",
-              "T8",
-              "T9",
-              "T10",
-              "T11",
-              "T12",
-            ],
-            datasets: [
-              {
-                label: "Lượt truy cập",
-                data: [
-                  1200, 1900, 3000, 5000, 2000, 3000, 4500, 3200, 2800, 3500,
-                  4200, 5500,
-                ],
-                backgroundColor: "rgba(59, 130, 246, 0.8)",
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-          },
-        });
-      }
-
-      function switchTab(tabName) {
-        // Hide all tabs
-        document.querySelectorAll(".tab-content").forEach((tab) => {
-          tab.classList.add("hidden");
-        });
-
-        // Remove active class from all buttons
-        document.querySelectorAll(".tab-btn").forEach((btn) => {
-          btn.classList.remove("active");
-          btn.style.color = "var(--gray-600)";
-          btn.style.borderBottomColor = "transparent";
-        });
-
-        // Show selected tab
-        document.getElementById(tabName + "Tab").classList.remove("hidden");
-
-        // Set active button
-        event.target.classList.add("active");
-        event.target.style.color = "var(--honda-red)";
-        event.target.style.borderBottomColor = "var(--honda-red)";
-
-        // Load data for the selected tab
-        switch (tabName) {
-          case "products":
-            loadProductsTable();
-            break;
-          case "users":
-            loadUsersTable();
-            break;
-          case "bookings":
-            loadBookingsTable();
-            break;
-          case "contacts":
-            loadContactsTable();
-            break;
-          case "analytics":
-            // Charts already initialized
-            break;
-          case "settings":
-            updateStorageInfo();
-            break;
-        }
-      }
-
-      function loadProductsTable() {
-        const products = Honda.getStorageData("honda_products", []);
-        const container = document.getElementById("productsTable");
-
-        if (products.length === 0) {
-          container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
-              <div style="font-size: 48px; margin-bottom: 16px;">📦</div>
-              <p>Chưa có sản phẩm nào</p>
-              <button onclick="showAddProductForm()" class="btn btn-primary" style="margin-top: 16px;">
-                Thêm sản phẩm đầu tiên
-              </button>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = `
-          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
-            <table style="width: 100%; border-collapse: collapse; background: white;">
-              <thead style="background: var(--gray-50);">
-                <tr>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Sản phẩm</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Loại</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Giá</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
-                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${products
-                  .map(
-                    (product) => `
-                  <tr style="border-bottom: 1px solid var(--gray-100); transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
-                    <td style="padding: 16px;">
-                      <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; border-radius: 6px; object-fit: cover;">
-                        <div>
-                          <div style="font-weight: 600; margin-bottom: 4px;">${product.name}</div>
-                          <div style="font-size: 12px; color: var(--gray-500);">ID: ${product.id}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td style="padding: 16px;">
-                      <span style="background: ${product.type === "tay-ga" ? "#dbeafe" : "#fef3c7"}; color: ${product.type === "tay-ga" ? "#1e40af" : "#92400e"}; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
-                        ${product.type === "tay-ga" ? "🛵 Tay ga" : product.type === "so" ? "🏍️ Số" : "⚡ Điện"}
-                      </span>
-                    </td>
-                    <td style="padding: 16px;">
-                      <div style="font-weight: 600; color: var(--honda-red);">${Honda.formatPrice(product.price)}</div>
-                    </td>
-                    <td style="padding: 16px;">
-                      ${
-                        product.featured
-                          ? '<span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">⭐ Nổi bật</span>'
-                          : '<span style="background: #f3f4f6; color: #6b7280; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">📦 Thường</span>'
-                      }
-                    </td>
-                    <td style="padding: 16px; text-align: center;">
-                      <div style="display: flex; gap: 8px; justify-content: center;">
-                        <button onclick="editProduct('${product.id}')" class="btn btn-outline btn-sm" style="padding: 6px 12px;">
-                          ✏️ Sửa
-                        </button>
-                        <button onclick="toggleFeatured('${product.id}')" class="btn btn-outline btn-sm" style="padding: 6px 12px;">
-                          ${product.featured ? "⭐" : "📌"}
-                        </button>
-                        <button onclick="deleteProduct('${product.id}')" class="btn btn-outline btn-sm" style="color: #ef4444; border-color: #ef4444; padding: 6px 12px;">
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                `,
-                  )
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
-        `;
-      }
-
-      function loadUsersTable() {
-        const users = Honda.getStorageData("honda_users", []);
-        const container = document.getElementById("usersTable");
-
-        container.innerHTML = `
-          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
-            <table style="width: 100%; border-collapse: collapse; background: white;">
-              <thead style="background: var(--gray-50);">
-                <tr>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Người dùng</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Email</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Vai trò</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Hoạt động</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${users
-                  .map(
-                    (user) => `
-                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
-                    <td style="padding: 16px;">
-                      <div style="display: flex; align-items: center; gap: 12px;">
-                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${user.role === "admin" ? "var(--honda-red)" : "#10b981"}; color: white; display: flex; align-items: center; justify-content: center; font-weight: 600;">
-                          ${user.name.charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                          <div style="font-weight: 600;">${user.name}</div>
-                          <div style="font-size: 12px; color: var(--gray-500);">ID: ${user.id}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td style="padding: 16px;">${user.email}</td>
-                    <td style="padding: 16px;">
-                      <span style="background: ${user.role === "admin" ? "var(--honda-red)" : "#10b981"}; color: white; padding: 6px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;">
-                        ${user.role === "admin" ? "👑 Admin" : "👤 User"}
-                      </span>
-                    </td>
-                    <td style="padding: 16px;">
-                      <span style="color: #10b981; font-size: 12px;">● Online</span>
-                    </td>
-                  </tr>
-                `,
-                  )
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
-        `;
-      }
-
-      function loadBookingsTable() {
-        const bookings = Honda.getStorageData("honda_bookings", []);
-        const container = document.getElementById("bookingsTable");
-
-        if (bookings.length === 0) {
-          container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
-              <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
-              <p>Chưa có lịch xem xe nào</p>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = `
-          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
-            <table style="width: 100%; border-collapse: collapse; background: white;">
-              <thead style="background: var(--gray-50);">
-                <tr>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Khách hàng</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Liên hệ</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Sản phẩm</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Ngày tạo</th>
-                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
-                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${bookings
-                  .map(
-                    (booking) => `
-                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
-                    <td style="padding: 16px;">
-                      <div>
-                        <div style="font-weight: 600;">${booking.customerName}</div>
-                        <div style="font-size: 12px; color: var(--gray-500);">ID: ${booking.id}</div>
-                      </div>
-                    </td>
-                    <td style="padding: 16px;">
-                      <div style="font-size: 14px;">${booking.customerPhone}</div>
-                      ${booking.customerEmail ? `<div style="font-size: 12px; color: var(--gray-500);">${booking.customerEmail}</div>` : ""}
-                    </td>
-                    <td style="padding: 16px;">${booking.productName || "N/A"}</td>
-                    <td style="padding: 16px;">${new Date(booking.createdAt).toLocaleDateString("vi-VN")}</td>
-                    <td style="padding: 16px; text-align: center;">
-                      <span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
-                        ⏳ ${booking.status}
-                      </span>
-                    </td>
-                    <td style="padding: 16px; text-align: center;">
-                      <div style="display: flex; gap: 8px; justify-content: center;">
-                        <button onclick="updateBookingStatus('${booking.id}', 'confirmed')" class="btn btn-outline btn-sm" style="color: #10b981; border-color: #10b981;">
-                          ✅ Xác nhận
-                        </button>
-                        <button onclick="updateBookingStatus('${booking.id}', 'cancelled')" class="btn btn-outline btn-sm" style="color: #ef4444; border-color: #ef4444;">
-                          ❌ Hủy
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                `,
-                  )
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
-        `;
-      }
-
-      function loadContactsTable() {
-        const contacts = Honda.getStorageData("honda_contacts", []);
-        const container = document.getElementById("contactsTable");
-
-        if (contacts.length === 0) {
-          container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--gray-600);">
-              <div style="font-size: 48px; margin-bottom: 16px;">💬</div>
-              <p>Chưa có tin nhắn liên hệ nào</p>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = `
-          <div style="overflow-x: auto; border-radius: 8px; border: 1px solid var(--gray-200);">
-            <table style="width: 100%; border-collapse: collapse; background: white;">
-              <thead style="background: var(--gray-50);">
-                <tr>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Khách hàng</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Chủ đề</th>
-                  <th style="padding: 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Ngày gửi</th>
-                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Trạng thái</th>
-                  <th style="padding: 16px; text-align: center; font-weight: 600; border-bottom: 1px solid var(--gray-200);">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${contacts
-                  .map(
-                    (contact) => `
-                  <tr style="border-bottom: 1px solid var(--gray-100);" onmouseover="this.style.backgroundColor='var(--gray-50)'" onmouseout="this.style.backgroundColor='white'">
-                    <td style="padding: 16px;">
-                      <div>
-                        <div style="font-weight: 600;">${contact.fullName}</div>
-                        <div style="font-size: 12px; color: var(--gray-500);">${contact.phone}</div>
-                        ${contact.email ? `<div style="font-size: 12px; color: var(--gray-500);">${contact.email}</div>` : ""}
-                      </div>
-                    </td>
-                    <td style="padding: 16px;">
-                      <div style="font-weight: 500;">${contact.subject}</div>
-                      <div style="font-size: 12px; color: var(--gray-500); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                        ${contact.message}
-                      </div>
-                    </td>
-                    <td style="padding: 16px;">${new Date(contact.createdAt).toLocaleDateString("vi-VN")}</td>
-                    <td style="padding: 16px; text-align: center;">
-                      <span style="background: ${contact.status === "new" ? "#fef3c7" : "#dbeafe"}; color: ${contact.status === "new" ? "#92400e" : "#1e40af"}; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500;">
-                        ${contact.status === "new" ? "🆕 Mới" : "✅ Đã xử lý"}
-                      </span>
-                    </td>
-                    <td style="padding: 16px; text-align: center;">
-                      <div style="display: flex; gap: 8px; justify-content: center;">
-                        <button onclick="viewContactMessage('${contact.id}')" class="btn btn-outline btn-sm">
-                          👁️ Xem
-                        </button>
-                        <button onclick="replyContact('${contact.id}')" class="btn btn-outline btn-sm" style="color: #10b981; border-color: #10b981;">
-                          📧 Phản hồi
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                `,
-                  )
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
-        `;
-      }
-
-      // Product management functions
-      function showAddProductForm() {
-        document.getElementById("addProductModal").classList.remove("hidden");
-      }
-
-      function hideAddProductForm() {
-        document.getElementById("addProductModal").classList.add("hidden");
-        document.getElementById("addProductForm").reset();
-      }
-
-      function setupAddProductForm() {
-        const form = document.getElementById("addProductForm");
-
-        Honda.handleFormSubmit(form, async (formData) => {
-          const productData = {
-            id: Date.now().toString(),
-            name: formData.get("name"),
-            type: formData.get("type"),
-            price: parseInt(formData.get("price")),
-            displacement: formData.get("displacement") || "",
-            colors: formData
-              .get("colors")
-              .split(",")
-              .map((c) => c.trim()),
-            description: formData.get("description"),
-            featured: formData.get("featured") === "on",
-            image: "/api/placeholder/400/300",
-            gallery: ["/api/placeholder/400/300"],
-            specs: {
-              engine: formData.get("engine") || "Thông số kỹ thuật",
-              power: formData.get("power") || "Công suất",
-              fuelCapacity:
-                formData.get("fuelCapacity") || "Dung tích bình xăng",
-              weight: formData.get("weight") || "Trọng lượng",
-            },
-          };
-
-          try {
-            const products = Honda.getStorageData("honda_products", []);
-            products.push(productData);
-            Honda.setStorageData("honda_products", products);
-
-            hideAddProductForm();
-            loadDashboardStats();
-            loadProductsTable();
-
-            return {
-              success: true,
-              message: `✅ Đã thêm sản phẩm "${productData.name}" thành công!`,
-            };
-          } catch (error) {
-            return {
-              success: false,
-              message: "❌ Có lỗi xảy ra khi thêm sản phẩm",
-            };
-          }
-        });
-      }
-
-      function deleteProduct(productId) {
-        if (confirm("⚠️ Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
-          const products = Honda.getStorageData("honda_products", []);
-          const product = products.find((p) => p.id === productId);
-          const filteredProducts = products.filter((p) => p.id !== productId);
-          Honda.setStorageData("honda_products", filteredProducts);
-
-          loadDashboardStats();
-          loadProductsTable();
-          Honda.showAlert(
-            `🗑️ Đã xóa sản phẩm "${product?.name}" thành công!`,
-            "success",
-          );
-        }
-      }
-
-      function toggleFeatured(productId) {
-        const products = Honda.getStorageData("honda_products", []);
-        const product = products.find((p) => p.id === productId);
-        if (product) {
-          product.featured = !product.featured;
-          Honda.setStorageData("honda_products", products);
-          loadProductsTable();
-          Honda.showAlert(
-            `${product.featured ? "⭐" : "📌"} Đã cập nhật trạng thái sản phẩm "${product.name}"`,
-            "success",
-          );
-        }
-      }
-
-      function updateBookingStatus(bookingId, newStatus) {
-        const bookings = Honda.getStorageData("honda_bookings", []);
-        const booking = bookings.find((b) => b.id === bookingId);
-        if (booking) {
-          booking.status = newStatus;
-          Honda.setStorageData("honda_bookings", bookings);
-          loadBookingsTable();
-          Honda.showAlert(
-            `📅 Đã cập nhật trạng thái booking thành "${newStatus}"`,
-            "success",
-          );
-        }
-      }
-
-      function viewContactMessage(contactId) {
-        const contacts = Honda.getStorageData("honda_contacts", []);
-        const contact = contacts.find((c) => c.id === contactId);
-
-        if (contact) {
-          // Mark as read
-          contact.status = "read";
-          Honda.setStorageData("honda_contacts", contacts);
-
-          alert(
-            `📬 Tin nhắn từ: ${contact.fullName}\n` +
-              `📞 SĐT: ${contact.phone}\n` +
-              `📧 Email: ${contact.email || "Không có"}\n` +
-              `📝 Chủ đề: ${contact.subject}\n\n` +
-              `💬 Nội dung:\n${contact.message}\n\n` +
-              `🕒 Gửi lúc: ${new Date(contact.createdAt).toLocaleString("vi-VN")}`,
-          );
-
-          loadContactsTable();
-        }
-      }
-
-      function replyContact(contactId) {
-        const email = prompt("📧 Nhập email phản hồi:");
-        if (email) {
-          Honda.showAlert(`📧 Đã gửi phản hồi đến ${email}`, "success");
-        }
-      }
-
-      // Utility functions
-      function searchProducts() {
-        const query = document
-          .getElementById("productSearch")
-          .value.toLowerCase();
-        const products = Honda.getStorageData("honda_products", []);
-        const filtered = products.filter(
-          (p) =>
-            p.name.toLowerCase().includes(query) ||
-            p.description.toLowerCase().includes(query),
-        );
-
-        // Update table with filtered results
-        // This is a simplified version - you could implement more sophisticated filtering
-        loadProductsTable();
-      }
-
-      function updateStorageInfo() {
-        // Calculate storage usage
-        let totalSize = 0;
-        for (let key in localStorage) {
-          if (localStorage.hasOwnProperty(key)) {
-            totalSize += localStorage[key].length;
-          }
-        }
-
-        const sizeKB = Math.round((totalSize / 1024) * 100) / 100;
-        const maxStorage = 5000; // 5MB approximate limit
-        const percentage = (sizeKB / maxStorage) * 100;
-
-        document.getElementById("storageUsed").textContent = `${sizeKB} KB`;
-        document.getElementById("storageBar").style.width =
-          `${Math.min(percentage, 100)}%`;
-      }
-
-      function exportData() {
-        const data = {
-          products: Honda.getStorageData("honda_products", []),
-          users: Honda.getStorageData("honda_users", []),
-          bookings: Honda.getStorageData("honda_bookings", []),
-          contacts: Honda.getStorageData("honda_contacts", []),
-          exportDate: new Date().toISOString(),
-          version: "2.0.0",
-        };
-
-        const blob = new Blob([JSON.stringify(data, null, 2)], {
-          type: "application/json",
-        });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `honda-data-backup-${new Date().toISOString().split("T")[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-
-        Honda.setStorageData("last_backup", new Date().toISOString());
-        document.getElementById("lastBackup").textContent =
-          new Date().toLocaleDateString("vi-VN");
-        Honda.showAlert("📤 Xuất dữ liệu thành công!", "success");
-      }
-
-      function exportAllData() {
-        exportData();
-      }
-
-      function backupData() {
-        exportData();
-      }
-
-      function clearCache() {
-        if (
-          confirm("🧹 Xóa cache sẽ làm chậm lần tải trang tiếp theo. Tiếp tục?")
-        ) {
-          // Clear any cached data except core data
-          Honda.showAlert("🧹 Đã xóa cache thành công!", "success");
-        }
-      }
-
-      function saveSettings() {
-        const settings = {
-          siteName: document.getElementById("siteName").value,
-          contactEmail: document.getElementById("contactEmail").value,
-          hotline: document.getElementById("hotline").value,
-          updatedAt: new Date().toISOString(),
-        };
-
-        Honda.setStorageData("site_settings", settings);
-        Honda.showAlert("💾 Đã lưu cài đặt thành công!", "success");
-      }
-
-      function resetData() {
-        if (
-          confirm(
-            "⚠️ CẢNH BÁO: Bạn có chắc chắn muốn reset toàn bộ dữ liệu?\n\nHành động này sẽ:\n• Xóa tất cả sản phẩm\n• Xóa tất cả người dùng (trừ admin)\n��� Xóa tất cả booking và liên hệ\n• Không thể hoàn tác!\n\nNhấn OK để tiếp tục.",
-          )
-        ) {
-          if (
-            confirm("🚨 XÁC NHẬN LẦN CUỐI: Tất cả dữ liệu sẽ bị mất vĩnh viễn!")
-          ) {
-            // Keep only admin user
-            const adminUser = Honda.getStorageData("honda_users", []).find(
-              (u) => u.role === "admin",
-            );
-
-            localStorage.clear();
-
-            // Restore admin and basic data
-            if (adminUser) {
-              Honda.setStorageData("honda_users", [adminUser]);
-            }
-            Honda.setStorageData("honda_products", []);
-            Honda.setStorageData("honda_bookings", []);
-            Honda.setStorageData("honda_contacts", []);
-
-            Honda.showAlert(
-              "🔄 Reset dữ liệu thành công! Trang sẽ được tải lại sau 3 giây.",
-              "success",
-            );
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000);
-          }
-        }
-      }
-
-      function openChatSupport() {
-        window.open("chat.html", "_blank", "width=400,height=600");
-      }
-
-      function generateReport() {
-        Honda.showAlert(
-          "📊 Đang t��o báo cáo... Tính năng sẽ có trong phiên bản tiếp theo!",
-          "success",
-        );
-      }
-
-      // Initialize page when DOM is loaded
-      document.addEventListener("DOMContentLoaded", initAdminPage);
-
-      // Add hover effects to cards
+      // Initialize admin dashboard
       document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".card");
-        cards.forEach((card) => {
-          if (card.classList.contains("hover-lift")) {
-            card.addEventListener("mouseenter", function () {
-              this.style.transform = "translateY(-4px) scale(1.02)";
-            });
-            card.addEventListener("mouseleave", function () {
-              this.style.transform = "translateY(0) scale(1)";
-            });
-          }
-        });
+        if (!Honda.isAuthenticated() || !Honda.isAdmin()) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        initAdminDashboard();
       });
     </script>
-
-    <style>
-      .hover-lift {
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(4px);
-      }
-
-      .modal-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
-      }
-
-      .modal-content {
-        position: relative;
-        z-index: 101;
-        max-height: 90vh;
-        overflow-y: auto;
-        width: 100%;
-        max-width: 700px;
-        margin: 0 16px;
-      }
-
-      .tab-btn.active {
-        color: var(--honda-red) !important;
-        border-bottom-color: var(--honda-red) !important;
-        background: rgba(230, 0, 18, 0.05);
-      }
-
-      .tab-btn:hover {
-        color: var(--honda-red);
-        background: rgba(230, 0, 18, 0.05);
-      }
-
-      @media (max-width: 768px) {
-        .grid-4 {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .grid-2 {
-          grid-template-columns: 1fr;
-        }
-
-        .modal-content {
-          margin: 0 8px;
-          max-width: calc(100vw - 16px);
-        }
-
-        table {
-          font-size: 14px;
-        }
-
-        th,
-        td {
-          padding: 12px 8px !important;
-        }
-
-        .btn-sm {
-          padding: 4px 8px !important;
-          font-size: 11px !important;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .grid-4 {
-          grid-template-columns: 1fr;
-        }
-
-        .tab-btn {
-          padding: 8px 12px !important;
-          font-size: 12px !important;
-        }
-      }
-    </style>
   </body>
 </html>
