@@ -4058,6 +4058,17 @@ body {
   }
 }
 
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 /* Fix header text overflow on very small screens */
 @media (max-width: 320px) {
   .logo-text h1 {
