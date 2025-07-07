@@ -4045,3 +4045,124 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Missing Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Fix header text overflow on very small screens */
+@media (max-width: 320px) {
+  .logo-text h1 {
+    font-size: 14px;
+  }
+
+  .logo-text p {
+    font-size: 10px;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .admin-header-content {
+    padding: 8px 12px;
+  }
+
+  .admin-title h1 {
+    font-size: 16px;
+  }
+
+  .admin-title p {
+    font-size: 12px;
+  }
+}
+
+/* Ensure proper table responsiveness */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+  min-width: 800px;
+}
+
+/* Fix modal on mobile */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 16px;
+  }
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--gray-300);
+  border-top-color: var(--honda-red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success/Error states */
+.alert {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10001;
+  max-width: 300px;
+  animation: slideInRight 0.3s ease;
+}
+
+.alert.success {
+  background: #10b981;
+  color: white;
+}
+
+.alert.error {
+  background: #ef4444;
+  color: white;
+}
+
+.alert.info {
+  background: #3b82f6;
+  color: white;
+}
