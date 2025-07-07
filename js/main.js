@@ -489,7 +489,7 @@ function submitContactForm(formData) {
       resolve({
         success: true,
         message:
-          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
+          "Cảm ơn bạn đã liên hệ! Chúng tôi s�� phản hồi trong thời gian sớm nhất.",
       });
     }, 1000);
   });
@@ -1331,7 +1331,7 @@ function loadRecentActivity() {
     .map(
       (booking) => `
     <div class="activity-item">
-      <div class="activity-icon">����</div>
+      <div class="activity-icon">📅</div>
       <div class="activity-content">
         <p>Đặt lịch xem ${getProductName(booking.productModel)}</p>
         <div class="activity-time">${formatDate(booking.createdAt)}</div>
@@ -1637,9 +1637,34 @@ function initAdminDashboard() {
   initDashboardCharts();
   initAdminNavigation();
   loadAllAdminData();
+  initNotificationSystem();
 
   // Show welcome notification for new Honda products
   showNewProductsNotification();
+}
+
+function initNotificationSystem() {
+  // Initialize notifications and update badge
+  const notifications = getStorageData(
+    "admin_notifications",
+    generateInitialNotifications(),
+  );
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const badge = document.querySelector(".notification-badge");
+  if (badge) {
+    badge.textContent = unreadCount;
+    badge.style.display = unreadCount > 0 ? "block" : "none";
+  }
+
+  // Update admin user name
+  const currentUser = getCurrentUser();
+  if (currentUser) {
+    const adminUserName = document.getElementById("adminUserName");
+    if (adminUserName) {
+      adminUserName.textContent = currentUser.name;
+    }
+  }
 }
 
 function showNewProductsNotification() {
@@ -2372,7 +2397,7 @@ function getProductForm(product = null) {
       </div>
     </div>
     <div class="form-group">
-      <label for="productColors">M��u sắc (phân cách bởi dấu phẩy)</label>
+      <label for="productColors">Màu sắc (phân cách bởi dấu phẩy)</label>
       <input type="text" id="productColors" name="colors" value="${product?.colors?.join(", ") || ""}" placeholder="Đỏ, Đen, Xanh">
     </div>
     <div class="form-group">
