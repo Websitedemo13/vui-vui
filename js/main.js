@@ -1331,7 +1331,7 @@ function loadRecentActivity() {
     .map(
       (booking) => `
     <div class="activity-item">
-      <div class="activity-icon">📅</div>
+      <div class="activity-icon">����</div>
       <div class="activity-content">
         <p>Đặt lịch xem ${getProductName(booking.productModel)}</p>
         <div class="activity-time">${formatDate(booking.createdAt)}</div>
@@ -2372,7 +2372,7 @@ function getProductForm(product = null) {
       </div>
     </div>
     <div class="form-group">
-      <label for="productColors">Màu sắc (phân cách bởi dấu phẩy)</label>
+      <label for="productColors">M��u sắc (phân cách bởi dấu phẩy)</label>
       <input type="text" id="productColors" name="colors" value="${product?.colors?.join(", ") || ""}" placeholder="Đỏ, Đen, Xanh">
     </div>
     <div class="form-group">
@@ -2395,9 +2395,536 @@ function refreshDashboard() {
   showAlert("Dashboard đã được làm mới!", "success");
 }
 
+// Notification System
+let notificationDropdown = null;
+
 function toggleNotifications() {
-  alert("Chức năng thông báo đang được phát triển!");
+  if (notificationDropdown && notificationDropdown.style.display === "block") {
+    hideNotifications();
+  } else {
+    showNotifications();
+  }
 }
+
+function showNotifications() {
+  // Create notification dropdown if it doesn't exist
+  if (!notificationDropdown) {
+    createNotificationDropdown();
+  }
+
+  loadNotifications();
+  notificationDropdown.style.display = "block";
+
+  // Add click outside listener to close
+  setTimeout(() => {
+    document.addEventListener("click", handleClickOutside);
+  }, 100);
+}
+
+function hideNotifications() {
+  if (notificationDropdown) {
+    notificationDropdown.style.display = "none";
+  }
+  document.removeEventListener("click", handleClickOutside);
+}
+
+function handleClickOutside(event) {
+  const notificationBtn = document.querySelector(".notification-btn");
+  if (
+    !notificationDropdown.contains(event.target) &&
+    !notificationBtn.contains(event.target)
+  ) {
+    hideNotifications();
+  }
+}
+
+function createNotificationDropdown() {
+  notificationDropdown = document.createElement("div");
+  notificationDropdown.style.cssText = `
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 380px;
+    max-height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+    margin-top: 8px;
+  `;
+
+  // Find notification button and make its parent relative
+  const notificationBtn = document.querySelector(".admin-notifications");
+  notificationBtn.style.position = "relative";
+  notificationBtn.appendChild(notificationDropdown);
+}
+
+function loadNotifications() {
+  const notifications = getStorageData(
+    "admin_notifications",
+    generateInitialNotifications(),
+  );
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Update badge
+  const badge = document.querySelector(".notification-badge");
+  if (badge) {
+    badge.textContent = unreadCount;
+    badge.style.display = unreadCount > 0 ? "block" : "none";
+  }
+
+  // Create dropdown content
+  notificationDropdown.innerHTML = `
+    <div style="
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      background: #f8fafc;
+    ">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <h3 style="font-size: 18px; font-weight: 600; color: var(--gray-900); margin: 0;">
+          Thông báo
+        </h3>
+        <button onclick="markAllAsRead()" style="
+          background: none;
+          border: none;
+          color: var(--honda-red);
+          font-size: 14px;
+          cursor: pointer;
+          font-weight: 500;
+        ">
+          Đánh dấu tất cả đã đọc
+        </button>
+      </div>
+      ${
+        unreadCount > 0
+          ? `
+        <p style="color: var(--gray-600); font-size: 14px; margin: 4px 0 0 0;">
+          Bạn có ${unreadCount} thông báo chưa đọc
+        </p>
+      `
+          : ""
+      }
+    </div>
+
+    <div style="max-height: 400px; overflow-y: auto;">
+      ${
+        notifications.length > 0
+          ? notifications
+              .map(
+                (notification) => `
+        <div class="notification-item ${notification.read ? "read" : "unread"}"
+             onclick="markAsRead('${notification.id}')"
+             style="
+               padding: 16px 24px;
+               border-bottom: 1px solid #f1f5f9;
+               cursor: pointer;
+               transition: background 0.2s;
+               ${!notification.read ? "background: #fef3f3;" : ""}
+             "
+             onmouseover="this.style.background='#f8fafc'"
+             onmouseout="this.style.background='${!notification.read ? "#fef3f3" : "white"}'">
+
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background: ${notification.color};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              flex-shrink: 0;
+            ">
+              ${notification.icon}
+            </div>
+
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <h4 style="
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: var(--gray-900);
+                  margin: 0;
+                  line-height: 1.3;
+                ">
+                  ${notification.title}
+                </h4>
+                ${
+                  !notification.read
+                    ? `
+                  <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: var(--honda-red);
+                    border-radius: 50%;
+                    flex-shrink: 0;
+                  "></div>
+                `
+                    : ""
+                }
+              </div>
+
+              <p style="
+                font-size: 13px;
+                color: var(--gray-600);
+                margin: 0 0 8px 0;
+                line-height: 1.4;
+              ">
+                ${notification.message}
+              </p>
+
+              <div style="
+                font-size: 12px;
+                color: var(--gray-500);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              ">
+                <span>${formatTimeAgo(notification.createdAt)}</span>
+                ${
+                  notification.action
+                    ? `
+                  <button onclick="handleNotificationAction('${notification.id}', '${notification.action}')" style="
+                    background: var(--honda-red);
+                    color: white;
+                    border: none;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 11px;
+                    cursor: pointer;
+                  ">
+                    ${notification.actionText || "Xem"}
+                  </button>
+                `
+                    : ""
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+              )
+              .join("")
+          : `
+        <div style="
+          text-align: center;
+          padding: 40px 24px;
+          color: var(--gray-500);
+        ">
+          <div style="font-size: 40px; margin-bottom: 12px;">🔔</div>
+          <p>Không có thông báo nào</p>
+        </div>
+      `
+      }
+    </div>
+
+    ${
+      notifications.length > 0
+        ? `
+      <div style="
+        padding: 16px 24px;
+        border-top: 1px solid #f1f5f9;
+        background: #f8fafc;
+        text-align: center;
+      ">
+        <button onclick="clearAllNotifications()" style="
+          background: none;
+          border: none;
+          color: var(--gray-600);
+          font-size: 14px;
+          cursor: pointer;
+        ">
+          Xóa tất cả thông báo
+        </button>
+      </div>
+    `
+        : ""
+    }
+  `;
+}
+
+function generateInitialNotifications() {
+  const now = Date.now();
+  return [
+    {
+      id: "notif_1",
+      title: "Lịch xem xe mới",
+      message: "Khách hàng Nguyễn Văn A đã đặt lịch xem Honda Air Blade 160",
+      icon: "📅",
+      color: "#3B82F6",
+      createdAt: now - 300000, // 5 minutes ago
+      read: false,
+      action: "viewBookings",
+      actionText: "Xem chi tiết",
+    },
+    {
+      id: "notif_2",
+      title: "Người dùng mới đăng ký",
+      message: "Có 2 người dùng mới đăng ký tài khoản trong 1 giờ qua",
+      icon: "👤",
+      color: "#10B981",
+      createdAt: now - 3600000, // 1 hour ago
+      read: false,
+      action: "viewUsers",
+      actionText: "Xem người dùng",
+    },
+    {
+      id: "notif_3",
+      title: "Tin tức được cập nhật",
+      message:
+        'Bài viết "Honda Air Blade 160 2025" đã được cập nhật thành công',
+      icon: "📰",
+      color: "#F59E0B",
+      createdAt: now - 7200000, // 2 hours ago
+      read: false,
+      action: "viewNews",
+    },
+    {
+      id: "notif_4",
+      title: "Sản phẩm mới được thêm",
+      message: "Honda Winner X 2025 đã được thêm vào danh sách sản phẩm",
+      icon: "🏍️",
+      color: "#EF4444",
+      createdAt: now - 14400000, // 4 hours ago
+      read: true,
+      action: "viewProducts",
+    },
+    {
+      id: "notif_5",
+      title: "Khuyến mãi sắp hết hạn",
+      message: 'Chương trình "Ưu đãi đầu xuân" sẽ kết thúc trong 3 ngày',
+      icon: "🎁",
+      color: "#8B5CF6",
+      createdAt: now - 21600000, // 6 hours ago
+      read: true,
+      action: "viewPromotions",
+    },
+  ];
+}
+
+function formatTimeAgo(timestamp) {
+  const now = Date.now();
+  const diff = now - timestamp;
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 1) return "Vừa xong";
+  if (minutes < 60) return `${minutes} phút trước`;
+  if (hours < 24) return `${hours} giờ trước`;
+  return `${days} ngày trước`;
+}
+
+function markAsRead(notificationId) {
+  const notifications = getStorageData("admin_notifications", []);
+  const notificationIndex = notifications.findIndex(
+    (n) => n.id === notificationId,
+  );
+
+  if (notificationIndex !== -1 && !notifications[notificationIndex].read) {
+    notifications[notificationIndex].read = true;
+    setStorageData("admin_notifications", notifications);
+    loadNotifications(); // Refresh the dropdown
+  }
+}
+
+function markAllAsRead() {
+  const notifications = getStorageData("admin_notifications", []);
+  const updatedNotifications = notifications.map((n) => ({ ...n, read: true }));
+  setStorageData("admin_notifications", updatedNotifications);
+  loadNotifications();
+}
+
+function clearAllNotifications() {
+  if (confirm("Bạn có chắc chắn muốn xóa tất cả thông báo?")) {
+    setStorageData("admin_notifications", []);
+    loadNotifications();
+  }
+}
+
+function handleNotificationAction(notificationId, action) {
+  // Mark as read first
+  markAsRead(notificationId);
+
+  // Hide notifications dropdown
+  hideNotifications();
+
+  // Navigate to appropriate section
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll(".admin-section");
+
+  let targetSection = "";
+  switch (action) {
+    case "viewBookings":
+      targetSection = "bookings";
+      break;
+    case "viewUsers":
+      targetSection = "users";
+      break;
+    case "viewNews":
+      targetSection = "news";
+      break;
+    case "viewProducts":
+      targetSection = "products";
+      break;
+    case "viewPromotions":
+      targetSection = "promotions";
+      break;
+    default:
+      return;
+  }
+
+  // Update navigation
+  navItems.forEach((nav) => nav.classList.remove("active"));
+  sections.forEach((section) => section.classList.remove("active"));
+
+  const targetNav = document.querySelector(`[data-section="${targetSection}"]`);
+  const targetSectionEl = document.getElementById(targetSection + "Section");
+
+  if (targetNav && targetSectionEl) {
+    targetNav.classList.add("active");
+    targetSectionEl.classList.add("active");
+    loadSectionData(targetSection);
+  }
+}
+
+// Add notification when new booking is created
+function addNotification(
+  title,
+  message,
+  icon = "🔔",
+  color = "#3B82F6",
+  action = null,
+  actionText = null,
+) {
+  const notifications = getStorageData("admin_notifications", []);
+  const newNotification = {
+    id: "notif_" + Date.now(),
+    title,
+    message,
+    icon,
+    color,
+    createdAt: Date.now(),
+    read: false,
+    action,
+    actionText,
+  };
+
+  notifications.unshift(newNotification); // Add to beginning
+
+  // Keep only last 20 notifications
+  if (notifications.length > 20) {
+    notifications.splice(20);
+  }
+
+  setStorageData("admin_notifications", notifications);
+
+  // Update badge if admin dashboard is open
+  if (document.querySelector(".admin-header")) {
+    const unreadCount = notifications.filter((n) => !n.read).length;
+    const badge = document.querySelector(".notification-badge");
+    if (badge) {
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? "block" : "none";
+    }
+  }
+
+  // Show toast notification
+  showToastNotification(title, message, icon);
+}
+
+function showToastNotification(title, message, icon) {
+  // Only show if admin page is open
+  if (!document.querySelector(".admin-header")) return;
+
+  const toast = document.createElement("div");
+  toast.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid var(--honda-red);
+    padding: 16px;
+    max-width: 300px;
+    z-index: 10001;
+    animation: slideInRight 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  `;
+
+  toast.innerHTML = `
+    <div style="font-size: 20px;">${icon}</div>
+    <div style="flex: 1;">
+      <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 4px;">
+        ${title}
+      </div>
+      <div style="font-size: 14px; color: var(--gray-600);">
+        ${message}
+      </div>
+    </div>
+    <button onclick="this.parentElement.remove()" style="
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 18px;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">&times;</button>
+  `;
+
+  document.body.appendChild(toast);
+
+  // Auto remove after 5 seconds
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.style.animation = "slideOutRight 0.3s ease";
+      setTimeout(() => toast.remove(), 300);
+    }
+  }, 5000);
+}
+
+// Update existing functions to add notifications
+const originalBookTestDrive = bookTestDrive;
+bookTestDrive = function (productName) {
+  const result = originalBookTestDrive.apply(this, arguments);
+  addNotification(
+    "Lịch xem xe mới",
+    `Khách hàng đã đặt lịch xem ${productName}`,
+    "📅",
+    "#3B82F6",
+    "viewBookings",
+    "Xem chi tiết",
+  );
+  return result;
+};
+
+const originalRegister = register;
+register = function (name, email, password) {
+  const result = originalRegister.apply(this, arguments);
+  if (result.success) {
+    addNotification(
+      "Người dùng mới đăng ký",
+      `${name} đã tạo tài khoản mới`,
+      "👤",
+      "#10B981",
+      "viewUsers",
+      "Xem người dùng",
+    );
+  }
+  return result;
+};
 
 // Placeholder CRUD functions
 function editProduct(id) {
