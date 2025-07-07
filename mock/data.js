@@ -1,5 +1,247 @@
 // Mock data for Honda dealership website
 
+// News articles data
+const mockNews = [
+  {
+    id: "1",
+    title: "Honda Air Blade 160 2025 - Nâng cấp mạnh mẽ với công nghệ mới",
+    slug: "honda-air-blade-160-2025-nang-cap",
+    excerpt:
+      "Honda vừa ra mắt phiên bản Air Blade 160 2025 với nhiều cải tiến về động cơ, thiết kế và tính năng an toàn...",
+    content: `
+      <p>Honda Air Blade 160 2025 đã chính thức ra mắt tại Việt Nam với nhiều nâng cấp đáng chú ý. Đây là bước tiến quan trọng trong chiến lược phát triển sản phẩm của Honda tại thị trường Việt Nam.</p>
+
+      <h3>Thiết kế mới hiện đại</h3>
+      <p>Phiên bản 2025 có thiết kế hoàn toàn mới với đèn LED toàn bộ, mặt nạ sắc sảo hơn và màu sắc tươi tắn. Đặc biệt, Honda đã trang bị thêm màn hình LCD hiển thị đa thông tin.</p>
+
+      <h3>Động cơ mạnh mẽ, tiết kiệm</h3>
+      <p>Động cơ 159.7cc được tối ưu hóa để đạt hiệu suất cao nhất với mức tiêu thụ nhiên liệu chỉ 1.8L/100km. Công nghệ PGM-FI giúp xe vận hành êm ái và bền bỉ.</p>
+
+      <h3>Tính năng an toàn nâng cao</h3>
+      <p>Trang bị hệ thống phanh CBS, khóa thông minh Smart Key và cảnh báo chống trộm. Hệ thống đèn LED tự động điều chỉnh độ sáng theo điều kiện ánh sáng.</p>
+    `,
+    image: "/api/placeholder/800/400",
+    category: "Sản phẩm mới",
+    author: "Nguyễn Văn An",
+    publishedAt: "2025-01-06T10:00:00Z",
+    tags: ["Honda", "Air Blade", "2025", "Tay ga"],
+    featured: true,
+    views: 1250,
+  },
+  {
+    id: "2",
+    title: "Chương trình khuyến mãi tháng 1: Ưu đãi lên đến 5 triệu đồng",
+    slug: "khuyen-mai-thang-1-2025",
+    excerpt:
+      "Nhân dịp đầu năm mới, Honda Head Kim Châu triển khai chương trình khuyến mãi hấp dẫn với nhiều ưu đãi...",
+    content: `
+      <p>Chào mừng năm mới 2025, Honda Head Kim Châu tung ra chương trình khuyến mãi "Đầu xuân rực rỡ" với nhiều ưu đãi hấp dẫn dành cho khách hàng.</p>
+
+      <h3>Ưu đãi theo dòng xe</h3>
+      <ul>
+        <li>Honda SH 160i: Giảm 3 triệu đồng + tặng nón bảo hiểm cao cấp</li>
+        <li>Honda Air Blade 160: Giảm 2 triệu đồng + tặng áo mưa Honda</li>
+        <li>Honda Vision: Giảm 1.5 triệu đồng + tặng bộ phụ kiện</li>
+        <li>Honda Wave: Giảm 1 triệu đồng + bảo dưỡng miễn phí 2 lần</li>
+      </ul>
+
+      <h3>Chính sách trả góp ưu đãi</h3>
+      <p>Lãi suất từ 0% trong 6 tháng đầu, thủ tục nhanh gọn chỉ trong 30 phút. Hỗ trợ trả góp lên đến 80% giá trị xe.</p>
+
+      <h3>Quà tặng đặc biệt</h3>
+      <p>Khách hàng mua xe trong tháng 1 sẽ được tham gia quay số trúng thưởng với giải thưởng lên đến 10 triệu đồng.</p>
+    `,
+    image: "/api/placeholder/800/400",
+    category: "Khuyến mãi",
+    author: "Trần Thị Bình",
+    publishedAt: "2025-01-05T14:30:00Z",
+    tags: ["Khuyến mãi", "Ưu đãi", "Trả góp"],
+    featured: true,
+    views: 980,
+  },
+  {
+    id: "3",
+    title: "Bí quyết bảo dưỡng xe Honda để tăng tuổi thọ động cơ",
+    slug: "bi-quyet-bao-duong-xe-honda",
+    excerpt:
+      "Hướng dẫn chi tiết cách bảo dưỡng xe Honda đúng cách để đảm bảo hiệu suất hoạt động tối ưu...",
+    content: `
+      <p>Bảo dưỡng định kỳ là yếu tố quan trọng giúp xe Honda hoạt động ổn định và bền bỉ theo thời gian. Dưới đây là những lưu ý quan trọng.</p>
+
+      <h3>Lịch bảo dưỡng định kỳ</h3>
+      <ul>
+        <li>1000 km đầu: Thay dầu và kiểm tra toàn bộ hệ thống</li>
+        <li>Mỗi 3000 km: Thay dầu đ��ng cơ và lọc dầu</li>
+        <li>Mỗi 6000 km: Kiểm tra và thay lọc gió</li>
+        <li>Mỗi 12000 km: Bảo dưỡng tổng thể</li>
+      </ul>
+
+      <h3>Những điều cần kiểm tra thường xuyên</h3>
+      <p>Áp suất lốp, dầu phanh, đèn chiếu sáng, và hệ thống truyền động cần được kiểm tra định kỳ để đảm bảo an toàn.</p>
+
+      <h3>Sử dụng phụ tùng chính hãng</h3>
+      <p>Việc sử dụng phụ tùng chính hãng Honda đảm bảo chất lượng và độ bền của xe, đồng thời không làm mất bảo hành.</p>
+    `,
+    image: "/api/placeholder/800/400",
+    category: "Hướng dẫn",
+    author: "Lê Văn Cường",
+    publishedAt: "2025-01-04T09:15:00Z",
+    tags: ["Bảo dưỡng", "Hướng dẫn", "Phụ tùng"],
+    featured: false,
+    views: 750,
+  },
+  {
+    id: "4",
+    title: "Honda Winner X 2025: Thế hệ mới của dòng côn tay thể thao",
+    slug: "honda-winner-x-2025-the-he-moi",
+    excerpt:
+      "Honda Winner X 2025 được nâng cấp toàn diện về thiết kế, động cơ và công nghệ, hứa hẹn sẽ là sự lựa chọn hàng đầu...",
+    content: `
+      <p>Honda Winner X 2025 đã được Honda Việt Nam công bố với những nâng cấp đáng kể, tiếp tục khẳng định vị thế trong phân khúc côn tay thể thao.</p>
+
+      <h3>Thiết kế thể thao hơn</h3>
+      <p>Với các đường nét sắc sảo, đèn LED hoàn toàn mới và bộ mâm đúc thể thao, Winner X 2025 mang đến vẻ ngoài mạnh mẽ và năng động.</p>
+
+      <h3>Động cơ cải tiến</h3>
+      <p>Động cơ 149.2cc được tinh chỉnh để tăng công suất lên 13.6 mã lực, cùng với hệ thống làm mát dung dịch hiệu quả.</p>
+
+      <h3>Công nghệ hiện đại</h3>
+      <p>Tích hợp màn hình LCD đa chức năng, khóa thông minh và hệ thống đánh lửa điện tử tiên tiến.</p>
+    `,
+    image: "/api/placeholder/800/400",
+    category: "Sản phẩm mới",
+    author: "Phạm Minh Đức",
+    publishedAt: "2025-01-03T16:45:00Z",
+    tags: ["Honda", "Winner X", "Côn tay", "2025"],
+    featured: false,
+    views: 1100,
+  },
+  {
+    id: "5",
+    title: "Cách chọn mua xe máy phù hợp với nhu cầu sử dụng",
+    slug: "cach-chon-mua-xe-may-phu-hop",
+    excerpt:
+      "Hướng dẫn chi tiết giúp bạn lựa chọn được chiếc xe máy Honda phù hợp nhất với nhu cầu và ngân sách...",
+    content: `
+      <p>Việc lựa chọn xe máy phù hợp cần xem xét nhiều yếu tố từ nhu cầu sử dụng, ngân sách đến sở thích cá nhân.</p>
+
+      <h3>Xác định nhu cầu sử dụng</h3>
+      <ul>
+        <li>Di chuyển trong thành phố: Nên chọn xe tay ga nhỏ gọn</li>
+        <li>Đi đường dài: Xe số hoặc côn tay có khả năng vận hành ổn định</li>
+        <li>Chở hàng: Xe số với yên dài và cốp rộng</li>
+      </ul>
+
+      <h3>Cân nhắc về ngân sách</h3>
+      <p>Ngoài giá mua xe, cần tính toán chi phí bảo dưỡng, nhiên liệu và bảo hiểm hàng tháng.</p>
+
+      <h3>Tư vấn từ chuyên gia</h3>
+      <p>Đội ngũ tư vấn tại Honda Head Kim Châu sẵn sàng hỗ trợ bạn tìm ra lựa chọn tối ưu nhất.</p>
+    `,
+    image: "/api/placeholder/800/400",
+    category: "Tư vấn",
+    author: "Nguyễn Thị Mai",
+    publishedAt: "2025-01-02T11:20:00Z",
+    tags: ["Tư vấn", "Mua xe", "Hướng dẫn"],
+    featured: false,
+    views: 650,
+  },
+];
+
+// Parts data
+const mockParts = [
+  {
+    id: "p1",
+    name: "Dầu nhớt Honda Ultragold 10W-30",
+    category: "Dầu nhớt",
+    price: 185000,
+    image: "/api/placeholder/300/300",
+    description:
+      "Dầu nhớt chính hãng Honda với công thức đặc biệt, bảo vệ động cơ tối ưu",
+    compatibility: ["Air Blade", "SH", "Vision", "Wave"],
+    inStock: true,
+    quantity: 50,
+  },
+  {
+    id: "p2",
+    name: "Bugi Honda NGK CPR7EA-9",
+    category: "Hệ thống đánh lửa",
+    price: 45000,
+    image: "/api/placeholder/300/300",
+    description:
+      "Bugi chính hãng cho các dòng xe Honda, đảm bảo đánh lửa ổn định",
+    compatibility: ["Air Blade 160", "SH 160"],
+    inStock: true,
+    quantity: 100,
+  },
+  {
+    id: "p3",
+    name: "Lọc gió Honda chính hãng",
+    category: "Hệ thống lọc",
+    price: 120000,
+    image: "/api/placeholder/300/300",
+    description: "Lọc gió chất lượng cao, giúp động cơ hoạt động hiệu quả",
+    compatibility: ["Vision", "Wave Alpha"],
+    inStock: true,
+    quantity: 75,
+  },
+  {
+    id: "p4",
+    name: "Má phanh Honda chính hãng",
+    category: "Hệ thống phanh",
+    price: 280000,
+    image: "/api/placeholder/300/300",
+    description: "Má phanh chính hãng đảm bảo an toàn tuyệt đối khi di chuyển",
+    compatibility: ["SH 160", "Air Blade 160"],
+    inStock: true,
+    quantity: 30,
+  },
+  {
+    id: "p5",
+    name: "Ắc quy Honda chính hãng 12V",
+    category: "Điện - Ắc quy",
+    price: 850000,
+    image: "/api/placeholder/300/300",
+    description: "Ắc quy chính hãng với tuổi thọ cao, khởi động mạnh mẽ",
+    compatibility: ["SH 160", "Air Blade 160", "Winner X"],
+    inStock: true,
+    quantity: 20,
+  },
+  {
+    id: "p6",
+    name: "Lốp Honda IRC 90/80-14",
+    category: "Lốp xe",
+    price: 450000,
+    image: "/api/placeholder/300/300",
+    description: "Lốp chính hãng với độ bám đường tốt, chịu mài mòn cao",
+    compatibility: ["Air Blade", "Vision"],
+    inStock: false,
+    quantity: 0,
+  },
+  {
+    id: "p7",
+    name: "Kính chiếu hậu Honda chính hãng",
+    category: "Phụ kiện",
+    price: 150000,
+    image: "/api/placeholder/300/300",
+    description: "Kính chiếu hậu chính hãng với góc nhìn rộng, an toàn",
+    compatibility: ["Tất cả dòng xe Honda"],
+    inStock: true,
+    quantity: 40,
+  },
+  {
+    id: "p8",
+    name: "Đèn pha LED Honda chính hãng",
+    category: "Hệ thống chiếu sáng",
+    price: 1200000,
+    image: "/api/placeholder/300/300",
+    description: "Đèn pha LED siêu sáng, tiết kiệm điện, tuổi thọ cao",
+    compatibility: ["SH 160", "Air Blade 160"],
+    inStock: true,
+    quantity: 15,
+  },
+];
+
 const mockProducts = [
   {
     id: "1",
@@ -273,7 +515,7 @@ const mockTestimonials = [
     role: "Khách hàng mua Honda SH",
     rating: 5,
     comment:
-      "Dịch vụ tuyệt vời, nhân viên tư vấn nhiệt tình. Xe được giao đúng hẹn và chất lượng hoàn hảo.",
+      "Dịch vụ tuyệt vời, nhân viên tư vấn nhiệt tình. Xe đư���c giao đúng hẹn và chất lượng hoàn hảo.",
     avatar: "/api/placeholder/50/50",
   },
   {
