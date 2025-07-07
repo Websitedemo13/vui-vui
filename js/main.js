@@ -131,7 +131,7 @@ function bookTestDrive(productName, customerInfo) {
 function handleTestDrive(productName) {
   // Simple alert for demo
   alert(
-    `Cảm ơn bạn đã quan tâm đến ${productName}! Vui lòng liên hệ 0901 234 567 để đặt lịch lái thử.`,
+    `Cảm ơn bạn đã quan tâm đến ${productName}! Vui lòng liên hệ 0901 234 567 để đặt lịch xem xe.`,
   );
 }
 
