@@ -855,7 +855,7 @@ function showTerms() {
 
 function showPrivacy() {
   alert(
-    "Chính sách bảo mật:\n\n1. Thông tin chỉ dùng để liên hệ tư vấn\n2. Không chia sẻ với bên thứ ba\n3. Có thể yêu cầu xóa dữ liệu bất kỳ lúc nào\n4. Dữ li���u được mã hóa an toàn",
+    "Chính sách bảo mật:\n\n1. Thông tin chỉ dùng để liên hệ tư vấn\n2. Không chia sẻ với bên thứ ba\n3. Có thể yêu cầu xóa dữ liệu bất kỳ lúc nào\n4. Dữ liệu được mã hóa an toàn",
   );
 }
 
@@ -1627,4 +1627,818 @@ window.Honda = {
   addToCart,
   viewPartDetail,
   deleteAccount,
+  initAdminDashboard,
 };
+
+// Modern Admin Dashboard Functionality
+function initAdminDashboard() {
+  loadDashboardStats();
+  loadRecentActivities();
+  initDashboardCharts();
+  initAdminNavigation();
+  loadAllAdminData();
+
+  // Show welcome notification for new Honda products
+  showNewProductsNotification();
+}
+
+function showNewProductsNotification() {
+  const notification = document.createElement("div");
+  notification.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--honda-red), #c50010);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10001;
+    max-width: 300px;
+    animation: slideInRight 0.3s ease;
+  `;
+
+  notification.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="font-size: 24px;">🏍️</div>
+      <div>
+        <div style="font-weight: 600; margin-bottom: 4px;">Sản phẩm Honda mới!</div>
+        <div style="font-size: 14px; opacity: 0.9;">6 dòng xe Honda đã được thêm vào hệ thống</div>
+      </div>
+      <button onclick="this.parentElement.parentElement.remove()" style="
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 4px;
+      ">&times;</button>
+    </div>
+  `;
+
+  document.body.appendChild(notification);
+
+  // Auto remove after 5 seconds
+  setTimeout(() => {
+    if (notification.parentElement) {
+      notification.remove();
+    }
+  }, 5000);
+}
+
+function loadDashboardStats() {
+  const products = getStorageData("honda_products", mockProducts);
+  const bookings = getStorageData("honda_bookings", []);
+  const users = getStorageData("honda_users", mockUsers);
+
+  // Animate counters
+  animateCounter("totalProducts", products.length);
+  animateCounter("totalBookings", bookings.length);
+  animateCounter("totalUsers", users.length);
+
+  // Calculate estimated revenue
+  const estimatedRevenue = products.reduce(
+    (sum, product) => sum + product.price,
+    0,
+  );
+  animateCounter("totalRevenue", estimatedRevenue, true);
+
+  // Update navigation badges
+  document.getElementById("productsBadge").textContent = products.length;
+  document.getElementById("partsBadge").textContent = mockParts.length;
+  document.getElementById("newsBadge").textContent = mockNews.length;
+  document.getElementById("promotionsBadge").textContent =
+    mockPromotions.length;
+  document.getElementById("bookingsBadge").textContent = bookings.length;
+  document.getElementById("usersBadge").textContent = users.length;
+}
+
+function animateCounter(elementId, targetValue, isCurrency = false) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  let currentValue = 0;
+  const increment = targetValue / 30;
+  const duration = 1000;
+  const stepTime = duration / 30;
+
+  const timer = setInterval(() => {
+    currentValue += increment;
+    if (currentValue >= targetValue) {
+      currentValue = targetValue;
+      clearInterval(timer);
+    }
+
+    if (isCurrency) {
+      element.textContent = formatPrice(Math.floor(currentValue));
+    } else {
+      element.textContent = Math.floor(currentValue).toLocaleString();
+    }
+  }, stepTime);
+}
+
+function loadRecentActivities() {
+  const bookings = getStorageData("honda_bookings", []);
+  const activities = [
+    {
+      icon: "👤",
+      text: "Người dùng mới đăng ký",
+      time: "5 phút trước",
+      color: "#4facfe",
+    },
+    {
+      icon: "📅",
+      text: `${bookings.length} lịch xem xe mới`,
+      time: "10 phút trước",
+      color: "#f093fb",
+    },
+    {
+      icon: "🏍️",
+      text: "Cập nhật sản phẩm Honda Air Blade",
+      time: "1 giờ trước",
+      color: "#667eea",
+    },
+    {
+      icon: "📊",
+      text: "Báo cáo doanh thu tháng",
+      time: "2 giờ trước",
+      color: "#43e97b",
+    },
+  ];
+
+  const container = document.getElementById("recentActivitiesList");
+  if (!container) return;
+
+  container.innerHTML = activities
+    .map(
+      (activity) => `
+    <div class="activity-item">
+      <div class="activity-icon" style="background: ${activity.color};">
+        ${activity.icon}
+      </div>
+      <div class="activity-content">
+        <p>${activity.text}</p>
+        <div class="activity-time">${activity.time}</div>
+      </div>
+    </div>
+  `,
+    )
+    .join("");
+}
+
+function initDashboardCharts() {
+  // Booking chart
+  const bookingCtx = document.getElementById("bookingChart");
+  if (bookingCtx) {
+    new Chart(bookingCtx, {
+      type: "line",
+      data: {
+        labels: ["T2", "T3", "T4", "T5", "T6", "T7", "CN"],
+        datasets: [
+          {
+            label: "Lịch xem xe",
+            data: [12, 19, 3, 5, 2, 3, 9],
+            borderColor: "#e60012",
+            backgroundColor: "rgba(230, 0, 18, 0.1)",
+            fill: true,
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+
+  // Product chart
+  const productCtx = document.getElementById("productChart");
+  if (productCtx) {
+    new Chart(productCtx, {
+      type: "doughnut",
+      data: {
+        labels: ["Air Blade", "SH", "Vision", "Wave", "Winner X", "Khác"],
+        datasets: [
+          {
+            data: [30, 25, 20, 15, 7, 3],
+            backgroundColor: [
+              "#e60012",
+              "#ff6b35",
+              "#f7931e",
+              "#ffd23f",
+              "#06d6a0",
+              "#118ab2",
+            ],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+}
+
+function initAdminNavigation() {
+  const navItems = document.querySelectorAll(".nav-item");
+  const sections = document.querySelectorAll(".admin-section");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const sectionName = item.dataset.section;
+
+      // Update active nav item
+      navItems.forEach((nav) => nav.classList.remove("active"));
+      item.classList.add("active");
+
+      // Show corresponding section
+      sections.forEach((section) => section.classList.remove("active"));
+      document.getElementById(sectionName + "Section")?.classList.add("active");
+
+      // Load section-specific data
+      loadSectionData(sectionName);
+    });
+  });
+}
+
+function loadSectionData(sectionName) {
+  switch (sectionName) {
+    case "products":
+      loadProductsTable();
+      break;
+    case "parts":
+      loadPartsTable();
+      break;
+    case "news":
+      loadNewsTable();
+      break;
+    case "promotions":
+      loadPromotionsTable();
+      break;
+    case "bookings":
+      loadBookingsTable();
+      break;
+    case "users":
+      loadUsersTable();
+      break;
+    case "contacts":
+      loadContactsTable();
+      break;
+    case "analytics":
+      loadAnalyticsCharts();
+      break;
+  }
+}
+
+function loadAllAdminData() {
+  loadProductsTable();
+  loadPartsTable();
+  loadNewsTable();
+  loadPromotionsTable();
+  loadBookingsTable();
+  loadUsersTable();
+  loadContactsTable();
+}
+
+function loadProductsTable() {
+  const products = getStorageData("honda_products", mockProducts);
+  const container = document.getElementById("productsTableContainer");
+
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Hình ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th>Loại xe</th>
+          <th>Giá bán</th>
+          <th>Màu sắc</th>
+          <th>Nổi bật</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${products
+          .map(
+            (product) => `
+          <tr>
+            <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;"></td>
+            <td><strong>${product.name}</strong></td>
+            <td><span class="status-badge ${product.type === "tay-ga" ? "active" : "inactive"}">${product.type}</span></td>
+            <td><strong>${formatPrice(product.price)}</strong></td>
+            <td>${product.colors.join(", ")}</td>
+            <td><span class="status-badge ${product.featured ? "active" : "inactive"}">${product.featured ? "Có" : "Không"}</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editProduct('${product.id}')" title="Chỉnh sửa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deleteProduct('${product.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadPartsTable() {
+  const parts = window.MockData ? window.MockData.mockParts : mockParts;
+  const container = document.getElementById("partsTableContainer");
+
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Hình ảnh</th>
+          <th>Tên phụ tùng</th>
+          <th>Danh mục</th>
+          <th>Giá bán</th>
+          <th>Tồn kho</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${parts
+          .map(
+            (part) => `
+          <tr>
+            <td><img src="${part.image}" alt="${part.name}" style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;"></td>
+            <td><strong>${part.name}</strong></td>
+            <td>${part.category}</td>
+            <td><strong>${formatPrice(part.price)}</strong></td>
+            <td>${part.quantity} sản phẩm</td>
+            <td><span class="status-badge ${part.inStock ? "active" : "inactive"}">${part.inStock ? "Còn hàng" : "Hết hàng"}</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editPart('${part.id}')" title="Chỉnh sửa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deletePart('${part.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadNewsTable() {
+  const news = window.MockData ? window.MockData.mockNews : mockNews;
+  const container = document.getElementById("newsTableContainer");
+
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Hình ảnh</th>
+          <th>Tiêu đề</th>
+          <th>Danh mục</th>
+          <th>Tác giả</th>
+          <th>Ngày đăng</th>
+          <th>Lượt xem</th>
+          <th>Nổi bật</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${news
+          .map(
+            (article) => `
+          <tr>
+            <td><img src="${article.image}" alt="${article.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;"></td>
+            <td>
+              <strong style="display: block; margin-bottom: 4px;">${article.title}</strong>
+              <small style="color: var(--gray-600);">${article.excerpt.substring(0, 80)}...</small>
+            </td>
+            <td><span class="status-badge active">${article.category}</span></td>
+            <td>${article.author}</td>
+            <td>${formatDate(article.publishedAt)}</td>
+            <td>${article.views}</td>
+            <td><span class="status-badge ${article.featured ? "active" : "inactive"}">${article.featured ? "Có" : "Không"}</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editNews('${article.id}')" title="Chỉnh sửa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deleteNews('${article.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadPromotionsTable() {
+  const promotions = getStorageData("honda_promotions", mockPromotions);
+  const container = document.getElementById("promotionsTableContainer");
+
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Mô tả</th>
+          <th>Giảm giá</th>
+          <th>Ngày bắt đầu</th>
+          <th>Ngày kết thúc</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${promotions
+          .map(
+            (promo) => `
+          <tr>
+            <td><strong>${promo.title}</strong></td>
+            <td>${promo.description.substring(0, 80)}...</td>
+            <td><strong style="color: var(--honda-red);">${promo.discount}</strong></td>
+            <td>${promo.startDate}</td>
+            <td>${promo.endDate}</td>
+            <td><span class="status-badge ${promo.active ? "active" : "inactive"}">${promo.active ? "Đang áp dụng" : "Không áp dụng"}</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editPromotion('${promo.id}')" title="Chỉnh sửa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deletePromotion('${promo.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadBookingsTable() {
+  const bookings = getStorageData("honda_bookings", []);
+  const container = document.getElementById("bookingsTableContainer");
+
+  if (!container) return;
+
+  if (bookings.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 48px; color: var(--gray-600);">
+        <div style="font-size: 48px; margin-bottom: 16px;">📅</div>
+        <p>Chưa có lịch xem xe nào</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Mã lịch</th>
+          <th>Khách hàng</th>
+          <th>Sản phẩm</th>
+          <th>Ngày xem</th>
+          <th>Giờ</th>
+          <th>Trạng thái</th>
+          <th>Ngày đặt</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${bookings
+          .map(
+            (booking) => `
+          <tr>
+            <td><strong>#${booking.id}</strong></td>
+            <td>
+              <strong>${booking.customerName}</strong><br>
+              <small style="color: var(--gray-600);">${booking.customerPhone}</small>
+            </td>
+            <td>${getProductName(booking.productModel)}</td>
+            <td>${booking.bookingDate}</td>
+            <td>${booking.bookingTime}</td>
+            <td><span class="status-badge ${booking.status}">${getStatusText(booking.status)}</span></td>
+            <td>${formatDate(booking.createdAt)}</td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editBooking('${booking.id}')" title="Cập nhật trạng thái">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deleteBooking('${booking.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadUsersTable() {
+  const users = getStorageData("honda_users", mockUsers);
+  const container = document.getElementById("usersTableContainer");
+
+  if (!container) return;
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tên người dùng</th>
+          <th>Email</th>
+          <th>Vai trò</th>
+          <th>Ngày tạo</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${users
+          .map(
+            (user) => `
+          <tr>
+            <td><strong>${user.name}</strong></td>
+            <td>${user.email}</td>
+            <td><span class="status-badge ${user.role === "admin" ? "active" : "inactive"}">${user.role}</span></td>
+            <td>${formatDate(user.createdAt || Date.now())}</td>
+            <td><span class="status-badge active">Hoạt động</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="editUser('${user.id}')" title="Chỉnh sửa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deleteUser('${user.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadContactsTable() {
+  const contacts = getStorageData("honda_contacts", []);
+  const container = document.getElementById("contactsTableContainer");
+
+  if (!container) return;
+
+  if (contacts.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 48px; color: var(--gray-600);">
+        <div style="font-size: 48px; margin-bottom: 16px;">📧</div>
+        <p>Chưa có liên hệ nào</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Tên</th>
+          <th>Email</th>
+          <th>Chủ đề</th>
+          <th>Tin nhắn</th>
+          <th>Ngày gửi</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${contacts
+          .map(
+            (contact) => `
+          <tr>
+            <td><strong>${contact.name}</strong></td>
+            <td>${contact.email}</td>
+            <td>${contact.subject}</td>
+            <td>${contact.message.substring(0, 50)}...</td>
+            <td>${formatDate(contact.createdAt)}</td>
+            <td><span class="status-badge pending">Chưa xử lý</span></td>
+            <td>
+              <div class="table-actions">
+                <button class="btn-icon edit" onclick="replyContact('${contact.id}')" title="Trả lời">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                  </svg>
+                </button>
+                <button class="btn-icon delete" onclick="deleteContact('${contact.id}')" title="Xóa">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `,
+          )
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+// Modal and CRUD functions
+function showAddProductModal() {
+  showModal("Thêm sản phẩm mới", getProductForm());
+}
+
+function showAddPartModal() {
+  showModal("Thêm phụ tùng mới", getPartForm());
+}
+
+function showAddNewsModal() {
+  showModal("Viết bài tin tức mới", getNewsForm());
+}
+
+function showAddPromotionModal() {
+  showModal("Tạo khuyến mãi mới", getPromotionForm());
+}
+
+function showAddUserModal() {
+  showModal("Thêm người dùng mới", getUserForm());
+}
+
+function showModal(title, content) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalFormContent").innerHTML = content;
+  document.getElementById("contentModal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("contentModal").classList.remove("show");
+}
+
+function getProductForm(product = null) {
+  return `
+    <div class="form-group">
+      <label for="productName">Tên sản phẩm *</label>
+      <input type="text" id="productName" name="name" value="${product?.name || ""}" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="productType">Loại xe *</label>
+        <select id="productType" name="type" required>
+          <option value="">Chọn loại xe</option>
+          <option value="tay-ga" ${product?.type === "tay-ga" ? "selected" : ""}>Xe tay ga</option>
+          <option value="so" ${product?.type === "so" ? "selected" : ""}>Xe số</option>
+          <option value="mo-to" ${product?.type === "mo-to" ? "selected" : ""}>Mô tô</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="productPrice">Giá bán *</label>
+        <input type="number" id="productPrice" name="price" value="${product?.price || ""}" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="productColors">Màu sắc (phân cách bởi dấu phẩy)</label>
+      <input type="text" id="productColors" name="colors" value="${product?.colors?.join(", ") || ""}" placeholder="Đỏ, Đen, Xanh">
+    </div>
+    <div class="form-group">
+      <label for="productDescription">Mô tả</label>
+      <textarea id="productDescription" name="description" rows="3">${product?.description || ""}</textarea>
+    </div>
+    <div class="form-group checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" id="productFeatured" name="featured" ${product?.featured ? "checked" : ""}>
+        <span class="checkmark"></span>
+        Sản phẩm nổi bật
+      </label>
+    </div>
+  `;
+}
+
+function refreshDashboard() {
+  loadDashboardStats();
+  loadRecentActivities();
+  showAlert("Dashboard đã được làm mới!", "success");
+}
+
+function toggleNotifications() {
+  alert("Chức năng thông báo đang được phát triển!");
+}
+
+// Placeholder CRUD functions
+function editProduct(id) {
+  alert("Chỉnh sửa sản phẩm: " + id);
+}
+function deleteProduct(id) {
+  alert("Xóa sản phẩm: " + id);
+}
+function editPart(id) {
+  alert("Chỉnh sửa phụ tùng: " + id);
+}
+function deletePart(id) {
+  alert("Xóa phụ tùng: " + id);
+}
+function editNews(id) {
+  alert("Chỉnh sửa tin tức: " + id);
+}
+function deleteNews(id) {
+  alert("Xóa tin tức: " + id);
+}
+function editPromotion(id) {
+  alert("Chỉnh sửa khuyến mãi: " + id);
+}
+function deletePromotion(id) {
+  alert("Xóa khuyến mãi: " + id);
+}
+function editBooking(id) {
+  alert("Cập nhật lịch xem xe: " + id);
+}
+function deleteBooking(id) {
+  alert("Xóa lịch xem xe: " + id);
+}
+function editUser(id) {
+  alert("Chỉnh sửa người dùng: " + id);
+}
+function deleteUser(id) {
+  alert("Xóa người dùng: " + id);
+}
+function replyContact(id) {
+  alert("Trả lời liên hệ: " + id);
+}
+function deleteContact(id) {
+  alert("Xóa liên hệ: " + id);
+}
