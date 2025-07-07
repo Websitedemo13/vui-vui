@@ -429,7 +429,11 @@
   function generateWidgetResponse(message) {
     const msg = message.toLowerCase();
 
-    if (msg.includes("lái thử") || msg.includes("test drive")) {
+    if (
+      msg.includes("lái thử") ||
+      msg.includes("xem xe") ||
+      msg.includes("test drive")
+    ) {
       return widgetResponses.testDrive;
     }
     if (
