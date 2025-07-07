@@ -489,7 +489,7 @@ function submitContactForm(formData) {
       resolve({
         success: true,
         message:
-          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản h��i trong thời gian sớm nhất.",
+          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
       });
     }, 1000);
   });
@@ -855,7 +855,7 @@ function showTerms() {
 
 function showPrivacy() {
   alert(
-    "Chính sách bảo mật:\n\n1. Thông tin chỉ dùng để liên hệ tư vấn\n2. Không chia sẻ với bên thứ ba\n3. Có thể yêu cầu xóa dữ liệu bất kỳ lúc nào\n4. Dữ liệu được mã hóa an toàn",
+    "Chính sách bảo mật:\n\n1. Thông tin chỉ dùng để liên hệ tư vấn\n2. Không chia sẻ với bên thứ ba\n3. Có thể yêu cầu xóa dữ liệu bất kỳ lúc nào\n4. Dữ li���u được mã hóa an toàn",
   );
 }
 
@@ -875,6 +875,719 @@ function initScrollHeader() {
 
 // Initialize scroll header on all pages
 document.addEventListener("DOMContentLoaded", initScrollHeader);
+
+// News page functionality
+function initNewsPage() {
+  loadFeaturedNews();
+  loadAllNews();
+  initNewsFilters();
+  initNewsSearch();
+  initFloatingButtons();
+}
+
+function loadFeaturedNews() {
+  const featuredNews = window.MockData
+    ? window.MockData.getFeaturedNews()
+    : mockNews.filter((n) => n.featured);
+  const container = document.getElementById("featuredNewsContainer");
+
+  if (!container) return;
+
+  container.innerHTML = featuredNews
+    .map(
+      (news) => `
+    <article class="featured-news-card">
+      <img src="${news.image}" alt="${news.title}" loading="lazy">
+      <div class="featured-news-content">
+        <span class="news-category-tag">${news.category}</span>
+        <h3 class="featured-news-title">
+          <a href="news-detail.html?slug=${news.slug}" style="text-decoration: none; color: inherit;">
+            ${news.title}
+          </a>
+        </h3>
+        <p class="featured-news-excerpt">${news.excerpt}</p>
+        <div class="news-meta">
+          <span>Bởi ${news.author}</span>
+          <span>${formatDate(news.publishedAt)}</span>
+          <span>${news.views} lượt xem</span>
+        </div>
+      </div>
+    </article>
+  `,
+    )
+    .join("");
+}
+
+function loadAllNews(filter = "all", searchQuery = "") {
+  let allNews = window.MockData ? window.MockData.mockNews : mockNews;
+
+  // Apply category filter
+  if (filter !== "all") {
+    allNews = allNews.filter((news) => news.category === filter);
+  }
+
+  // Apply search filter
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    allNews = allNews.filter(
+      (news) =>
+        news.title.toLowerCase().includes(query) ||
+        news.excerpt.toLowerCase().includes(query) ||
+        news.content.toLowerCase().includes(query),
+    );
+  }
+
+  const container = document.getElementById("newsGridContainer");
+  if (!container) return;
+
+  container.innerHTML = allNews
+    .map(
+      (news) => `
+    <article class="news-card">
+      <img src="${news.image}" alt="${news.title}" loading="lazy">
+      <div class="news-card-content">
+        <span class="news-category-tag">${news.category}</span>
+        <h3 class="news-card-title">
+          <a href="news-detail.html?slug=${news.slug}" style="text-decoration: none; color: inherit;">
+            ${news.title}
+          </a>
+        </h3>
+        <p class="news-card-excerpt">${news.excerpt}</p>
+        <div class="news-meta">
+          <span>${formatDate(news.publishedAt)}</span>
+          <span>${news.views} lượt xem</span>
+        </div>
+      </div>
+    </article>
+  `,
+    )
+    .join("");
+}
+
+function initNewsFilters() {
+  const categoryBtns = document.querySelectorAll(".category-btn");
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Update active state
+      categoryBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // Filter news
+      const category = btn.dataset.category;
+      const searchQuery =
+        document.getElementById("newsSearchInput")?.value || "";
+      loadAllNews(category, searchQuery);
+    });
+  });
+}
+
+function initNewsSearch() {
+  const searchInput = document.getElementById("newsSearchInput");
+  if (!searchInput) return;
+
+  let debounceTimer;
+  searchInput.addEventListener("input", (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      const activeCategory =
+        document.querySelector(".category-btn.active")?.dataset.category ||
+        "all";
+      loadAllNews(activeCategory, e.target.value);
+    }, 300);
+  });
+}
+
+// News detail page functionality
+function initNewsDetailPage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const slug = urlParams.get("slug");
+
+  if (!slug) {
+    window.location.href = "news.html";
+    return;
+  }
+
+  loadNewsDetail(slug);
+  loadRelatedNews();
+  loadPopularNews();
+  initFloatingButtons();
+}
+
+function loadNewsDetail(slug) {
+  const news = window.MockData
+    ? window.MockData.getNewsBySlug(slug)
+    : mockNews.find((n) => n.slug === slug);
+
+  if (!news) {
+    window.location.href = "news.html";
+    return;
+  }
+
+  // Update page metadata
+  document.getElementById("pageTitle").textContent =
+    news.title + " - Head Kim Châu Honda";
+  document
+    .getElementById("pageDescription")
+    .setAttribute("content", news.excerpt);
+  document.getElementById("breadcrumbTitle").textContent = news.title;
+
+  // Update article content
+  document.getElementById("articleCategory").textContent = news.category;
+  document.getElementById("articleDate").textContent = formatDate(
+    news.publishedAt,
+  );
+  document.getElementById("articleViews").textContent =
+    news.views + " lượt xem";
+  document.getElementById("articleTitle").textContent = news.title;
+  document.getElementById("articleAuthor").textContent = news.author;
+  document.getElementById("articleImage").src = news.image;
+  document.getElementById("articleImage").alt = news.title;
+  document.getElementById("articleContent").innerHTML = news.content;
+
+  // Update tags
+  const tagsContainer = document.getElementById("articleTags");
+  tagsContainer.innerHTML = news.tags
+    .map((tag) => `<span class="tag">${tag}</span>`)
+    .join("");
+
+  // Update view count
+  updateNewsViews(news.id);
+}
+
+function loadRelatedNews() {
+  const allNews = window.MockData ? window.MockData.mockNews : mockNews;
+  const relatedNews = allNews.slice(0, 3);
+  const container = document.getElementById("relatedNews");
+
+  if (!container) return;
+
+  container.innerHTML = relatedNews
+    .map(
+      (news) => `
+    <a href="news-detail.html?slug=${news.slug}" class="sidebar-news-item">
+      <img src="${news.image}" alt="${news.title}" class="sidebar-news-image">
+      <div class="sidebar-news-content">
+        <h4>${news.title}</h4>
+        <div class="sidebar-news-date">${formatDate(news.publishedAt)}</div>
+      </div>
+    </a>
+  `,
+    )
+    .join("");
+}
+
+function loadPopularNews() {
+  const allNews = window.MockData ? window.MockData.mockNews : mockNews;
+  const popularNews = [...allNews]
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 3);
+  const container = document.getElementById("popularNews");
+
+  if (!container) return;
+
+  container.innerHTML = popularNews
+    .map(
+      (news) => `
+    <a href="news-detail.html?slug=${news.slug}" class="sidebar-news-item">
+      <img src="${news.image}" alt="${news.title}" class="sidebar-news-image">
+      <div class="sidebar-news-content">
+        <h4>${news.title}</h4>
+        <div class="sidebar-news-date">${formatDate(news.publishedAt)}</div>
+      </div>
+    </a>
+  `,
+    )
+    .join("");
+}
+
+function updateNewsViews(newsId) {
+  const allNews = getStorageData("honda_news", mockNews);
+  const newsIndex = allNews.findIndex((n) => n.id === newsId);
+  if (newsIndex !== -1) {
+    allNews[newsIndex].views = (allNews[newsIndex].views || 0) + 1;
+    setStorageData("honda_news", allNews);
+  }
+}
+
+// Parts page functionality
+function initPartsPage() {
+  loadAllParts();
+  initPartsFilters();
+  initPartsSearch();
+  initPartsCategoryCards();
+  initFloatingButtons();
+}
+
+function loadAllParts(
+  categoryFilter = "",
+  stockFilter = "",
+  sortBy = "name",
+  searchQuery = "",
+) {
+  let allParts = window.MockData ? window.MockData.mockParts : mockParts;
+
+  // Apply filters
+  if (categoryFilter) {
+    allParts = allParts.filter((part) => part.category === categoryFilter);
+  }
+
+  if (stockFilter === "inStock") {
+    allParts = allParts.filter((part) => part.inStock);
+  } else if (stockFilter === "outOfStock") {
+    allParts = allParts.filter((part) => !part.inStock);
+  }
+
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    allParts = allParts.filter(
+      (part) =>
+        part.name.toLowerCase().includes(query) ||
+        part.description.toLowerCase().includes(query) ||
+        part.category.toLowerCase().includes(query),
+    );
+  }
+
+  // Apply sorting
+  allParts.sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return a.price - b.price;
+      case "price-high":
+        return b.price - a.price;
+      default:
+        return a.name.localeCompare(b.name);
+    }
+  });
+
+  const container = document.getElementById("partsGridContainer");
+  const resultsCount = document.getElementById("partsResultsCount");
+
+  if (!container) return;
+
+  resultsCount.textContent = `Hiển thị ${allParts.length} sản phẩm`;
+
+  container.innerHTML = allParts
+    .map(
+      (part) => `
+    <div class="part-card">
+      <img src="${part.image}" alt="${part.name}" class="part-image" loading="lazy">
+      <div class="part-content">
+        <span class="part-category">${part.category}</span>
+        <h3 class="part-name">${part.name}</h3>
+        <p class="part-description">${part.description}</p>
+        <div class="part-price">${formatPrice(part.price)}</div>
+        <div class="part-stock">
+          <span class="stock-indicator ${part.inStock ? "in-stock" : "out-of-stock"}"></span>
+          <span>${part.inStock ? `Còn ${part.quantity} sản phẩm` : "Hết hàng"}</span>
+        </div>
+        <div class="part-compatibility">
+          <strong>Tương thích:</strong> ${part.compatibility.join(", ")}
+        </div>
+        <div class="part-actions">
+          <button class="btn btn-primary btn-sm ${!part.inStock ? "disabled" : ""}"
+                  onclick="addToCart('${part.id}')"
+                  ${!part.inStock ? "disabled" : ""}>
+            ${part.inStock ? "Thêm vào giỏ" : "Hết hàng"}
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="viewPartDetail('${part.id}')">
+            Chi tiết
+          </button>
+        </div>
+      </div>
+    </div>
+  `,
+    )
+    .join("");
+}
+
+function initPartsFilters() {
+  const categoryFilter = document.getElementById("categoryFilter");
+  const stockFilter = document.getElementById("stockFilter");
+  const sortFilter = document.getElementById("sortFilter");
+
+  [categoryFilter, stockFilter, sortFilter].forEach((filter) => {
+    if (filter) {
+      filter.addEventListener("change", applyPartsFilters);
+    }
+  });
+}
+
+function initPartsSearch() {
+  const searchInput = document.getElementById("partsSearchInput");
+  if (!searchInput) return;
+
+  let debounceTimer;
+  searchInput.addEventListener("input", (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(applyPartsFilters, 300);
+  });
+}
+
+function initPartsCategoryCards() {
+  const categoryCards = document.querySelectorAll(".category-card");
+  categoryCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const category = card.dataset.category;
+      document.getElementById("categoryFilter").value = category;
+      applyPartsFilters();
+
+      // Scroll to results
+      document.querySelector(".parts-grid-section").scrollIntoView({
+        behavior: "smooth",
+      });
+    });
+  });
+}
+
+function applyPartsFilters() {
+  const categoryFilter = document.getElementById("categoryFilter")?.value || "";
+  const stockFilter = document.getElementById("stockFilter")?.value || "";
+  const sortFilter = document.getElementById("sortFilter")?.value || "name";
+  const searchQuery = document.getElementById("partsSearchInput")?.value || "";
+
+  loadAllParts(categoryFilter, stockFilter, sortFilter, searchQuery);
+}
+
+function addToCart(partId) {
+  alert(
+    "Chức năng giỏ hàng đang được phát triển. Vui lòng liên hệ 0901 234 567 để đặt hàng.",
+  );
+}
+
+function viewPartDetail(partId) {
+  const part = window.MockData
+    ? window.MockData.getPartById(partId)
+    : mockParts.find((p) => p.id === partId);
+  if (part) {
+    alert(
+      `Chi tiết sản phẩm: ${part.name}\n\nMô tả: ${part.description}\n\nGiá: ${formatPrice(part.price)}\n\nTương thích: ${part.compatibility.join(", ")}\n\nLiên hệ: 0901 234 567`,
+    );
+  }
+}
+
+// User dashboard functionality
+function initUserDashboard() {
+  if (!isAuthenticated()) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  loadUserProfile();
+  loadUserStats();
+  loadRecentActivity();
+  loadUserBookings();
+  initDashboardTabs();
+  initProfileForm();
+  initPasswordForm();
+  initNotificationSettings();
+  initFloatingButtons();
+}
+
+function loadUserProfile() {
+  const user = getCurrentUser();
+  if (!user) return;
+
+  document.getElementById("userName").textContent = user.name;
+  document.getElementById("userEmail").textContent = user.email;
+
+  // Fill profile form
+  document.getElementById("profileName").value = user.name;
+  document.getElementById("profileEmail").value = user.email;
+  document.getElementById("profilePhone").value = user.phone || "";
+  document.getElementById("profileAddress").value = user.address || "";
+  document.getElementById("profileBirthdate").value = user.birthdate || "";
+}
+
+function loadUserStats() {
+  const user = getCurrentUser();
+  const bookings = getStorageData("honda_bookings", []).filter(
+    (b) => b.customerEmail === user.email,
+  );
+
+  document.getElementById("totalBookings").textContent = bookings.length;
+  document.getElementById("cartItems").textContent = "0"; // Placeholder
+  document.getElementById("memberSince").textContent = new Date(
+    user.createdAt || Date.now(),
+  ).getFullYear();
+}
+
+function loadRecentActivity() {
+  const user = getCurrentUser();
+  const bookings = getStorageData("honda_bookings", [])
+    .filter((b) => b.customerEmail === user.email)
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5);
+
+  const container = document.getElementById("recentActivityList");
+  if (!container) return;
+
+  if (bookings.length === 0) {
+    container.innerHTML =
+      '<p style="text-align: center; color: var(--gray-600);">Chưa có hoạt động nào</p>';
+    return;
+  }
+
+  container.innerHTML = bookings
+    .map(
+      (booking) => `
+    <div class="activity-item">
+      <div class="activity-icon">📅</div>
+      <div class="activity-content">
+        <p>Đặt lịch xem ${getProductName(booking.productModel)}</p>
+        <div class="activity-time">${formatDate(booking.createdAt)}</div>
+      </div>
+    </div>
+  `,
+    )
+    .join("");
+}
+
+function loadUserBookings(statusFilter = "") {
+  const user = getCurrentUser();
+  let bookings = getStorageData("honda_bookings", []).filter(
+    (b) => b.customerEmail === user.email,
+  );
+
+  if (statusFilter) {
+    bookings = bookings.filter((b) => b.status === statusFilter);
+  }
+
+  bookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const container = document.getElementById("bookingsList");
+  if (!container) return;
+
+  if (bookings.length === 0) {
+    container.innerHTML =
+      '<p style="text-align: center; color: var(--gray-600); padding: 32px;">Không có lịch xem xe nào</p>';
+    return;
+  }
+
+  container.innerHTML = bookings
+    .map(
+      (booking) => `
+    <div class="booking-item">
+      <div class="booking-header">
+        <span class="booking-id">Mã lịch: #${booking.id}</span>
+        <span class="booking-status ${booking.status}">${getStatusText(booking.status)}</span>
+      </div>
+      <div class="booking-details">
+        <div><strong>Sản phẩm:</strong> ${getProductName(booking.productModel)}</div>
+        <div><strong>Ngày xem:</strong> ${booking.bookingDate}</div>
+        <div><strong>Giờ:</strong> ${booking.bookingTime}</div>
+        <div><strong>Ngày đặt:</strong> ${formatDate(booking.createdAt)}</div>
+        ${booking.notes ? `<div><strong>Ghi chú:</strong> ${booking.notes}</div>` : ""}
+      </div>
+    </div>
+  `,
+    )
+    .join("");
+}
+
+function initDashboardTabs() {
+  const navItems = document.querySelectorAll(".nav-item");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const tabId = item.dataset.tab;
+
+      // Update active nav item
+      navItems.forEach((nav) => nav.classList.remove("active"));
+      item.classList.add("active");
+
+      // Show corresponding tab content
+      tabContents.forEach((tab) => tab.classList.remove("active"));
+      document.getElementById(tabId + "Tab")?.classList.add("active");
+
+      // Load tab-specific content
+      if (tabId === "bookings") {
+        loadUserBookings();
+      }
+    });
+  });
+
+  // Booking status filter
+  const statusFilter = document.getElementById("bookingStatusFilter");
+  if (statusFilter) {
+    statusFilter.addEventListener("change", (e) => {
+      loadUserBookings(e.target.value);
+    });
+  }
+}
+
+function initProfileForm() {
+  const form = document.getElementById("profileForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const user = getCurrentUser();
+
+    const updatedUser = {
+      ...user,
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      address: formData.get("address"),
+      birthdate: formData.get("birthdate"),
+    };
+
+    // Update user in storage
+    const users = getStorageData("honda_users", mockUsers);
+    const userIndex = users.findIndex((u) => u.id === user.id);
+    if (userIndex !== -1) {
+      users[userIndex] = updatedUser;
+      setStorageData("honda_users", users);
+      setStorageData("honda_current_user", updatedUser);
+
+      showAlert("Thông tin đã được cập nhật thành công!", "success");
+      loadUserProfile();
+    }
+  });
+}
+
+function initPasswordForm() {
+  const form = document.getElementById("passwordForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const currentPassword = formData.get("currentPassword");
+    const newPassword = formData.get("newPassword");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (newPassword !== confirmPassword) {
+      showAlert("Mật khẩu xác nhận không khớp!", "error");
+      return;
+    }
+
+    const user = getCurrentUser();
+    if (user.password !== currentPassword) {
+      showAlert("Mật khẩu hiện tại không đúng!", "error");
+      return;
+    }
+
+    // Update password
+    const users = getStorageData("honda_users", mockUsers);
+    const userIndex = users.findIndex((u) => u.id === user.id);
+    if (userIndex !== -1) {
+      users[userIndex].password = newPassword;
+      setStorageData("honda_users", users);
+
+      showAlert("Mật khẩu đã được đổi thành công!", "success");
+      form.reset();
+    }
+  });
+}
+
+function initNotificationSettings() {
+  // Load current settings
+  const settings = getStorageData("user_notification_settings", {
+    email: true,
+    sms: false,
+    promotion: true,
+  });
+
+  document.getElementById("emailNotifications").checked = settings.email;
+  document.getElementById("smsNotifications").checked = settings.sms;
+  document.getElementById("promotionNotifications").checked =
+    settings.promotion;
+
+  // Save on change
+  ["emailNotifications", "smsNotifications", "promotionNotifications"].forEach(
+    (id) => {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        checkbox.addEventListener("change", () => {
+          const newSettings = {
+            email: document.getElementById("emailNotifications").checked,
+            sms: document.getElementById("smsNotifications").checked,
+            promotion: document.getElementById("promotionNotifications")
+              .checked,
+          };
+          setStorageData("user_notification_settings", newSettings);
+          showAlert("Cài đặt thông báo đã được lưu!", "success");
+        });
+      }
+    },
+  );
+}
+
+function deleteAccount() {
+  if (
+    confirm(
+      "Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác.",
+    )
+  ) {
+    if (confirm("Xác nhận lần cuối: Tất cả dữ liệu sẽ bị xóa vĩnh viễn!")) {
+      const user = getCurrentUser();
+      const users = getStorageData("honda_users", mockUsers);
+      const updatedUsers = users.filter((u) => u.id !== user.id);
+
+      setStorageData("honda_users", updatedUsers);
+      logout();
+      showAlert("Tài khoản đã được xóa thành công!", "success");
+      window.location.href = "index.html";
+    }
+  }
+}
+
+// Utility functions
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("vi-VN", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function getStatusText(status) {
+  const statusMap = {
+    pending: "Chờ xác nhận",
+    confirmed: "Đã xác nhận",
+    completed: "Hoàn thành",
+    cancelled: "Đã hủy",
+  };
+  return statusMap[status] || status;
+}
+
+// Social sharing functions
+function shareToFacebook() {
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(document.title);
+  window.open(
+    `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`,
+    "_blank",
+    "width=600,height=400",
+  );
+}
+
+function shareToZalo() {
+  const url = encodeURIComponent(window.location.href);
+  const title = encodeURIComponent(document.title);
+  window.open(
+    `https://zalo.me/share/link?url=${url}&title=${title}`,
+    "_blank",
+    "width=600,height=400",
+  );
+}
+
+function copyLink() {
+  navigator.clipboard
+    .writeText(window.location.href)
+    .then(() => {
+      showAlert("Đã sao chép link vào clipboard!", "success");
+    })
+    .catch(() => {
+      showAlert("Không thể sao chép link!", "error");
+    });
+}
 
 // Export functions for global use
 window.Honda = {
@@ -903,4 +1616,15 @@ window.Honda = {
   toggleFaq,
   showTerms,
   showPrivacy,
+  initNewsPage,
+  initNewsDetailPage,
+  initPartsPage,
+  initUserDashboard,
+  formatDate,
+  shareToFacebook,
+  shareToZalo,
+  copyLink,
+  addToCart,
+  viewPartDetail,
+  deleteAccount,
 };
