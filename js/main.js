@@ -489,7 +489,7 @@ function submitContactForm(formData) {
       resolve({
         success: true,
         message:
-          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
+          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản h��i trong thời gian sớm nhất.",
       });
     }, 1000);
   });
@@ -671,6 +671,211 @@ if (!document.querySelector("#ripple-styles")) {
 // Initialize floating buttons when DOM is loaded
 document.addEventListener("DOMContentLoaded", initFloatingButtons);
 
+// Booking form functionality
+function initBookingPage() {
+  const products = getStorageData("honda_products", mockProducts);
+
+  // Set minimum date to today
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("bookingDate").min = today;
+
+  // Load products into category dropdown
+  const categorySelect = document.getElementById("productCategory");
+  const modelSelect = document.getElementById("productModel");
+  const colorSelect = document.getElementById("productColor");
+
+  categorySelect.addEventListener("change", function () {
+    const category = this.value;
+    modelSelect.innerHTML = '<option value="">Chọn dòng xe</option>';
+    colorSelect.innerHTML = '<option value="">Chọn màu sắc</option>';
+
+    if (category) {
+      const filteredProducts = products.filter((p) => p.category === category);
+      filteredProducts.forEach((product) => {
+        const option = document.createElement("option");
+        option.value = product.id;
+        option.textContent = product.name;
+        modelSelect.appendChild(option);
+      });
+    }
+  });
+
+  modelSelect.addEventListener("change", function () {
+    const productId = this.value;
+    colorSelect.innerHTML = '<option value="">Chọn màu sắc</option>';
+
+    if (productId) {
+      const product = products.find((p) => p.id == productId);
+      if (product && product.colors) {
+        product.colors.forEach((color) => {
+          const option = document.createElement("option");
+          option.value = color;
+          option.textContent = color;
+          colorSelect.appendChild(option);
+        });
+      }
+    }
+  });
+
+  // Handle form submission
+  document
+    .getElementById("bookingForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const bookingData = {
+        id: Date.now(),
+        productCategory: formData.get("productCategory"),
+        productModel: formData.get("productModel"),
+        productColor: formData.get("productColor"),
+        bookingDate: formData.get("bookingDate"),
+        bookingTime: formData.get("bookingTime"),
+        customerName: formData.get("customerName"),
+        customerPhone: formData.get("customerPhone"),
+        customerEmail: formData.get("customerEmail"),
+        customerAddress: formData.get("customerAddress"),
+        purpose: formData.get("purpose"),
+        notes: formData.get("notes"),
+        allowMarketing: formData.get("allowMarketing") === "on",
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Save booking
+      const bookings = getStorageData("honda_bookings", []);
+      bookings.push(bookingData);
+      setStorageData("honda_bookings", bookings);
+
+      // Show success message
+      showSuccessBooking(bookingData);
+    });
+
+  // Initialize FAQ functionality
+  initFloatingButtons();
+}
+
+function showSuccessBooking(bookingData) {
+  const modal = document.createElement("div");
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+  `;
+
+  const content = document.createElement("div");
+  content.style.cssText = `
+    background: white;
+    padding: 32px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+  `;
+
+  content.innerHTML = `
+    <div style="color: #10B981; font-size: 48px; margin-bottom: 16px;">✓</div>
+    <h2 style="color: var(--gray-900); margin-bottom: 16px;">Đặt lịch thành công!</h2>
+    <p style="color: var(--gray-600); margin-bottom: 24px; line-height: 1.6;">
+      Cảm ơn ${bookingData.customerName}! Chúng tôi đã nhận được yêu cầu đặt lịch xem xe của bạn.
+      Nhân viên tư vấn sẽ liên hệ với bạn qua số điện thoại ${bookingData.customerPhone}
+      trong vòng 30 phút để xác nhận lịch hẹn.
+    </p>
+    <div style="background: var(--gray-50); padding: 16px; border-radius: 8px; margin-bottom: 24px; text-align: left;">
+      <strong>Thông tin đặt lịch:</strong><br>
+      <div style="margin: 8px 0;">📅 ${bookingData.bookingDate} - ${bookingData.bookingTime}</div>
+      <div style="margin: 8px 0;">🏍️ ${getProductName(bookingData.productModel)}</div>
+      <div style="margin: 8px 0;">📞 ${bookingData.customerPhone}</div>
+    </div>
+    <button onclick="closeModal()" style="
+      background: var(--honda-red);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 12px;
+    ">Đóng</button>
+    <button onclick="window.location.href='index.html'" style="
+      background: transparent;
+      color: var(--honda-red);
+      border: 1px solid var(--honda-red);
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    ">Về trang chủ</button>
+  `;
+
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+
+  window.closeModal = () => {
+    document.body.removeChild(modal);
+    document.getElementById("bookingForm").reset();
+  };
+}
+
+function getProductName(productId) {
+  const products = getStorageData("honda_products", mockProducts);
+  const product = products.find((p) => p.id == productId);
+  return product ? product.name : "Sản phẩm";
+}
+
+function toggleFaq(button) {
+  const answer = button.nextElementSibling;
+  const isActive = button.classList.contains("active");
+
+  // Close all FAQ items
+  document.querySelectorAll(".faq-question").forEach((q) => {
+    q.classList.remove("active");
+    q.nextElementSibling.classList.remove("active");
+  });
+
+  // Toggle current item
+  if (!isActive) {
+    button.classList.add("active");
+    answer.classList.add("active");
+  }
+}
+
+function showTerms() {
+  alert(
+    "Điều khoản sử dụng:\n\n1. Khách hàng cần đến đúng giờ đã đặt lịch\n2. Mang theo CMND/CCCD để xác thực\n3. Thông tin cá nhân sẽ được bảo mật\n4. Có thể hủy lịch trước 2 tiếng",
+  );
+}
+
+function showPrivacy() {
+  alert(
+    "Chính sách bảo mật:\n\n1. Thông tin chỉ dùng để liên hệ tư vấn\n2. Không chia sẻ với bên thứ ba\n3. Có thể yêu cầu xóa dữ liệu bất kỳ lúc nào\n4. Dữ liệu được mã hóa an toàn",
+  );
+}
+
+// Enhanced header scroll effect
+function initScrollHeader() {
+  const header = document.querySelector(".header");
+  if (header) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+  }
+}
+
+// Initialize scroll header on all pages
+document.addEventListener("DOMContentLoaded", initScrollHeader);
+
 // Export functions for global use
 window.Honda = {
   login,
@@ -694,4 +899,8 @@ window.Honda = {
   getStorageData,
   setStorageData,
   initFloatingButtons,
+  initBookingPage,
+  toggleFaq,
+  showTerms,
+  showPrivacy,
 };
