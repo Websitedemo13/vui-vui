@@ -587,6 +587,90 @@ function initAdminPage() {
 // Call initPage when DOM is loaded
 document.addEventListener("DOMContentLoaded", initPage);
 
+// Floating buttons and back-to-top functionality
+function initFloatingButtons() {
+  // Back to top button
+  const backToTopBtn = document.getElementById("back-to-top");
+
+  if (backToTopBtn) {
+    // Show/hide back to top button on scroll
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+
+    // Smooth scroll to top
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
+
+  // Floating buttons animations
+  const floatingBtns = document.querySelectorAll(".floating-btn");
+  floatingBtns.forEach((btn, index) => {
+    btn.style.animationDelay = `${index * 0.1}s`;
+
+    // Add click tracking
+    btn.addEventListener("click", (e) => {
+      const btnType = btn.classList.contains("phone-btn")
+        ? "phone"
+        : btn.classList.contains("zalo-btn")
+          ? "zalo"
+          : "facebook";
+
+      // Add ripple effect
+      const ripple = document.createElement("div");
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.6);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      `;
+
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + "px";
+      ripple.style.left = e.clientX - rect.left - size / 2 + "px";
+      ripple.style.top = e.clientY - rect.top - size / 2 + "px";
+
+      btn.style.position = "relative";
+      btn.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+
+      console.log(`${btnType} button clicked`);
+    });
+  });
+}
+
+// Add ripple animation to CSS
+if (!document.querySelector("#ripple-styles")) {
+  const style = document.createElement("style");
+  style.id = "ripple-styles";
+  style.textContent = `
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Initialize floating buttons when DOM is loaded
+document.addEventListener("DOMContentLoaded", initFloatingButtons);
+
 // Export functions for global use
 window.Honda = {
   login,
@@ -609,4 +693,5 @@ window.Honda = {
   searchProducts,
   getStorageData,
   setStorageData,
+  initFloatingButtons,
 };
