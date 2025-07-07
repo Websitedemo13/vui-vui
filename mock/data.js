@@ -626,6 +626,55 @@ function searchProducts(query) {
   );
 }
 
+// News and Parts helper functions
+function getNewsById(id) {
+  return mockNews.find((news) => news.id === id);
+}
+
+function getNewsBySlug(slug) {
+  return mockNews.find((news) => news.slug === slug);
+}
+
+function getFeaturedNews() {
+  return mockNews.filter((news) => news.featured);
+}
+
+function getNewsByCategory(category) {
+  return mockNews.filter((news) => news.category === category);
+}
+
+function getPartById(id) {
+  return mockParts.find((part) => part.id === id);
+}
+
+function getPartsByCategory(category) {
+  return mockParts.filter((part) => part.category === category);
+}
+
+function getPartsInStock() {
+  return mockParts.filter((part) => part.inStock);
+}
+
+function searchNews(query) {
+  const searchTerm = query.toLowerCase();
+  return mockNews.filter(
+    (news) =>
+      news.title.toLowerCase().includes(searchTerm) ||
+      news.excerpt.toLowerCase().includes(searchTerm) ||
+      news.content.toLowerCase().includes(searchTerm),
+  );
+}
+
+function searchParts(query) {
+  const searchTerm = query.toLowerCase();
+  return mockParts.filter(
+    (part) =>
+      part.name.toLowerCase().includes(searchTerm) ||
+      part.description.toLowerCase().includes(searchTerm) ||
+      part.category.toLowerCase().includes(searchTerm),
+  );
+}
+
 // Export all mock data and functions
 if (typeof module !== "undefined" && module.exports) {
   // Node.js environment
@@ -636,6 +685,8 @@ if (typeof module !== "undefined" && module.exports) {
     mockServices,
     mockTestimonials,
     mockBlogPosts,
+    mockNews,
+    mockParts,
     getProductById,
     getServiceById,
     getPromotionById,
@@ -644,6 +695,15 @@ if (typeof module !== "undefined" && module.exports) {
     getProductsByType,
     getProductsByPriceRange,
     searchProducts,
+    getNewsById,
+    getNewsBySlug,
+    getFeaturedNews,
+    getNewsByCategory,
+    getPartById,
+    getPartsByCategory,
+    getPartsInStock,
+    searchNews,
+    searchParts,
   };
 } else {
   // Browser environment
@@ -654,6 +714,8 @@ if (typeof module !== "undefined" && module.exports) {
     mockServices,
     mockTestimonials,
     mockBlogPosts,
+    mockNews,
+    mockParts,
     getProductById,
     getServiceById,
     getPromotionById,
@@ -662,5 +724,14 @@ if (typeof module !== "undefined" && module.exports) {
     getProductsByType,
     getProductsByPriceRange,
     searchProducts,
+    getNewsById,
+    getNewsBySlug,
+    getFeaturedNews,
+    getNewsByCategory,
+    getPartById,
+    getPartsByCategory,
+    getPartsInStock,
+    searchNews,
+    searchParts,
   };
 }
